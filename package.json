@@ -1,0 +1,12 @@
+{
+  "name": "zoning-reform-analysis-2025",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "http-server -p 8000 -c-1 .",
+    "build": "echo \"(no build step yet)\""
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

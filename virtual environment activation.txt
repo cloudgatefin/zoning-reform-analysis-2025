@@ -1,0 +1,2 @@
+virtual environment activation
+.venv\Scripts\Activate.ps1

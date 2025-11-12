@@ -1,0 +1,4 @@
+jurisdiction,reform_name,reform_type,effective_date,pre_window_months,buffer_months,post_window_months,pre_start,pre_end,post_start,post_end,pre_mean_permits,post_mean_permits,absolute_change,percent_change,status
+Virginia,Statewide ADU Reform,ADU,2021-07-01,24,12,24,2018-07-01,2020-06-01,2022-07-01,2024-06-01,2868.67,2810.0,-58.67,-2.05,ok
+California,SB9 Lot Split/2-Units,Upzoning,2022-01-01,24,12,24,2019-01-01,2020-12-01,2023-01-01,2024-12-01,9322.5,8883.33,-439.17,-4.71,ok
+Texas,Parking Reform (Major City Pilot),Parking,2023-01-01,24,12,24,2020-01-01,2021-12-01,2024-01-01,2025-12-01,10970.0,10283.33,-686.67,-6.26,ok

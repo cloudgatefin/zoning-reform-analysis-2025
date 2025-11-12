@@ -1,0 +1,23 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Data/outputs
+data/raw/
+data/processed/
+data/outputs/
+docs/figures/
+
+# Env
+.env
+.env.*
+.DS_Store
+
+# Node / editor
+node_modules/
+dist/
+.cache/
+.vscode/

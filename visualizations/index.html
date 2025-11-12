@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Zoning Reform Dashboard — Prototype</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Simple, clean base styles -->
+  <style>
+    :root { --bg: #0f172a; --card: #111827; --text: #e5e7eb; --muted:#9ca3af; }
+    html, body { margin:0; padding:0; background:var(--bg); color:var(--text); font: 16px/1.4 system-ui, -apple-system, Segoe UI, Roboto; }
+    header { padding: 20px; border-bottom: 1px solid #1f2937; }
+    header h1 { margin:0; font-size: 20px; }
+    .container { padding: 20px; max-width: 1100px; margin: 0 auto; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .card { background: var(--card); border: 1px solid #1f2937; border-radius: 14px; padding: 16px; }
+    .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .pill { font-size: 12px; color: var(--muted); }
+    table { width:100%; border-collapse: collapse; }
+    th, td { padding: 10px; border-bottom: 1px solid #1f2937; text-align: left; }
+    th { cursor:pointer; }
+    .pos { color: #86efac; }
+    .neg { color: #fca5a5; }
+    footer { color: var(--muted); font-size: 12px; padding: 20px; text-align: center; }
+    a { color: #93c5fd; }
+  </style>
+
+  <!-- CDNs -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head>
+<body>
+  <header>
+    <h1>Zoning Reform Dashboard — Prototype</h1>
+    <div class="pill">Data source: <code>data/outputs/reform_impact_metrics.csv</code></div>
+  </header>
+
+  <div class="container">
+    <!-- Summary -->
+    <div class="card">
+      <h3 style="margin-top:0;">Summary</h3>
+      <div id="summary" class="summary"></div>
+    </div>
+
+    <div class="grid">
+      <!-- Chart -->
+      <div class="card">
+        <h3 style="margin-top:0;">Percent change (post vs pre)</h3>
+        <canvas id="barChart" height="220"></canvas>
+      </div>
+
+      <!-- Table -->
+      <div class="card">
+        <h3 style="margin-top:0;">Reforms table</h3>
+        <div style="overflow:auto; max-height:420px;">
+          <table id="reformsTable">
+            <thead>
+              <tr>
+                <th data-k="jurisdiction">Jurisdiction</th>
+                <th data-k="reform_name">Reform</th>
+                <th data-k="reform_type">Type</th>
+                <th data-k="effective_date">Effective</th>
+                <th data-k="pre_mean_permits">Pre mean</th>
+                <th data-k="post_mean_permits">Post mean</th>
+                <th data-k="percent_change">Δ %</th>
+                <th data-k="status">Status</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Prototype for local validation. Next: filters, tooltips, and map layer.
+  </footer>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>
