@@ -28,6 +28,12 @@
   <!-- CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-geo@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-geo-projection@4"></script>
+  <!-- Your main dashboard JS -->
+  <script src="./js/main.js" defer></script>
 </head>
 <body>
   <header>
@@ -78,12 +84,16 @@
         </div>
       </div>
     </div>
+    <div class="card" style="margin-top:20px;">
+      <h3 style="margin-top:0;">Reform Impact Map (US States)</h3>
+      <svg id="map" width="960" height="600"></svg>
+    </div>
   </div>
 
   <footer>
     Prototype for local validation. Next: filters, tooltips, and map layer.
   </footer>
 
-  <script src="./js/main.js"></script>
+  
 </body>
 </html>
