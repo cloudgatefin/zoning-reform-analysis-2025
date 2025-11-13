@@ -291,6 +291,29 @@
 
     mapSvg.call(zoom);
   }
+  // ------------------------------------------------------
+// Optional: Dynamic legend labels (auto-updates with filters)
+// ------------------------------------------------------
+function renderLegend(data) {
+  const pctValues = data
+      .map(d => d.percent_change)
+      .filter(x => Number.isFinite(x));
+
+  if (!pctValues.length) return;
+
+  const minPct = d3.min(pctValues).toFixed(2);
+  const maxPct = d3.max(pctValues).toFixed(2);
+
+  const legendEl = document.getElementById("mapLegend");
+  if (!legendEl) return;
+
+  legendEl.innerHTML = `
+    <span style="color:#9ca3af;">${minPct}%</span>
+    <div style="width:160px; height:14px; background: linear-gradient(to right,
+         #f87171, #fbbf24, #4ade80); border-radius:6px;"></div>
+    <span style="color:#9ca3af;">${maxPct}%</span>
+  `;
+}
 
   // Central update function so everything stays in sync
   function updateUI(data) {
@@ -299,6 +322,7 @@
     renderChart(currentData);
     renderTable(currentData);
     renderMap(currentData);
+    renderLegend(currentData);
   }
 
   // -------------------------------
