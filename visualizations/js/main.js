@@ -155,4 +155,13 @@
       renderTable(sorted);
     });
   });
+// ---- Download button ----
+document.getElementById("downloadBtn")?.addEventListener("click", () => {
+  const a = document.createElement("a");
+  a.href = CSV_URL;
+  a.download = "reform_impact_metrics.csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+});
 })();
