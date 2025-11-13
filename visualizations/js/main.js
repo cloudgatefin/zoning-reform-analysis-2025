@@ -2,6 +2,10 @@
   // ---- Config ----
   // When deploying to GitHub Pages we'll copy the CSV into /visualizations/data/
   const CSV_URL = "./data/reform_impact_metrics.csv";
+    // --- Map config ---
+  const MAP_JSON_PATH = "./map/states-10m.json";  // GitHub Pages friendly path
+  const MAP_WIDTH = 960;
+  const MAP_HEIGHT = 600;
 
   // ---- Load CSV ----
   const text = await (await fetch(CSV_URL)).text();
@@ -42,6 +46,7 @@
   const summaryEl = d3.select("#summary");
   const ctx = document.getElementById("barChart").getContext("2d");
   const tbody = d3.select("#reformsTable tbody");
+  const mapSvg = d3.select("#map");
 
   // ---- Chart init (empty, we feed data later) ----
   const chart = new Chart(ctx, {
@@ -129,6 +134,7 @@
     renderSummary(filtered);
     renderChart(filtered);
     renderTable(filtered);
+    renderMap(filtered);
   }
 
   // initial render + listener
@@ -153,6 +159,7 @@
       renderSummary(sorted);
       renderChart(sorted);
       renderTable(sorted);
+      renderMap(sorted);
     });
   });
 // ---- Download button ----
@@ -164,4 +171,132 @@ document.getElementById("downloadBtn")?.addEventListener("click", () => {
   a.click();
   document.body.removeChild(a);
 });
+// ------------------------------------------------------
+// NEW — Robust U.S. Choropleth Map with zoom, pan, click
+// ------------------------------------------------------
+async function renderMap(data) {
+  // Safety check
+  if (!mapSvg || mapSvg.empty()) return;
+
+  const width = MAP_WIDTH;
+  const height = MAP_HEIGHT;
+
+  // Load & convert TopoJSON
+  let us;
+  try {
+    us = await d3.json(MAP_JSON_PATH);
+  } catch (err) {
+    console.error("❌ Failed to load map JSON:", err);
+    return;
+  }
+
+  const states = topojson.feature(us, us.objects.states).features;
+
+  // Build lookup: { "virginia": -2.05, ... }
+  const pctByState = {};
+  data.forEach(d => {
+    pctByState[d.jurisdiction.toLowerCase()] = d.percent_change;
+  });
+
+  // Color scale
+  const pctValues = data.map(d => d.percent_change).filter(x => isFinite(x));
+  const minPct = d3.min(pctValues);
+  const maxPct = d3.max(pctValues);
+  const color = d3.scaleSequential()
+    .domain([minPct, maxPct])
+    .interpolator(d3.interpolateRdYlGn);  // red→yellow→green
+
+  // Remove previous map content
+  mapSvg.selectAll("*").remove();
+
+  // Create group for paths (so zoom works)
+  const g = mapSvg.append("g");
+
+  // Projection
+  const projection = d3.geoAlbersUsa()
+    .fitSize([width, height], { type: "FeatureCollection", features: states });
+
+  const path = d3.geoPath().projection(projection);
+
+  // Tooltip
+  const tooltip = d3.select("body").append("div")
+    .attr("id", "mapTooltip")
+    .style("position", "absolute")
+    .style("background", "#111827")
+    .style("color", "#e5e7eb")
+    .style("padding", "8px 12px")
+    .style("border-radius", "8px")
+    .style("pointer-events", "none")
+    .style("border", "1px solid #1f2937")
+    .style("opacity", 0);
+
+  // Draw states
+  g.selectAll("path")
+    .data(states)
+    .enter()
+    .append("path")
+    .attr("d", path)
+    .attr("fill", d => {
+      const name = d.properties.name.toLowerCase();
+      const pct = pctByState[name];
+      return isFinite(pct) ? color(pct) : "#374151"; // gray fallback
+    })
+    .attr("stroke", "#0f172a")
+    .attr("stroke-width", 0.75)
+
+    // Hover
+    .on("mousemove", (event, d) => {
+      const name = d.properties.name;
+      const pct = pctByState[name.toLowerCase()];
+
+      tooltip.style("opacity", 1)
+        .html(`
+          <strong style="font-size:14px;">${name}</strong><br>
+          <span style="font-size:12px;color:#9ca3af;">
+            ${isFinite(pct) ? pct.toFixed(2) + "% change" : "No reform data"}
+          </span>
+        `)
+        .style("left", event.pageX + 12 + "px")
+        .style("top", event.pageY + 12 + "px");
+    })
+    .on("mouseleave", () => tooltip.style("opacity", 0))
+
+    // Click → Drilldown charts + table
+    .on("click", (event, d) => {
+      const stateName = d.properties.name;
+
+      // Filter data to this state
+      const filtered = allData.filter(
+        x => x.jurisdiction.toLowerCase() === stateName.toLowerCase()
+      );
+
+      // Update UI
+      updateUI(filtered);
+
+      // Force dropdown to show only this state’s reform type
+      // Optional: remove if confusing
+      if (filtered.length === 1) {
+        typeSelect.value = filtered[0].reform_type || "__ALL__";
+      }
+
+      // Highlight clicked state
+      g.selectAll("path")
+        .attr("stroke-width", 0.75)
+        .attr("stroke", "#0f172a");
+
+      d3.select(event.currentTarget)
+        .attr("stroke-width", 2)
+        .attr("stroke", "#ffffff");
+    });
+
+  // Zoom + Pan
+  const zoom = d3.zoom()
+    .scaleExtent([1, 8])
+    .on("zoom", event => {
+      g.attr("transform", event.transform);
+    });
+
+  mapSvg.call(zoom);
+}
+
 })();
