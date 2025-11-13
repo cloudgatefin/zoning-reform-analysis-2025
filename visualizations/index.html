@@ -23,6 +23,12 @@
     .neg { color: #fca5a5; }
     footer { color: var(--muted); font-size: 12px; padding: 20px; text-align: center; }
     a { color: #93c5fd; }
+
+    /* Table hover highlight (added for Option B readiness) */
+    #reformsTable tr:hover {
+      background-color: #1f2937;
+      transition: background-color 0.25s ease;
+    }
   </style>
 
   <!-- CDNs -->
@@ -32,6 +38,7 @@
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3-geo@3"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3-geo-projection@4"></script>
+
   <!-- Your main dashboard JS -->
   <script src="./js/main.js" defer></script>
 </head>
@@ -84,9 +91,30 @@
         </div>
       </div>
     </div>
+
+    <!-- MAP CARD -->
     <div class="card" style="margin-top:20px;">
       <h3 style="margin-top:0;">Reform Impact Map (US States)</h3>
+      <!-- Reset button (already supported by JS if you want to enable later) -->
+      <button id="resetMapBtn"
+              style="background:#374151;color:white;border:none;
+                     padding:6px 12px;border-radius:6px;cursor:pointer;margin-bottom:10px;">
+        🔄 Reset View
+      </button>
+
+      <!-- MAP SVG -->
       <svg id="map" width="960" height="600"></svg>
+
+      <!-- 🌈 COLOR LEGEND (Option A) -->
+      <div id="mapLegend"
+           style="margin-top:12px; display:flex; align-items:center; gap:12px;
+                  color:#e5e7eb; font-size:14px;">
+        <span style="color:#9ca3af;">Less impact</span>
+        <div style="width:160px; height:14px; background: linear-gradient(to right,
+               #f87171, #fbbf24, #4ade80); border-radius:6px;"></div>
+        <span style="color:#9ca3af;">More impact</span>
+      </div>
+
     </div>
   </div>
 
@@ -94,6 +122,6 @@
     Prototype for local validation. Next: filters, tooltips, and map layer.
   </footer>
 
-  
 </body>
 </html>
+
