@@ -8,7 +8,7 @@
   const MAP_HEIGHT = 600;
 
   // -------------------------------
-  // Load the CSV
+  // Load CSV
   // -------------------------------
   const text = await (await fetch(CSV_URL)).text();
   const rows = d3.csvParse(text, d3.autoType);
@@ -21,31 +21,16 @@
   }));
 
   if (!allData.length) {
-    console.error("❌ No rows in reform_impact_metrics.csv");
+    console.error("❌ No rows in CSV file");
     return;
   }
 
-  // Preload TopoJSON once
+  // Preload map TopoJSON
   const topoPromise = d3.json(MAP_JSON_PATH);
 
   // -------------------------------
-  // Type filter UI
+  // Build Type Filter
   // -------------------------------
-  const container = d3.select(".container");
-  container.insert("div", ":first-child")
-    .attr("class", "card")
-    .style("margin-bottom", "16px")
-    .html(`
-      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-        <label for="typeFilter" style="color:#9ca3af">Filter by reform type:</label>
-        <select id="typeFilter"
-                style="background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;
-                       border-radius:10px;padding:8px 10px;">
-          <option value="__ALL__">All types</option>
-        </select>
-      </div>
-    `);
-
   const typeSelect = document.getElementById("typeFilter");
   const uniqueTypes = [...new Set(allData.map(d => d.reform_type))].filter(Boolean).sort();
   uniqueTypes.forEach(t => {
@@ -53,6 +38,18 @@
     opt.value = t;
     opt.textContent = t;
     typeSelect.appendChild(opt);
+  });
+
+  // -------------------------------
+  // NEW: Jurisdiction Dropdown
+  // -------------------------------
+  const stateSelect = document.getElementById("stateFilter");
+  const uniqueStates = [...new Set(allData.map(d => d.jurisdiction))].filter(Boolean).sort();
+  uniqueStates.forEach(st => {
+    const opt = document.createElement("option");
+    opt.value = st;
+    opt.textContent = st;
+    stateSelect.appendChild(opt);
   });
 
   // -------------------------------
@@ -69,24 +66,17 @@
   const resetMapBtn = document.getElementById("resetMapBtn");
 
   // -------------------------------
-  // Chart initialization
+  // Chart Init
   // -------------------------------
   const barChart = new Chart(ctx, {
     type: "bar",
     data: { labels: [], datasets: [{ label: "% change", data: [], backgroundColor: [] }] },
     options: {
       responsive: true,
-      animation: {
-        duration: 700,
-        easing: "easeOutQuart"
-      },
+      animation: { duration: 700, easing: "easeOutQuart" },
       plugins: {
         legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: (c) => `${c.parsed.y?.toFixed(2)}%`
-          }
-        }
+        tooltip: { callbacks: { label: c => `${c.parsed.y?.toFixed(2)}%` } }
       },
       scales: {
         x: { ticks: { color: "#e5e7eb" }, grid: { display: false } },
@@ -96,13 +86,8 @@
   });
 
   // -------------------------------
-  // Helpers & state
+  // Format Helpers
   // -------------------------------
-  let selectedStateName = null;
-  let currentData = allData.slice();
-  let lastSortKey = null;
-  let lastSortAsc = false;
-
   const fmtPct = d3.format(".2f");
   const fmtDateYYYYMM = s => {
     if (!s) return "";
@@ -111,7 +96,13 @@
   };
 
   // -------------------------------
-  // Summary cards
+  // Global State
+  // -------------------------------
+  let selectedStateName = null;
+  let currentData = allData.slice();
+
+  // -------------------------------
+  // Summary
   // -------------------------------
   function renderSummary(data) {
     const statusOk = data.filter(d => d.status === "ok").length;
@@ -145,13 +136,12 @@
   }
 
   // -------------------------------
-  // Bar chart
+  // Chart
   // -------------------------------
   function renderChart(data) {
     const labels = data.map(d => d.jurisdiction);
     const values = data.map(d => d.percent_change);
     const colors = values.map(v => (v >= 0 ? "#4ade80" : "#f87171"));
-
     barChart.data.labels = labels;
     barChart.data.datasets[0].data = values;
     barChart.data.datasets[0].backgroundColor = colors;
@@ -176,11 +166,7 @@
         <td>${d.pre_mean_permits ?? ""}</td>
         <td>${d.post_mean_permits ?? ""}</td>
         <td class="${klass}">
-          ${
-            Number.isFinite(d.percent_change)
-              ? d.percent_change.toFixed(2) + "%"
-              : ""
-          }
+          ${Number.isFinite(d.percent_change) ? d.percent_change.toFixed(2) + "%" : ""}
         </td>
         <td>${d.status ?? ""}</td>
       `);
@@ -188,7 +174,7 @@
   }
 
   // -------------------------------
-  // Map renderer (zoom, pan, hover, click)
+  // Map Renderer
   // -------------------------------
   async function renderMap(data) {
     if (mapSvg.empty()) return;
@@ -196,14 +182,7 @@
     const width = MAP_WIDTH;
     const height = MAP_HEIGHT;
 
-    let topo;
-    try {
-      topo = await topoPromise;
-    } catch (err) {
-      console.error("❌ Could not load TopoJSON:", err);
-      return;
-    }
-
+    let topo = await topoPromise;
     const states = topojson.feature(topo, topo.objects.states).features;
 
     const pctByState = {};
@@ -213,15 +192,14 @@
     });
 
     const pctValues = data.map(d => d.percent_change).filter(Number.isFinite);
-    const minPct = pctValues.length ? d3.min(pctValues) : -1;
-    const maxPct = pctValues.length ? d3.max(pctValues) : 1;
+    const minPct = d3.min(pctValues);
+    const maxPct = d3.max(pctValues);
 
     const color = d3.scaleLinear()
       .domain([minPct, 0, maxPct])
       .range(["#f87171", "#fbbf24", "#4ade80"]);
 
     mapSvg.selectAll("*").remove();
-
     const g = mapSvg.append("g");
 
     const projection = d3.geoAlbersUsa()
@@ -266,21 +244,21 @@
           : 0.75
       )
       .style("transition", "fill 0.25s ease, stroke-width 0.25s ease")
+
       .on("mouseover", function () {
-        d3.select(this)
-          .attr("stroke-width", 2)
-          .attr("stroke", "#ffffff");
+        d3.select(this).attr("stroke", "#ffffff").attr("stroke-width", 2);
       })
+
       .on("mouseout", function (event, d) {
         const name = d.properties.name.toLowerCase();
         const isSelected =
           selectedStateName &&
           name === selectedStateName.toLowerCase();
-
         d3.select(this)
           .attr("stroke-width", isSelected ? 2 : 0.75)
           .attr("stroke", isSelected ? "#ffffff" : "#0f172a");
       })
+
       .on("mousemove", (event, d) => {
         const name = d.properties.name;
         const pct = pctByState[name.toLowerCase()];
@@ -289,46 +267,42 @@
           .html(`
             <strong style="font-size:14px;">${name}</strong><br>
             <span style="font-size:12px;color:#9ca3af;">
-              ${
-                Number.isFinite(pct)
-                  ? pct.toFixed(2) + "% change"
-                  : "No reform data"
-              }
+              ${Number.isFinite(pct) ? pct.toFixed(2) + "% change" : "No data"}
             </span>
           `)
           .style("left", event.pageX + 12 + "px")
           .style("top", event.pageY + 12 + "px");
       })
+
       .on("mouseleave", () => tooltip.style("opacity", 0))
+
       .on("click", (event, d) => {
         selectedStateName = d.properties.name;
+
+        stateSelect.value = selectedStateName;
+        typeSelect.value = "__ALL__";
 
         const filtered = allData.filter(
           x =>
             x.jurisdiction &&
-            x.jurisdiction.toLowerCase() ===
-              selectedStateName.toLowerCase()
+            x.jurisdiction.toLowerCase() === selectedStateName.toLowerCase()
         );
 
-        typeSelect.value = "__ALL__";
         updateUI(filtered);
       });
 
     const zoom = d3.zoom()
       .scaleExtent([1, 8])
-      .on("zoom", event => g.attr("transform", event.transform));
+      .on("zoom", e => g.attr("transform", e.transform));
 
     mapSvg.call(zoom);
   }
 
   // -------------------------------
-  // Legend Renderer
+  // Legend
   // -------------------------------
   function renderLegend(data) {
-    const pctValues = data
-      .map(d => d.percent_change)
-      .filter(Number.isFinite);
-
+    const pctValues = data.map(d => d.percent_change).filter(Number.isFinite);
     if (!pctValues.length) return;
 
     const minPct = d3.min(pctValues).toFixed(2);
@@ -339,18 +313,18 @@
 
     legendEl.innerHTML = `
       <span style="color:#9ca3af;">${minPct}%</span>
-      <div style="width:160px; height:14px; background: linear-gradient(to right,
-           #f87171, #fbbf24, #4ade80); border-radius:6px;"></div>
+      <div style="width:160px;height:14px;background:linear-gradient(to right,
+           #f87171,#fbbf24,#4ade80);border-radius:6px;"></div>
       <span style="color:#9ca3af;">${maxPct}%</span>
     `;
   }
 
   // -------------------------------
-  // Selected State Badge Renderer
+  // Selected State Badge
   // -------------------------------
   function renderSelectedStateBadge(data) {
     if (!selectedStateName) {
-      if (selectedStateBadge) selectedStateBadge.style.display = "none";
+      selectedStateBadge.style.display = "none";
       return;
     }
 
@@ -361,7 +335,7 @@
     );
 
     if (!entry) {
-      if (selectedStateBadge) selectedStateBadge.style.display = "none";
+      selectedStateBadge.style.display = "none";
       return;
     }
 
@@ -369,16 +343,12 @@
       ? entry.percent_change.toFixed(2) + "%"
       : "N/A";
 
-    if (selectedStateText) {
-      selectedStateText.textContent = `Selected State: ${selectedStateName} — ${pct}`;
-    }
-    if (selectedStateBadge) {
-      selectedStateBadge.style.display = "flex";
-    }
+    selectedStateText.textContent = `Selected State: ${selectedStateName} — ${pct}`;
+    selectedStateBadge.style.display = "flex";
   }
 
   // -------------------------------
-  // Central update function
+  // Update UI
   // -------------------------------
   function updateUI(data) {
     currentData = data.slice();
@@ -391,89 +361,75 @@
   }
 
   // -------------------------------
-  // Dropdown filter
+  // Type Filter
   // -------------------------------
-  function applyFilter() {
+  typeSelect.addEventListener("change", () => {
     selectedStateName = null;
+    stateSelect.value = "__ALL__";
     const t = typeSelect.value;
     const filtered =
       t === "__ALL__" ? allData : allData.filter(d => d.reform_type === t);
     updateUI(filtered);
-  }
-
-  typeSelect.addEventListener("change", applyFilter);
+  });
 
   // -------------------------------
-  // Sortable table headers
+  // NEW: Jurisdiction Dropdown Handler
   // -------------------------------
-  document.querySelectorAll("#reformsTable thead th")
-    .forEach(th => {
-      th.addEventListener("click", () => {
-        const key = th.dataset.k;
-        if (!key) return;
+  stateSelect.addEventListener("change", () => {
+    const val = stateSelect.value;
 
-        if (lastSortKey === key) {
-          lastSortAsc = !lastSortAsc;
-        } else {
-          lastSortKey = key;
-          lastSortAsc = false; // default: descending on first click
-        }
+    if (val === "__ALL__") {
+      selectedStateName = null;
+      typeSelect.value = "__ALL__";
+      updateUI(allData);
+      return;
+    }
 
-        const dir = lastSortAsc ? 1 : -1;
+    selectedStateName = val;
+    typeSelect.value = "__ALL__";
 
-        const sorted = currentData.slice().sort((a, b) => {
-          const av = a[key];
-          const bv = b[key];
+    const filtered = allData.filter(
+      x =>
+        x.jurisdiction &&
+        x.jurisdiction.toLowerCase() === val.toLowerCase()
+    );
 
-          if (av == null && bv == null) return 0;
-          if (av == null) return 1;
-          if (bv == null) return -1;
-
-          if (typeof av === "number" && typeof bv === "number") {
-            return dir * (av - bv);
-          }
-          return dir * (("" + av).localeCompare("" + bv));
-        });
-
-        updateUI(sorted);
-      });
-    });
+    updateUI(filtered);
+  });
 
   // -------------------------------
-  // Download CSV
-  // -------------------------------
-  const downloadBtn = document.getElementById("downloadBtn");
-  if (downloadBtn) {
-    downloadBtn.addEventListener("click", () => {
-      const a = document.createElement("a");
-      a.href = CSV_URL;
-      a.download = "reform_impact_metrics.csv";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-    });
-  }
-
-  // -------------------------------
-  // Clear selected state (badge button)
+  // Clear Selected State Badge
   // -------------------------------
   clearStateBtn?.addEventListener("click", () => {
     selectedStateName = null;
+    stateSelect.value = "__ALL__";
     typeSelect.value = "__ALL__";
     updateUI(allData);
   });
 
   // -------------------------------
-  // Reset Map View button
+  // Reset Map Button
   // -------------------------------
   resetMapBtn?.addEventListener("click", () => {
     selectedStateName = null;
+    stateSelect.value = "__ALL__";
     typeSelect.value = "__ALL__";
     updateUI(allData);
   });
 
   // -------------------------------
-  // Initial render
+  // Download Button
+  // -------------------------------
+  const downloadBtn = document.getElementById("downloadBtn");
+  downloadBtn?.addEventListener("click", () => {
+    const a = document.createElement("a");
+    a.href = CSV_URL;
+    a.download = "reform_impact_metrics.csv";
+    a.click();
+  });
+
+  // -------------------------------
+  // INITIAL RENDER
   // -------------------------------
   updateUI(allData);
 

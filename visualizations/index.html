@@ -56,6 +56,33 @@
   </header>
 
   <div class="container">
+    <!-- Selected State Badge (Option C) -->
+    <div id="selectedStateBadge"
+       style="display:none; margin-bottom:16px; padding:10px 14px;
+            background:#1f2937; color:#e5e7eb; border-radius:10px;
+            border:1px solid #374151; font-size:15px;
+            display:flex; align-items:center; gap:12px;">
+  
+      <span id="selectedStateText"></span>
+
+      <button id="clearStateBtn"
+          style="background:#ef4444; color:white; border:none; padding:4px 10px;
+                 border-radius:6px; cursor:pointer; font-size:13px;">
+        Clear
+      </button>
+    </div>
+    <!-- NEW: Jurisdiction Selector -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <label for="stateFilter" style="color:#9ca3af">Jump to jurisdiction:</label>
+      <select id="stateFilter"
+              style="background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;
+                   border-radius:10px;padding:8px 10px;min-width:180px;">
+        <option value="__ALL__">All jurisdictions</option>
+      </select>
+    </div>
+  </div>
+
     <!-- Summary -->
     <div class="card">
       <h3 style="margin-top:0;">Summary</h3>
