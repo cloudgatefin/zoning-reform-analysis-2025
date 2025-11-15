@@ -12,9 +12,9 @@ const MAP_HEIGHT = 600;
   // Load CSVs (metrics + timeseries)
   // -------------------------------
   const [metricsText, tsText] = await Promise.all([
-    fetch(METRICS_CSV_URL).then(r => r.text()),
-    fetch(TS_CSV_URL).then(r => r.text())
-  ]);
+  fetch(CSV_URL).then(r => r.text()),
+  fetch(TIMESERIES_URL).then(r => r.text())
+]);
 
   const metricRows = d3.csvParse(metricsText, d3.autoType);
   const tsRows = d3.csvParse(tsText, d3.autoType);
