@@ -4,102 +4,468 @@
   <meta charset="utf-8" />
   <title>Zoning Reform Dashboard — Prototype</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <!-- Simple, clean base styles -->
   <style>
-    :root { --bg: #0f172a; --card: #111827; --text: #e5e7eb; --muted:#9ca3af; }
-    html, body { margin:0; padding:0; background:var(--bg); color:var(--text); font: 16px/1.4 system-ui, -apple-system, Segoe UI, Roboto; }
-    header { padding: 20px; border-bottom: 1px solid #1f2937; }
-    header h1 { margin:0; font-size: 20px; }
-    .container { padding: 20px; max-width: 1100px; margin: 0 auto; }
-    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-    @media (min-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
-    .card { background: var(--card); border: 1px solid #1f2937; border-radius: 14px; padding: 16px; }
-    .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .pill { font-size: 12px; color: var(--muted); }
-    table { width:100%; border-collapse: collapse; }
-    th, td { padding: 10px; border-bottom: 1px solid #1f2937; text-align: left; }
-    th { cursor:pointer; }
-    .pos { color: #86efac; }
-    .neg { color: #fca5a5; }
-    footer { color: var(--muted); font-size: 12px; padding: 20px; text-align: center; }
-    a { color: #93c5fd; }
+    :root {
+      --bg: #020617;
+      --card: #020617;
+      --card-soft: #020617;
+      --border-subtle: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #2563eb;
+      --danger: #f97373;
+      --success: #4ade80;
+    }
 
-    /* Table hover highlight (added for Option B readiness) */
-    #reformsTable tr:hover {
-      background-color: #1f2937;
-      transition: background-color 0.25s ease;
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #020617 0, #020617 45%, #020617 100%);
+      color: var(--text);
+      font: 15px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 18px 24px 12px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: 0.01em;
+    }
+
+    header .pill {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .download-row {
+      margin-top: 8px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 6px 14px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .btn-ghost:hover {
+      background: #020617;
+    }
+
+    .container {
+      padding: 20px 24px 32px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .top-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .control-row {
+      background: #020617;
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .control-row-left,
+    .control-row-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .control-label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    select {
+      background: #020617;
+      color: var(--text);
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 6px 12px;
+      font-size: 13px;
+      min-width: 170px;
+      cursor: pointer;
+    }
+
+    .card {
+      background: #020617;
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      padding: 16px 18px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .summary-card {
+      background: radial-gradient(circle at top left, #020617 0, #020617 35%, #020617 100%);
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 12px;
+    }
+
+    .summary-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .summary-value {
+      margin-top: 4px;
+      font-size: 19px;
+    }
+
+    .summary-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px 0;
+      font-size: 15px;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 8px 8px;
+      border-bottom: 1px solid #0b1220;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    thead th {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    tbody td {
+      font-size: 13px;
+    }
+
+    .pos { color: #4ade80; }
+    .neg { color: #f97373; }
+
+    .table-scroll {
+      max-height: 400px;
+      overflow: auto;
+    }
+
+    .spark-cell {
+      width: 64px;
+    }
+
+    .sparkline {
+      display: block;
+    }
+
+    .map-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .map-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .map-header-row h3 {
+      margin: 0;
+    }
+
+    .map-tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #map {
+      width: 100%;
+      height: 520px;
+      background: radial-gradient(circle at top, #020617 0, #020617 30%, #020617 100%);
+      border-radius: 12px;
+    }
+
+    #mapLegend {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    #mapLegend svg {
+      display: block;
+    }
+
+    .legend-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    /* State detail panel */
+    #stateDetailCard {
+      background: radial-gradient(circle at top left, #020617 0, #020617 35%, #020617 100%);
+    }
+
+    .detail-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .detail-header-title {
+      font-size: 15px;
+      margin: 0;
+    }
+
+    .detail-header-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .detail-empty {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 4px 0 2px 0;
+    }
+
+    .detail-body {
+      display: none;
+      display: grid;
+      grid-template-rows: auto auto auto;
+      gap: 12px;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .detail-metric-card {
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      padding: 8px 10px;
+      background: #020617;
+    }
+
+    .detail-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .detail-value {
+      font-size: 18px;
+      margin-top: 4px;
+    }
+
+    .detail-sparkline-wrap {
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      padding: 8px 10px 10px 10px;
+      background: #020617;
+    }
+
+    #detailSpark {
+      width: 100%;
+      height: 120px;
+    }
+
+    .detail-reforms {
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      padding: 8px 10px;
+      background: #020617;
+    }
+
+    .detail-reforms ul {
+      margin: 6px 0 0 0;
+      padding-left: 18px;
+      font-size: 13px;
+    }
+
+    .detail-reforms li {
+      margin-bottom: 3px;
+      color: var(--muted);
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 11px;
+      padding: 18px 24px 28px 24px;
+      text-align: center;
+    }
+
+    a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 960px) {
+      .summary-grid { grid-template-columns: 1fr; }
+      .layout-grid { grid-template-columns: 1fr; }
+      .map-layout { grid-template-columns: 1fr; }
+      .detail-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 640px) {
+      .detail-grid { grid-template-columns: 1fr 1fr; }
+      header, .container, footer { padding-left: 16px; padding-right: 16px; }
     }
   </style>
 
-  <!-- CDNs -->
+  <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
-  <script src="https://cdn.jsdelivr.net/npm/topojson@3"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3-geo@3"></script>
-  <script src="https://cdn.jsdelivr.net/npm/d3-geo-projection@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-zoom@3"></script>
 
-  <!-- Your main dashboard JS -->
+  <!-- Main dashboard JS -->
   <script src="./js/main.js" defer></script>
 </head>
+
 <body>
   <header>
     <h1>Zoning Reform Dashboard — Prototype</h1>
-    <div class="pill">Data source: <code>data/outputs/reform_impact_metrics.csv</code></div>
-    <div style="margin-top:12px;">
-      <button id="downloadBtn"
-              style="background:#2563eb;color:white;border:none;
-                     padding:8px 14px;border-radius:8px;cursor:pointer;">
-      ⬇️ Download Data (CSV)
+    <div class="pill">
+      Data source:
+      <code>data/outputs/reform_impact_metrics.csv</code>
+    </div>
+    <div class="download-row">
+      <button id="downloadBtn" class="btn-primary">
+        <span>⬇️</span>
+        <span>Download Data (CSV)</span>
       </button>
     </div>
   </header>
 
   <div class="container">
-    <!-- Selected State Badge (Option C) -->
-    <div id="selectedStateBadge"
-       style="display:none; margin-bottom:16px; padding:10px 14px;
-            background:#1f2937; color:#e5e7eb; border-radius:10px;
-            border:1px solid #374151; font-size:15px;
-            display:flex; align-items:center; gap:12px;">
-  
-      <span id="selectedStateText"></span>
+    <!-- Top controls: Clear + jurisdiction + reform type -->
+    <div class="top-controls">
+      <div class="control-row">
+        <div class="control-row-left">
+          <button id="clearSelectionBtn" class="btn-ghost">Clear</button>
+        </div>
+        <div class="control-row-right">
+          <span class="control-label">Jump to jurisdiction:</span>
+          <select id="jurisdictionSelect">
+            <option value="__ALL__">All jurisdictions</option>
+          </select>
 
-      <button id="clearStateBtn"
-          style="background:#ef4444; color:white; border:none; padding:4px 10px;
-                 border-radius:6px; cursor:pointer; font-size:13px;">
-        Clear
-      </button>
+          <span class="control-label">Filter by reform type:</span>
+          <select id="typeFilter">
+            <option value="__ALL__">All types</option>
+          </select>
+        </div>
+      </div>
     </div>
-    <!-- NEW: Jurisdiction Selector -->
-  <div class="card" style="margin-bottom:16px;">
-    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-      <label for="stateFilter" style="color:#9ca3af">Jump to jurisdiction:</label>
-      <select id="stateFilter"
-              style="background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;
-                   border-radius:10px;padding:8px 10px;min-width:180px;">
-        <option value="__ALL__">All jurisdictions</option>
-      </select>
-    </div>
-  </div>
 
     <!-- Summary -->
     <div class="card">
-      <h3 style="margin-top:0;">Summary</h3>
-      <div id="summary" class="summary"></div>
+      <h3>Summary</h3>
+      <div id="summary" class="summary-grid"></div>
     </div>
 
-    <div class="grid">
-      <!-- Chart -->
+    <!-- Bar chart + table -->
+    <div class="layout-grid">
       <div class="card">
-        <h3 style="margin-top:0;">Percent change (post vs pre)</h3>
-        <canvas id="barChart" height="220"></canvas>
+        <h3>Percent change (post vs pre)</h3>
+        <canvas id="barChart" height="260"></canvas>
       </div>
 
-      <!-- Table -->
       <div class="card">
-        <h3 style="margin-top:0;">Reforms table</h3>
-        <div style="overflow:auto; max-height:420px;">
+        <h3>Reforms table</h3>
+        <div class="table-scroll">
           <table id="reformsTable">
             <thead>
               <tr>
@@ -110,6 +476,7 @@
                 <th data-k="pre_mean_permits">Pre mean</th>
                 <th data-k="post_mean_permits">Post mean</th>
                 <th data-k="percent_change">Δ %</th>
+                <th>Trend</th>
                 <th data-k="status">Status</th>
               </tr>
             </thead>
@@ -119,36 +486,71 @@
       </div>
     </div>
 
-    <!-- MAP CARD -->
-    <div class="card" style="margin-top:20px;">
-      <h3 style="margin-top:0;">Reform Impact Map (US States)</h3>
-      <!-- Reset button (already supported by JS if you want to enable later) -->
-      <button id="resetMapBtn"
-              style="background:#374151;color:white;border:none;
-                     padding:6px 12px;border-radius:6px;cursor:pointer;margin-bottom:10px;">
-        🔄 Reset View
-      </button>
-
-      <!-- MAP SVG -->
-      <svg id="map" width="960" height="600"></svg>
-
-      <!-- 🌈 COLOR LEGEND (Option A) -->
-      <div id="mapLegend"
-           style="margin-top:12px; display:flex; align-items:center; gap:12px;
-                  color:#e5e7eb; font-size:14px;">
-        <span style="color:#9ca3af;">Less impact</span>
-        <div style="width:160px; height:14px; background: linear-gradient(to right,
-               #f87171, #fbbf24, #4ade80); border-radius:6px;"></div>
-        <span style="color:#9ca3af;">More impact</span>
+    <!-- Map + State detail panel -->
+    <div class="map-layout">
+      <!-- Map -->
+      <div class="card">
+        <div class="map-header-row">
+          <h3>Reform Impact Map (US States)</h3>
+          <div class="map-tools">
+            <button id="resetViewBtn" class="btn-ghost">Reset View</button>
+          </div>
+        </div>
+        <svg id="map"></svg>
+        <div id="mapLegend"></div>
       </div>
 
+      <!-- State detail -->
+      <div class="card" id="stateDetailCard">
+        <div class="detail-header">
+          <h3 class="detail-header-title">State detail</h3>
+          <span class="detail-header-sub" id="detailHeaderSub">
+            Click a state on the map or pick a jurisdiction above.
+          </span>
+        </div>
+
+        <div id="detailEmpty" class="detail-empty">
+          No jurisdiction selected. Use the map or dropdown to explore a state.
+        </div>
+
+        <div id="detailBody" class="detail-body">
+          <div class="detail-grid">
+            <div class="detail-metric-card">
+              <div class="detail-label">Jurisdiction</div>
+              <div id="detailJurisdiction" class="detail-value">—</div>
+            </div>
+            <div class="detail-metric-card">
+              <div class="detail-label">Avg permits (pre)</div>
+              <div id="detailPre" class="detail-value">—</div>
+            </div>
+            <div class="detail-metric-card">
+              <div class="detail-label">Avg permits (post)</div>
+              <div id="detailPost" class="detail-value">—</div>
+            </div>
+            <div class="detail-metric-card">
+              <div class="detail-label">Δ %</div>
+              <div id="detailDelta" class="detail-value">—</div>
+            </div>
+          </div>
+
+          <div class="detail-sparkline-wrap">
+            <div class="detail-label">Monthly permits trend</div>
+            <svg id="detailSpark"></svg>
+          </div>
+
+          <div class="detail-reforms">
+            <div class="detail-label">Reforms in this jurisdiction</div>
+            <ul id="detailReformList"></ul>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <footer>
     Prototype for local validation. Next: filters, tooltips, and map layer.
   </footer>
-
 </body>
 </html>
+
 
