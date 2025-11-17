@@ -1,556 +1,274 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <title>Zoning Reform Dashboard — Prototype</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Simple, clean base styles -->
+  <!-- Base styles -->
   <style>
     :root {
-      --bg: #020617;
-      --card: #020617;
-      --card-soft: #020617;
-      --border-subtle: #1f2937;
+      --bg: #0f172a;
+      --card: #111827;
       --text: #e5e7eb;
       --muted: #9ca3af;
-      --accent: #2563eb;
-      --danger: #f97373;
-      --success: #4ade80;
-    }
-
-    * {
-      box-sizing: border-box;
+      --border: #1f2937;
+      --accent: #93c5fd;
     }
 
     html, body {
-      margin: 0;
-      padding: 0;
-      background: radial-gradient(circle at top, #020617 0, #020617 45%, #020617 100%);
-      color: var(--text);
-      font: 15px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-    }
-
-    body {
-      min-height: 100vh;
+      margin:0; padding:0;
+      background:var(--bg);
+      color:var(--text);
+      font:16px/1.4 system-ui, -apple-system, Segoe UI, Roboto;
     }
 
     header {
-      padding: 18px 24px 12px 24px;
-      border-bottom: 1px solid var(--border-subtle);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+      padding:20px 24px;
+      border-bottom:1px solid var(--border);
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 20px;
-      letter-spacing: 0.01em;
-    }
-
-    header .pill {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .download-row {
-      margin-top: 8px;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 13px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
-    }
-
-    .btn-primary:hover {
-      background: #1d4ed8;
-    }
-
-    .btn-ghost {
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text);
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      padding: 6px 14px;
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    .btn-ghost:hover {
-      background: #020617;
-    }
+    h1 { margin:0; font-size:20px; }
 
     .container {
-      padding: 20px 24px 32px 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .top-controls {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .control-row {
-      background: #020617;
-      border-radius: 14px;
-      border: 1px solid var(--border-subtle);
-      padding: 10px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .control-row-left,
-    .control-row-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .control-label {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    select {
-      background: #020617;
-      color: var(--text);
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      padding: 6px 12px;
-      font-size: 13px;
-      min-width: 170px;
-      cursor: pointer;
+      padding:24px;
+      max-width:1400px;
+      margin:0 auto;
     }
 
     .card {
-      background: #020617;
-      border-radius: 14px;
-      border: 1px solid var(--border-subtle);
-      padding: 16px 18px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:16px;
+      margin-bottom:20px;
     }
 
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
+    .summary {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
     }
 
-    .summary-card {
-      background: radial-gradient(circle at top left, #020617 0, #020617 35%, #020617 100%);
-      border-radius: 12px;
-      border: 1px solid var(--border-subtle);
-      padding: 10px 12px;
+    .summary-cell .label {
+      font-size:12px;
+      color:var(--muted);
     }
 
-    .summary-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-    }
-
-    .summary-value {
-      margin-top: 4px;
-      font-size: 19px;
-    }
-
-    .summary-sub {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .layout-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .card h3 {
-      margin: 0 0 8px 0;
-      font-size: 15px;
-    }
-
-    canvas {
-      display: block;
+    .summary-cell .value {
+      margin-top:4px;
+      font-size:20px;
+      font-weight:600;
     }
 
     table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
+      width:100%; border-collapse:collapse;
+      color:var(--text);
     }
 
     th, td {
-      padding: 8px 8px;
-      border-bottom: 1px solid #0b1220;
-      text-align: left;
-      white-space: nowrap;
+      padding:10px;
+      border-bottom:1px solid var(--border);
+      text-align:left;
     }
 
-    thead th {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      cursor: pointer;
+    th { cursor:pointer; font-size:13px; color:var(--muted); }
+
+    .neg { color:#fca5a5; }
+    .pos { color:#86efac; }
+
+    .top-controls {
+      display:flex;
+      gap:14px;
+      align-items:center;
+      margin-bottom:10px;
     }
 
-    tbody td {
-      font-size: 13px;
+    select {
+      background:#1e293b !important;
+      color:var(--text);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:6px 10px;
+      font-size:14px;
     }
 
-    .pos { color: #4ade80; }
-    .neg { color: #f97373; }
-
-    .table-scroll {
-      max-height: 400px;
-      overflow: auto;
-    }
-
-    .spark-cell {
-      width: 64px;
-    }
-
-    .sparkline {
-      display: block;
-    }
-
-    .map-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .map-header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-      gap: 8px;
-    }
-
-    .map-header-row h3 {
-      margin: 0;
-    }
-
-    .map-tools {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    button {
+      background:#2563eb;
+      color:white;
+      border:none;
+      padding:8px 14px;
+      border-radius:8px;
+      cursor:pointer;
     }
 
     #map {
-      width: 100%;
-      height: 520px;
-      background: radial-gradient(circle at top, #020617 0, #020617 30%, #020617 100%);
-      border-radius: 12px;
+      border-radius:12px;
+      background:#1e293b;
     }
 
-    #mapLegend {
-      margin-top: 10px;
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    #mapLegend svg {
-      display: block;
-    }
-
-    .legend-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      margin-top: 4px;
-    }
-
-    /* State detail panel */
-    #stateDetailCard {
-      background: radial-gradient(circle at top left, #020617 0, #020617 35%, #020617 100%);
-    }
-
-    .detail-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .detail-header-title {
-      font-size: 15px;
-      margin: 0;
-    }
-
-    .detail-header-sub {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .detail-empty {
-      font-size: 12px;
-      color: var(--muted);
-      padding: 4px 0 2px 0;
-    }
-
-    .detail-body {
-      display: none;
-      display: grid;
-      grid-template-rows: auto auto auto;
-      gap: 12px;
+    /* Detail panel */
+    #detailPanel {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
     }
 
     .detail-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin-bottom:12px;
     }
 
-    .detail-metric-card {
-      border-radius: 10px;
-      border: 1px solid var(--border-subtle);
-      padding: 8px 10px;
-      background: #020617;
+    .detail-box {
+      background:#1e293b;
+      border:1px solid #334155;
+      padding:10px;
+      border-radius:8px;
+      text-align:center;
     }
 
-    .detail-label {
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+    .detail-label { font-size:11px; color:var(--muted); }
+    .detail-value { margin-top:4px; font-size:18px; font-weight:600; }
+
+    #detailTrend {
+      width:100%;
+      height:150px;
+      background:#1e293b;
+      border-radius:10px;
+      border:1px solid #334155;
     }
 
-    .detail-value {
-      font-size: 18px;
-      margin-top: 4px;
-    }
-
-    .detail-sparkline-wrap {
-      border-radius: 10px;
-      border: 1px solid var(--border-subtle);
-      padding: 8px 10px 10px 10px;
-      background: #020617;
-    }
-
-    #detailSpark {
-      width: 100%;
-      height: 120px;
-    }
-
-    .detail-reforms {
-      border-radius: 10px;
-      border: 1px solid var(--border-subtle);
-      padding: 8px 10px;
-      background: #020617;
-    }
-
-    .detail-reforms ul {
-      margin: 6px 0 0 0;
-      padding-left: 18px;
-      font-size: 13px;
-    }
-
-    .detail-reforms li {
-      margin-bottom: 3px;
-      color: var(--muted);
-    }
-
-    footer {
-      color: var(--muted);
-      font-size: 11px;
-      padding: 18px 24px 28px 24px;
-      text-align: center;
-    }
-
-    a {
-      color: #93c5fd;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 960px) {
-      .summary-grid { grid-template-columns: 1fr; }
-      .layout-grid { grid-template-columns: 1fr; }
-      .map-layout { grid-template-columns: 1fr; }
-      .detail-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 640px) {
-      .detail-grid { grid-template-columns: 1fr 1fr; }
-      header, .container, footer { padding-left: 16px; padding-right: 16px; }
+    #detailReformsList {
+      padding-left:16px;
+      font-size:14px;
+      color:var(--text);
     }
   </style>
 
-  <!-- Libraries -->
+  <!-- External libs -->
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
-  <script src="https://cdn.jsdelivr.net/npm/d3-geo@3"></script>
-  <script src="https://cdn.jsdelivr.net/npm/d3-zoom@3"></script>
 
-  <!-- Main dashboard JS -->
+  <!-- Dashboard logic -->
   <script src="./js/main.js" defer></script>
 </head>
-
 <body>
-  <header>
-    <h1>Zoning Reform Dashboard — Prototype</h1>
-    <div class="pill">
-      Data source:
-      <code>data/outputs/reform_impact_metrics.csv</code>
-    </div>
-    <div class="download-row">
-      <button id="downloadBtn" class="btn-primary">
-        <span>⬇️</span>
-        <span>Download Data (CSV)</span>
-      </button>
-    </div>
-  </header>
 
-  <div class="container">
-    <!-- Top controls: Clear + jurisdiction + reform type -->
-    <div class="top-controls">
-      <div class="control-row">
-        <div class="control-row-left">
-          <button id="clearSelectionBtn" class="btn-ghost">Clear</button>
-        </div>
-        <div class="control-row-right">
-          <span class="control-label">Jump to jurisdiction:</span>
-          <select id="jurisdictionSelect">
-            <option value="__ALL__">All jurisdictions</option>
-          </select>
+<header>
+  <h1>Zoning Reform Dashboard — Prototype</h1>
+  <div class="pill">Data source: <code>data/outputs/reform_impact_metrics.csv</code></div>
 
-          <span class="control-label">Filter by reform type:</span>
-          <select id="typeFilter">
-            <option value="__ALL__">All types</option>
-          </select>
-        </div>
-      </div>
-    </div>
+  <div style="margin-top:10px;">
+    <button id="downloadBtn">⬇️ Download Data (CSV)</button>
+  </div>
+</header>
 
-    <!-- Summary -->
+<div class="container">
+
+  <!-- Top controls -->
+  <div class="card top-controls">
+    <button id="clearBtn" style="background:#ef4444;">Clear</button>
+
+    <label>Jump to jurisdiction:</label>
+    <select id="jumpJurisdiction">
+      <option value="__ALL__">All jurisdictions</option>
+    </select>
+
+    <label>Filter by reform type:</label>
+    <select id="typeFilter">
+      <option value="__ALL__">All types</option>
+    </select>
+  </div>
+
+  <!-- Summary -->
+  <div class="card">
+    <h3 style="margin-top:0;">Summary</h3>
+    <div id="summary" class="summary"></div>
+  </div>
+
+  <!-- Chart + Table -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
     <div class="card">
-      <h3>Summary</h3>
-      <div id="summary" class="summary-grid"></div>
+      <h3 style="margin-top:0;">Percent change (post vs pre)</h3>
+      <canvas id="barChart" height="260"></canvas>
     </div>
 
-    <!-- Bar chart + table -->
-    <div class="layout-grid">
-      <div class="card">
-        <h3>Percent change (post vs pre)</h3>
-        <canvas id="barChart" height="260"></canvas>
-      </div>
+    <div class="card" style="overflow:auto; max-height:460px;">
+      <h3>Reforms table</h3>
 
-      <div class="card">
-        <h3>Reforms table</h3>
-        <div class="table-scroll">
-          <table id="reformsTable">
-            <thead>
-              <tr>
-                <th data-k="jurisdiction">Jurisdiction</th>
-                <th data-k="reform_name">Reform</th>
-                <th data-k="reform_type">Type</th>
-                <th data-k="effective_date">Effective</th>
-                <th data-k="pre_mean_permits">Pre mean</th>
-                <th data-k="post_mean_permits">Post mean</th>
-                <th data-k="percent_change">Δ %</th>
-                <th>Trend</th>
-                <th data-k="status">Status</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Map + State detail panel -->
-    <div class="map-layout">
-      <!-- Map -->
-      <div class="card">
-        <div class="map-header-row">
-          <h3>Reform Impact Map (US States)</h3>
-          <div class="map-tools">
-            <button id="resetViewBtn" class="btn-ghost">Reset View</button>
-          </div>
-        </div>
-        <svg id="map"></svg>
-        <div id="mapLegend"></div>
-      </div>
-
-      <!-- State detail -->
-      <div class="card" id="stateDetailCard">
-        <div class="detail-header">
-          <h3 class="detail-header-title">State detail</h3>
-          <span class="detail-header-sub" id="detailHeaderSub">
-            Click a state on the map or pick a jurisdiction above.
-          </span>
-        </div>
-
-        <div id="detailEmpty" class="detail-empty">
-          No jurisdiction selected. Use the map or dropdown to explore a state.
-        </div>
-
-        <div id="detailBody" class="detail-body">
-          <div class="detail-grid">
-            <div class="detail-metric-card">
-              <div class="detail-label">Jurisdiction</div>
-              <div id="detailJurisdiction" class="detail-value">—</div>
-            </div>
-            <div class="detail-metric-card">
-              <div class="detail-label">Avg permits (pre)</div>
-              <div id="detailPre" class="detail-value">—</div>
-            </div>
-            <div class="detail-metric-card">
-              <div class="detail-label">Avg permits (post)</div>
-              <div id="detailPost" class="detail-value">—</div>
-            </div>
-            <div class="detail-metric-card">
-              <div class="detail-label">Δ %</div>
-              <div id="detailDelta" class="detail-value">—</div>
-            </div>
-          </div>
-
-          <div class="detail-sparkline-wrap">
-            <div class="detail-label">Monthly permits trend</div>
-            <svg id="detailSpark"></svg>
-          </div>
-
-          <div class="detail-reforms">
-            <div class="detail-label">Reforms in this jurisdiction</div>
-            <ul id="detailReformList"></ul>
-          </div>
-        </div>
-      </div>
+      <table id="reformsTable">
+        <thead>
+          <tr>
+            <th data-k="jurisdiction">Jurisdiction</th>
+            <th data-k="reform_name">Reform</th>
+            <th data-k="reform_type">Type</th>
+            <th data-k="effective_date">Effective</th>
+            <th data-k="pre_mean_permits">Pre mean</th>
+            <th data-k="post_mean_permits">Post mean</th>
+            <th data-k="percent_change">Δ %</th>
+            <th data-k="status">Status</th>
+            <th>Trend</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
   </div>
 
-  <footer>
-    Prototype for local validation. Next: filters, tooltips, and map layer.
-  </footer>
+  <!-- Map + Detail -->
+  <div style="display:grid; grid-template-columns:1fr 340px; gap:20px; margin-top:20px;">
+    <!-- Map -->
+    <div class="card">
+      <h3 style="margin-top:0;">Reform Impact Map (US States)</h3>
+      <button id="resetMap" style="margin-bottom:10px;">Reset View</button>
+      <svg id="map" width="960" height="600"></svg>
+    </div>
+
+    <!-- Right detail panel -->
+    <div class="card" id="detailPanel">
+      <h3>State detail</h3>
+      <div style="font-size:13px; color:var(--muted); margin-bottom:10px;">
+        Click a state on the map or pick a jurisdiction above.
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-box">
+          <div class="detail-label">JURISDICTION</div>
+          <div class="detail-value" id="detailName">—</div>
+        </div>
+        <div class="detail-box">
+          <div class="detail-label">AVG PERMITS (PRE)</div>
+          <div class="detail-value" id="detailPre">—</div>
+        </div>
+        <div class="detail-box">
+          <div class="detail-label">AVG PERMITS (POST)</div>
+          <div class="detail-value" id="detailPost">—</div>
+        </div>
+        <div class="detail-box">
+          <div class="detail-label">Δ %</div>
+          <div class="detail-value" id="detailPct">—</div>
+        </div>
+      </div>
+
+      <div class="detail-label" style="margin:6px 0;">MONTHLY PERMITS TREND</div>
+      <svg id="detailTrend"></svg>
+
+      <div class="detail-label" style="margin-top:10px;">REFORMS IN THIS JURISDICTION</div>
+      <ul id="detailReformsList"></ul>
+    </div>
+  </div>
+
+</div>
+
+<footer style="text-align:center; padding:30px; font-size:12px; color:var(--muted);">
+  Prototype for local validation. Next: filters, tooltips, and map layer.
+</footer>
+
 </body>
 </html>
+
 
 
