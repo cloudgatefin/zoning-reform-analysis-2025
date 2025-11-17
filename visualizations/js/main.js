@@ -1,5 +1,5 @@
 //-----------------------------------------------------------
-// ZONING REFORM DASHBOARD — FULL MAIN.JS (NORMALIZED)
+// ZONING REFORM DASHBOARD — MAIN.JS (WITH FILTERS & LEGEND)
 //-----------------------------------------------------------
 (async function () {
   console.log("📊 Dashboard initializing…");
@@ -27,8 +27,10 @@
   const reformsTableBody = document.querySelector("#reformsTable tbody");
   const summaryBox = document.getElementById("summary");
   const mapSvg = d3.select("#map");
+  const mapLegend = document.getElementById("mapLegend");
   const jurisdictionSelect = document.getElementById("jumpJurisdiction");
   const typeFilterSelect = document.getElementById("typeFilter");
+  const resetMapBtn = document.getElementById("resetMap");
 
   const detailName = document.getElementById("detailName");
   const detailPre = document.getElementById("detailPre");
@@ -38,6 +40,7 @@
   const detailTrendSvg = d3.select("#detailTrend");
 
   let barChart = null;
+  let mapZoom = null; // keep zoom handler for reset
 
   //-----------------------------------------------------------
   // LOAD DATA
@@ -47,7 +50,6 @@
     const text = await (await fetch(CSV_URL)).text();
     const rows = d3.csvParse(text);
 
-    // Parse numbers
     allMetrics = rows.map(d => ({
       jurisdiction: d.jurisdiction?.trim(),
       reform_name: d.reform_name,
@@ -59,7 +61,7 @@
       status: d.status
     }));
 
-    // Load timeseries
+    // Timeseries for trends
     const tsText = await (await fetch(TS_URL)).text();
     tsRows = d3.csvParse(tsText).map(d => {
       const dateObj = new Date(d.date);
@@ -71,14 +73,46 @@
       };
     });
 
-    // Group by jurisdiction
     tsByJurisdiction = d3.group(
       tsRows.filter(d => d.dateObj instanceof Date && !isNaN(d.dateObj)),
       d => d.jurisdiction
     );
 
+    // Populate dropdowns
+    populateDropdowns();
+
     console.log("📌 Loaded metrics:", allMetrics.length);
     console.log("📌 Loaded timeseries jurisdictions:", [...tsByJurisdiction.keys()]);
+  }
+
+  function populateDropdowns() {
+    if (!jurisdictionSelect || !typeFilterSelect) return;
+
+    // Clear existing (keep __ALL__)
+    jurisdictionSelect.innerHTML = `<option value="__ALL__">All jurisdictions</option>`;
+    typeFilterSelect.innerHTML = `<option value="__ALL__">All types</option>`;
+
+    const jurisdictions = Array.from(
+      new Set(allMetrics.map(d => d.jurisdiction).filter(Boolean))
+    ).sort();
+
+    jurisdictions.forEach(j => {
+      const opt = document.createElement("option");
+      opt.value = j;
+      opt.textContent = j;
+      jurisdictionSelect.appendChild(opt);
+    });
+
+    const types = Array.from(
+      new Set(allMetrics.map(d => (d.reform_type || "").trim()).filter(Boolean))
+    ).sort();
+
+    types.forEach(t => {
+      const opt = document.createElement("option");
+      opt.value = t;
+      opt.textContent = t;
+      typeFilterSelect.appendChild(opt);
+    });
   }
 
   //-----------------------------------------------------------
@@ -96,13 +130,8 @@
       filtered = filtered.filter(d => (d.reform_type || "").trim() === typeFilter.trim());
     }
 
-    // Bar Chart
     updateBarChart(filtered);
-
-    // Table
     updateReformsTable(filtered);
-
-    // Summary boxes
     updateSummary(filtered);
   }
 
@@ -244,22 +273,29 @@
     const metrics = allMetrics.filter(d => d.jurisdiction === jurisdiction);
     const ts = tsByJurisdiction.get(jurisdiction);
 
-    detailName.textContent = jurisdiction;
-    detailPre.textContent = metrics.length ? metrics[0].pre_mean_permits : "—";
-    detailPost.textContent = metrics.length ? metrics[0].post_mean_permits : "—";
-    detailPct.textContent = metrics.length ? metrics[0].percent_change.toFixed(2) + "%" : "—";
+    detailName.textContent = jurisdiction || "—";
 
-    // List reforms
-    detailReformsList.innerHTML = metrics
-      .map(d => `<li>${d.reform_name} (${d.effective_date})</li>`)
-      .join("");
+    if (metrics.length) {
+      // For now, use first reform in that jurisdiction
+      detailPre.textContent = metrics[0].pre_mean_permits.toFixed(2);
+      detailPost.textContent = metrics[0].post_mean_permits.toFixed(2);
+      detailPct.textContent = metrics[0].percent_change.toFixed(2) + "%";
+    } else {
+      detailPre.textContent = "—";
+      detailPost.textContent = "—";
+      detailPct.textContent = "—";
+    }
+
+    detailReformsList.innerHTML = metrics.length
+      ? metrics.map(d => `<li>${d.reform_name} (${d.effective_date})</li>`).join("")
+      : "<li>No reforms recorded.</li>";
 
     drawDetailTrend(ts);
   }
 
   function drawDetailTrend(series) {
     detailTrendSvg.selectAll("*").remove();
-    if (!series) return;
+    if (!series || !series.length) return;
 
     const w = 360;
     const h = 150;
@@ -274,12 +310,32 @@
 
     const g = detailTrendSvg.append("g");
 
+    const line = d3.line()
+      .x(d => x(d.dateObj))
+      .y(d => y(d.permits))
+      .curve(d3.curveMonotoneX);
+
+    // Axis (minimal)
+    const xAxis = d3.axisBottom(x).ticks(3);
+    const yAxis = d3.axisLeft(y).ticks(3);
+
+    g.append("g")
+      .attr("transform", `translate(0,${h - 20})`)
+      .call(xAxis)
+      .selectAll("text")
+      .style("fill", "#9ca3af")
+      .style("font-size", "10px");
+
+    g.append("g")
+      .attr("transform", `translate(30,0)`)
+      .call(yAxis)
+      .selectAll("text")
+      .style("fill", "#9ca3af")
+      .style("font-size", "10px");
+
     g.append("path")
       .datum(series)
-      .attr("d", d3.line()
-        .x(d => x(d.dateObj))
-        .y(d => y(d.permits))
-      )
+      .attr("d", line)
       .attr("stroke", "#93c5fd")
       .attr("stroke-width", 2)
       .attr("fill", "none");
@@ -305,8 +361,9 @@
 
     const path = d3.geoPath().projection(projection);
 
+    const extentPct = d3.extent(allMetrics, d => d.percent_change);
     const color = d3.scaleSequential()
-      .domain(d3.extent(allMetrics, d => d.percent_change))
+      .domain(extentPct)
       .interpolator(d3.interpolateRdYlGn);
 
     g.selectAll("path")
@@ -326,13 +383,34 @@
         selectJurisdiction(nm);
       });
 
-    const zoom = d3.zoom()
+    // Zoom + pan
+    mapZoom = d3.zoom()
       .scaleExtent([1, 8])
       .on("zoom", e => {
         g.attr("transform", e.transform);
       });
 
-    mapSvg.call(zoom);
+    mapSvg.call(mapZoom);
+
+    // Legend under map
+    renderMapLegend(extentPct);
+  }
+
+  function renderMapLegend(extentPct) {
+    if (!mapLegend || !extentPct || !Number.isFinite(extentPct[0]) || !Number.isFinite(extentPct[1])) {
+      if (mapLegend) mapLegend.innerHTML = "";
+      return;
+    }
+
+    const [minPct, maxPct] = extentPct;
+
+    mapLegend.innerHTML = `
+      <div class="map-legend-bar"></div>
+      <div class="map-legend-labels">
+        <span>${minPct.toFixed(2)}%</span>
+        <span>${maxPct.toFixed(2)}%</span>
+      </div>
+    `;
   }
 
   //-----------------------------------------------------------
@@ -340,28 +418,50 @@
   //-----------------------------------------------------------
   function selectJurisdiction(j) {
     selectedJurisdiction = j;
-    jurisdictionSelect.value = j;
+    if (jurisdictionSelect) jurisdictionSelect.value = j || "__ALL__";
     updateDashboard(j, typeFilterSelect.value);
-    updateDetailPanel(j);
+    if (j) updateDetailPanel(j);
   }
 
   //-----------------------------------------------------------
   // EVENT LISTENERS
   //-----------------------------------------------------------
-  jurisdictionSelect.addEventListener("change", e => {
+  jurisdictionSelect?.addEventListener("change", e => {
     const j = e.target.value === "__ALL__" ? null : e.target.value;
-    if (j) selectJurisdiction(j);
-    else updateDashboard(null, typeFilterSelect.value);
+    if (j) {
+      selectJurisdiction(j);
+    } else {
+      selectedJurisdiction = null;
+      updateDashboard(null, typeFilterSelect.value);
+      updateDetailPanel(null);
+    }
   });
 
-  typeFilterSelect.addEventListener("change", e => {
+  typeFilterSelect?.addEventListener("change", e => {
     updateDashboard(jurisdictionSelect.value, e.target.value);
   });
 
   document.getElementById("clearBtn")?.addEventListener("click", () => {
     jurisdictionSelect.value = "__ALL__";
     selectedJurisdiction = null;
-    updateDashboard(null, typeFilterSelect.value);
+    updateDashboard(null, "__ALL__");
+    typeFilterSelect.value = "__ALL__";
+    updateDetailPanel(null);
+  });
+
+  resetMapBtn?.addEventListener("click", () => {
+    if (mapZoom) {
+      mapSvg.transition().duration(400).call(mapZoom.transform, d3.zoomIdentity);
+    }
+  });
+
+  document.getElementById("downloadBtn")?.addEventListener("click", () => {
+    const a = document.createElement("a");
+    a.href = CSV_URL;
+    a.download = "reform_impact_metrics.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   });
 
   //-----------------------------------------------------------
@@ -370,7 +470,9 @@
   await loadData();
   await renderMap();
   updateDashboard(null, null);
+  updateDetailPanel(null);
 
   console.log("✅ Dashboard ready.");
 })();
+
 

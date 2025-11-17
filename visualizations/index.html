@@ -30,6 +30,12 @@
 
     h1 { margin:0; font-size:20px; }
 
+    .pill {
+      font-size:12px;
+      color:var(--muted);
+      margin-top:4px;
+    }
+
     .container {
       padding:24px;
       max-width:1400px;
@@ -70,9 +76,13 @@
       padding:10px;
       border-bottom:1px solid var(--border);
       text-align:left;
+      font-size:13px;
     }
 
-    th { cursor:pointer; font-size:13px; color:var(--muted); }
+    th {
+      cursor:pointer;
+      color:var(--muted);
+    }
 
     .neg { color:#fca5a5; }
     .pos { color:#86efac; }
@@ -81,6 +91,7 @@
       display:flex;
       gap:14px;
       align-items:center;
+      flex-wrap:wrap;
       margin-bottom:10px;
     }
 
@@ -100,6 +111,11 @@
       padding:8px 14px;
       border-radius:8px;
       cursor:pointer;
+      font-size:14px;
+    }
+
+    #clearBtn {
+      background:#ef4444;
     }
 
     #map {
@@ -129,8 +145,16 @@
       text-align:center;
     }
 
-    .detail-label { font-size:11px; color:var(--muted); }
-    .detail-value { margin-top:4px; font-size:18px; font-weight:600; }
+    .detail-label {
+      font-size:11px;
+      color:var(--muted);
+    }
+
+    .detail-value {
+      margin-top:4px;
+      font-size:18px;
+      font-weight:600;
+    }
 
     #detailTrend {
       width:100%;
@@ -144,6 +168,26 @@
       padding-left:16px;
       font-size:14px;
       color:var(--text);
+    }
+
+    /* Map legend */
+    .map-legend {
+      margin-top:12px;
+      font-size:11px;
+      color:var(--muted);
+    }
+
+    .map-legend-bar {
+      height:8px;
+      border-radius:999px;
+      border:1px solid #1f2937;
+      background:linear-gradient(to right,#f87171,#facc15,#22c55e);
+    }
+
+    .map-legend-labels {
+      display:flex;
+      justify-content:space-between;
+      margin-top:4px;
     }
   </style>
 
@@ -170,14 +214,14 @@
 
   <!-- Top controls -->
   <div class="card top-controls">
-    <button id="clearBtn" style="background:#ef4444;">Clear</button>
+    <button id="clearBtn">Clear</button>
 
-    <label>Jump to jurisdiction:</label>
+    <label for="jumpJurisdiction">Jump to jurisdiction:</label>
     <select id="jumpJurisdiction">
       <option value="__ALL__">All jurisdictions</option>
     </select>
 
-    <label>Filter by reform type:</label>
+    <label for="typeFilter">Filter by reform type:</label>
     <select id="typeFilter">
       <option value="__ALL__">All types</option>
     </select>
@@ -197,7 +241,7 @@
     </div>
 
     <div class="card" style="overflow:auto; max-height:460px;">
-      <h3>Reforms table</h3>
+      <h3 style="margin-top:0;">Reforms table</h3>
 
       <table id="reformsTable">
         <thead>
@@ -225,6 +269,10 @@
       <h3 style="margin-top:0;">Reform Impact Map (US States)</h3>
       <button id="resetMap" style="margin-bottom:10px;">Reset View</button>
       <svg id="map" width="960" height="600"></svg>
+
+      <div id="mapLegend" class="map-legend">
+        <!-- Filled by JS -->
+      </div>
     </div>
 
     <!-- Right detail panel -->
@@ -269,6 +317,7 @@
 
 </body>
 </html>
+
 
 
 
