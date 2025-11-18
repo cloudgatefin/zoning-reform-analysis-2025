@@ -1,0 +1,30 @@
+city_name,state_fips,place_fips,reform_name,reform_type,effective_date,description
+Minneapolis,27,2743000,Minneapolis 2040,Upzoning,2020-01-01,Eliminated single-family zoning citywide allowing up to three-unit buildings in all neighborhoods
+Portland,41,4159000,Residential Infill Project,Missing Middle,2021-08-01,Legalized duplexes triplexes and fourplexes in all formerly single-family zones
+Sacramento,06,0664000,SB 9 Local Implementation,Upzoning,2022-01-01,California SB9 statewide reform allowing lot splits and duplexes on single-family parcels
+Berkeley,06,0606000,ADU Ordinance Update,ADU,2020-01-01,Streamlined ADU approvals following California state law reforms removing barriers
+Seattle,53,5363000,ADU Reform Package,ADU,2019-08-08,Removed parking requirements reduced lot size minimums increased max ADU size to 1000 sqft
+San Jose,06,0668000,ADU Permit Program,ADU,2020-01-01,Comprehensive ADU program with fast-track approvals and city support services
+Denver,08,0820000,Chaffee Park ADU Rezoning,ADU,2020-11-09,First neighborhood-wide rezoning to allow ADUs on single-family lots 4500+ sqft
+Charlotte,37,3712000,Unified Development Ordinance,Missing Middle,2023-06-01,Allows duplexes and triplexes on all single-family lots not bound by HOAs
+Phoenix,04,0455000,Casita Ordinance,ADU,2023-11-06,Legalized detached ADUs (casitas) citywide with max 1000 sqft on standard lots
+Tucson,04,0477000,ADU Code Amendment,ADU,2022-01-07,Allowed ADUs citywide max 1000 sqft or 10% of lot size with 12ft height limit
+Arlington,51,5104000,ADU Zoning Reform,ADU,2019-07-01,Allowed detached ADUs by-right on single-family lots without conditional use permits
+Nashville,47,4752006,DADU Overlay District,ADU,2021-05-24,Created overlay district allowing detached ADUs in low-to-medium density zones
+San Diego,06,0666000,Bonus ADU Program,Density Bonus,2021-01-01,Incentive program allowing additional market-rate ADUs for each affordable ADU built
+Columbus,39,3918000,Zone In Reform,Comprehensive,2024-09-01,First comprehensive zoning code update since 1950s enabling 88000 new housing units
+Oakland,06,0653000,ADU Ordinance,ADU,2020-01-01,Implemented California state ADU reforms with local provisions for streamlined approval
+Los Angeles,06,0644000,ADU Reform Package,ADU,2020-01-01,Comprehensive ADU reforms under state law resulting in ADUs as 20% of new permits
+Austin,48,4805000,ADU Code Update,ADU,2020-12-01,Expanded areas where ADUs allowed by-right and relaxed development standards
+Raleigh,37,3755000,Missing Middle Text Amendment,Missing Middle,2022-10-01,Allowed up to four units on lots in neighborhood mixed-use districts
+Durham,37,3719000,ADU Ordinance,ADU,2021-03-01,Legalized ADUs citywide with design standards for compatibility with existing neighborhoods
+San Francisco,06,0667000,ADU Streamlining,ADU,2020-01-01,Enhanced state ADU law with local amendments for faster ministerial approval process
+Boston,25,2507000,ADU Zoning Reform,ADU,2021-09-01,Allowed ADUs in more residential districts with relaxed dimensional requirements
+Washington DC,11,1150000,ADU Expansion Amendment,ADU,2019-09-01,Expanded ADU permissions to more residential zones and increased maximum size limits
+Madison,55,5548000,ADU Code Revision,ADU,2021-04-01,Allowed ADUs as permitted uses on single-family properties without conditional use review
+Cambridge,25,2511000,Affordable Housing Overlay,Upzoning,2021-01-01,Created overlay allowing up to 6-story multifamily buildings near transit with affordability
+Arlington VA (duplicate entry corrected in description),51,5104000,Missing Middle Study Implementation,Missing Middle,2020-01-01,Pilot program for gentle density allowing duplexes in select single-family neighborhoods
+Somerville,25,2562535,Zoning Overhaul,Comprehensive,2019-12-01,Comprehensive zoning reform allowing multi-unit buildings citywide eliminating single-family-only zones
+Atlanta,13,1304000,ADU Expansion,ADU,2017-07-01,Reformed ADU regulations in R-4 and R-5 zones allowing accessory units up to 750 sqft
+Kansas City,29,2938000,ADU Ordinance,ADU,2020-06-01,Legalized ADUs citywide allowing up to 800 sqft detached or 650 sqft attached units
+Richmond,51,5167000,ADU Reform,ADU,2021-09-01,Permitted ADUs by-right in most residential districts following zoning code modernization
