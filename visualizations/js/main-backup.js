@@ -1,14 +1,7 @@
-// main-enhanced.js - Enhanced dashboard with all new features
-
-import { DateRangeSelector } from './date-range-selector.js';
-import { ReformTypeFilter } from './reform-type-filter.js';
-import { PDFExport } from './pdf-export.js';
-import { DataExport } from './data-export.js';
-import { ComparisonMode } from './comparison-mode.js';
-import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
+// main.js - compact layout, map + chart tooltips, state detail panel
 
 (async function () {
-  console.log("Enhanced dashboard loading...");
+  console.log("main.js loaded");
 
   // -------------------------------
   // Paths
@@ -18,20 +11,12 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
   const MAP_JSON_PATH = "./map/states-10m.json";
 
   // -------------------------------
-  // Initialize modules
-  // -------------------------------
-  const dateRangeSelector = new DateRangeSelector();
-  const reformTypeFilter = new ReformTypeFilter();
-  const pdfExport = new PDFExport();
-  const dataExport = new DataExport();
-  const comparisonMode = new ComparisonMode();
-  const memoizer = new Memoizer();
-
-  // -------------------------------
   // DOM references
   // -------------------------------
   const jurisdictionSelect = document.getElementById("jurisdictionSelect");
+  const typeFilter = document.getElementById("typeFilter");
   const clearBtn = document.getElementById("clearFiltersBtn");
+  const downloadBtn = document.getElementById("downloadBtn");
 
   const summaryEl = d3.select("#summary");
   const tableBody = d3.select("#reformsTable tbody");
@@ -45,7 +30,6 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
   const detailPctEl = document.getElementById("detailPct");
   const stateReformListEl = document.getElementById("stateReformList");
   const stateDetailHintEl = document.getElementById("stateDetailHint");
-  const stateDetailContainer = document.getElementById("stateDetailContainer");
 
   const barCtx = document.getElementById("barChart").getContext("2d");
   const stateTrendCtx = document.getElementById("stateTrendChart").getContext("2d");
@@ -78,10 +62,8 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
   }
 
   // -------------------------------
-  // Load data with loading states
+  // Load data
   // -------------------------------
-  LoadingSkeleton.show('summary');
-
   const [metricsText, tsText] = await Promise.all([
     fetch(CSV_URL).then((r) => r.text()),
     fetch(TS_URL).then((r) => r.text()),
@@ -114,15 +96,9 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
     new Set(allData.map((d) => d.reform_type).filter(Boolean))
   ).sort();
 
-  console.log(`Loaded ${allData.length} reforms, ${allTimeseries.length} timeseries points`);
-
   // -------------------------------
-  // Initialize filter modules
+  // Populate filters
   // -------------------------------
-  reformTypeFilter.setTypes(types);
-  comparisonMode.setData(allData, allTimeseries);
-
-  // Populate jurisdiction dropdown
   jurisdictions.forEach((j) => {
     const opt = document.createElement("option");
     opt.value = j;
@@ -130,27 +106,12 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
     jurisdictionSelect.appendChild(opt);
   });
 
-  // Render filter controls
-  dateRangeSelector.render('dateRangeContainer');
-  reformTypeFilter.render('reformTypeFilterContainer');
-  comparisonMode.render('comparisonModeContainer');
-
-  // Render export controls
-  const exportContainer = document.getElementById('exportButtonsContainer');
-  exportContainer.innerHTML = `
-    <button id="downloadPDFBtn" class="btn">
-      📄 Download PDF Report
-    </button>
-    <button id="exportCSVBtn" class="btn btn-secondary">
-      📊 Export CSV
-    </button>
-    <button id="exportJSONBtn" class="btn btn-secondary">
-      📋 Export JSON
-    </button>
-    <button id="copyStatsBtn" class="btn btn-secondary">
-      📑 Copy Summary
-    </button>
-  `;
+  types.forEach((t) => {
+    const opt = document.createElement("option");
+    opt.value = t;
+    opt.textContent = t;
+    typeFilter.appendChild(opt);
+  });
 
   // -------------------------------
   // Charts
@@ -241,30 +202,27 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
   });
 
   // -------------------------------
-  // Rendering helpers (with memoization)
+  // Rendering helpers
   // -------------------------------
   function computeSummary(data) {
-    const cacheKey = `summary-${data.length}-${data.map(d => d.jurisdiction).join(',')}`;
-    return memoizer.memoize(cacheKey, () => {
-      const pctValues = onlyFinite(data.map((d) => d.percent_change));
-      const avgPct = pctValues.length ? d3.mean(pctValues) : null;
+    const pctValues = onlyFinite(data.map((d) => d.percent_change));
+    const avgPct = pctValues.length ? d3.mean(pctValues) : null;
 
-      const dates = data
-        .map((d) => (d.effective_date ? new Date(d.effective_date) : null))
-        .filter((d) => d && !isNaN(d));
+    const dates = data
+      .map((d) => (d.effective_date ? new Date(d.effective_date) : null))
+      .filter((d) => d && !isNaN(d));
 
-      const earliest = dates.length ? d3.min(dates) : null;
-      const latest = dates.length ? d3.max(dates) : null;
+    const earliest = dates.length ? d3.min(dates) : null;
+    const latest = dates.length ? d3.max(dates) : null;
 
-      return {
-        reformsOk: data.filter((d) => d.status === "ok").length,
-        avgPct,
-        range: {
-          earliest,
-          latest,
-        },
-      };
-    });
+    return {
+      reformsOk: data.filter((d) => d.status === "ok").length,
+      avgPct,
+      range: {
+        earliest,
+        latest,
+      },
+    };
   }
 
   function renderSummary(data) {
@@ -316,9 +274,6 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
         (d) => (d.big ? "summary-value" : "summary-value-small")
       )
       .text((d) => d.value);
-
-    // Update data export
-    dataExport.updateData(s, data);
   }
 
   function renderBarChart(data) {
@@ -549,7 +504,7 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
       stateReformListEl.appendChild(li);
     });
 
-    // Timeseries (lazy loaded)
+    // Timeseries
     const ts = allTimeseries
       .filter((d) => d.jurisdiction === j)
       .sort((a, b) => a.date - b.date);
@@ -568,39 +523,26 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
   // Filter + update pipeline
   // -------------------------------
   async function applyFilters() {
-    // Clear memoization cache on filter change
-    memoizer.clear();
-
     const jVal = jurisdictionSelect.value;
+    const tVal = typeFilter.value;
 
-    // Apply all filters in sequence
     let filtered = allData.slice();
 
-    // Jurisdiction filter
     if (jVal && jVal !== "__ALL__") {
       filtered = filtered.filter(
         (d) => d.jurisdiction === jVal
       );
     }
 
-    // Date range filter
-    filtered = dateRangeSelector.filterData(filtered);
-
-    // Reform type filter
-    filtered = reformTypeFilter.filterData(filtered);
+    if (tVal && tVal !== "__ALL__") {
+      filtered = filtered.filter(
+        (d) => d.reform_type === tVal
+      );
+    }
 
     if (!filtered.length) {
       // fall back to allData to avoid empty visuals
       filtered = allData.slice();
-    }
-
-    // Check if comparison mode is active
-    if (comparisonMode.isActive) {
-      comparisonMode.renderComparisonView('comparisonViewContainer');
-      stateDetailContainer.style.display = 'none';
-    } else {
-      document.getElementById('comparisonViewContainer').innerHTML = '';
-      stateDetailContainer.style.display = 'block';
     }
 
     renderSummary(filtered);
@@ -618,71 +560,35 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
   jurisdictionSelect.addEventListener("change", () => {
     applyFilters();
     const jVal = jurisdictionSelect.value;
-    if (!comparisonMode.isActive) {
-      updateStateDetail(
-        jVal !== "__ALL__" ? jVal : null
-      );
-    }
+    updateStateDetail(
+      jVal !== "__ALL__" ? jVal : null
+    );
+  });
+
+  typeFilter.addEventListener("change", () => {
+    applyFilters();
   });
 
   clearBtn.addEventListener("click", () => {
     jurisdictionSelect.value = "__ALL__";
-    dateRangeSelector.reset();
-    reformTypeFilter.reset();
-    comparisonMode.reset();
-    comparisonMode.render('comparisonModeContainer');
+    typeFilter.value = "__ALL__";
     updateStateDetail(null);
     applyFilters();
   });
 
-  // Date range filter change
-  dateRangeSelector.onChange = () => {
-    applyFilters();
-  };
-
-  // Reform type filter change
-  reformTypeFilter.onChange = () => {
-    applyFilters();
-  };
-
-  // Comparison mode change
-  comparisonMode.onChange = () => {
-    applyFilters();
-  };
-
-  // Export handlers
-  document.getElementById('downloadPDFBtn')?.addEventListener('click', async () => {
-    const jVal = jurisdictionSelect.value;
-    let filtered = allData.slice();
-
-    if (jVal && jVal !== "__ALL__") {
-      filtered = filtered.filter(d => d.jurisdiction === jVal);
-    }
-
-    filtered = dateRangeSelector.filterData(filtered);
-    filtered = reformTypeFilter.filterData(filtered);
-
-    const summaryData = computeSummary(filtered);
-    await pdfExport.generatePDF(summaryData, filtered);
-  });
-
-  document.getElementById('exportCSVBtn')?.addEventListener('click', () => {
-    dataExport.exportCSV();
-  });
-
-  document.getElementById('exportJSONBtn')?.addEventListener('click', () => {
-    dataExport.exportJSON();
-  });
-
-  document.getElementById('copyStatsBtn')?.addEventListener('click', () => {
-    dataExport.copyToClipboard();
+  downloadBtn.addEventListener("click", () => {
+    const a = document.createElement("a");
+    a.href = CSV_URL;
+    a.download = "reform_impact_metrics.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   });
 
   // -------------------------------
   // Initial render
   // -------------------------------
-  LoadingSkeleton.hide('summary');
   await applyFilters();
-
-  console.log("Enhanced dashboard loaded successfully!");
 })();
+
+
