@@ -509,12 +509,34 @@
       .filter((d) => d.jurisdiction === j)
       .sort((a, b) => a.date - b.date);
 
-    const labels = ts.map((d) => fmtMonthYear(d.date));
-    const values = ts.map((d) => d.permits);
+    // Check if forecast module is enabled
+    if (window.ForecastModule && window.ForecastModule.isEnabled()) {
+      // Use forecast module to create enhanced chart
+      if (stateTrendChart) {
+        stateTrendChart.destroy();
+      }
+      stateTrendChart = window.ForecastModule.createForecastChart(
+        stateTrendCtx,
+        ts,
+        j
+      );
 
-    stateTrendChart.data.labels = labels;
-    stateTrendChart.data.datasets[0].data = values;
-    stateTrendChart.update();
+      // Update forecast metrics
+      window.ForecastModule.updateForecastMetrics(j);
+    } else {
+      // Standard chart without forecasts
+      const labels = ts.map((d) => fmtMonthYear(d.date));
+      const values = ts.map((d) => d.permits);
+
+      stateTrendChart.data.labels = labels;
+      stateTrendChart.data.datasets[0].data = values;
+      stateTrendChart.update();
+
+      // Hide forecast metrics if they exist
+      if (window.ForecastModule) {
+        window.ForecastModule.updateForecastMetrics(j);
+      }
+    }
 
     stateDetailHintEl.textContent = "";
   }
@@ -584,6 +606,31 @@
     a.click();
     document.body.removeChild(a);
   });
+
+  // -------------------------------
+  // Forecast module integration
+  // -------------------------------
+  if (window.ForecastModule) {
+    // Initialize forecast module
+    window.ForecastModule.init().then(success => {
+      if (success) {
+        console.log('Forecast module initialized successfully');
+
+        // Listen for forecast toggle events
+        document.addEventListener('forecastToggled', (event) => {
+          console.log('Forecast toggled:', event.detail.enabled);
+
+          // Refresh state detail if a jurisdiction is selected
+          const jVal = jurisdictionSelect.value;
+          if (jVal && jVal !== '__ALL__') {
+            updateStateDetail(jVal);
+          }
+        });
+      } else {
+        console.log('Forecast module initialization failed');
+      }
+    });
+  }
 
   // -------------------------------
   // Initial render
