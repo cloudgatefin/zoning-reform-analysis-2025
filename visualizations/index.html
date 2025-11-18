@@ -1,107 +1,470 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Zoning Reform Dashboard — Prototype</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <title>Zoning Reform Dashboard — Prototype</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Styles -->
-    <style>
-        body { margin:0; background:#0f172a; color:#e5e7eb; font-family:system-ui; }
-        .container { max-width:1400px; margin:0 auto; padding:20px; }
-        .card { background:#111827; border:1px solid #1f2937; padding:18px; border-radius:12px; margin-bottom:20px; }
-        table { width:100%; border-collapse:collapse; }
-        th, td { padding:8px; border-bottom:1px solid #1f2937; font-size:14px; text-align:left; }
-        th { color:#9ca3af; }
-        #map { width:100%; height:600px; }
+  <!-- Base styles -->
+  <style>
+    :root {
+      --bg: #020617;
+      --card: #020617;
+      --card-soft: #020617;
+      --border: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #2563eb;
+      --positive: #22c55e;
+      --negative: #ef4444;
+    }
 
-        /* NEW: Tooltip */
-        .mapTooltip {
-            position:absolute;
-            background:#111827;
-            color:#e5e7eb;
-            padding:8px 12px;
-            border:1px solid #1f2937;
-            border-radius:8px;
-            pointer-events:none;
-            font-size:13px;
-            z-index:9999;
-        }
-    </style>
+    * {
+      box-sizing: border-box;
+    }
 
-    <!-- Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-    <script src="https://cdn.jsdelivr.net/npm/topojson@3"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #020617;
+      color: var(--text);
+      font: 14px/1.4 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+            Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      padding-bottom: 40px;
+    }
+
+    header {
+      padding: 16px 20px 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .btn-secondary {
+      background: #111827;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 16px 0;
+    }
+
+    .card {
+      background: var(--card-soft);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 14px 16px 16px;
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+    }
+
+    .top-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 16px;
+      font-size: 13px;
+    }
+
+    .top-controls label {
+      color: var(--muted);
+      margin-right: 4px;
+    }
+
+    select {
+      background: #020617;
+      color: var(--text);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 4px 8px;
+      font-size: 13px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .summary-item {
+      background: #020617;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+    }
+
+    .summary-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 3px;
+    }
+
+    .summary-value {
+      font-size: 18px;
+    }
+
+    .summary-value-small {
+      font-size: 13px;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @media (min-width: 900px) {
+      .grid-2col {
+        grid-template-columns: 1.1fr 1.3fr;
+      }
+      .grid-2col-bottom {
+        grid-template-columns: 1.4fr 1.1fr;
+      }
+    }
+
+    .grid-2col-bottom {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .table-scroll {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: auto;
+      max-height: 360px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    th, td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #111827;
+      white-space: nowrap;
+    }
+
+    thead {
+      position: sticky;
+      top: 0;
+      background: #020617;
+      z-index: 1;
+    }
+
+    th {
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    td {
+      color: var(--text);
+    }
+
+    .pos {
+      color: var(--positive);
+    }
+
+    .neg {
+      color: var(--negative);
+    }
+
+    canvas {
+      display: block;
+      width: 100% !important;
+    }
+
+    #barChart {
+      height: 260px !important;
+    }
+
+    #stateTrendChart {
+      height: 220px !important;
+    }
+
+    .map-wrapper {
+      position: relative;
+      width: 100%;
+      height: 360px;
+      margin-top: 6px;
+    }
+
+    .map-wrapper svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .mapTooltip {
+      position: absolute;
+      background: #020617;
+      color: var(--text);
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      pointer-events: none;
+      font-size: 12px;
+      z-index: 9999;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+
+    .map-legend {
+      position: absolute;
+      left: 20px;
+      bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .map-legend-bar {
+      width: 160px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ef4444, #f97316, #22c55e);
+      border: 1px solid #111827;
+    }
+
+    .state-detail-top {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .state-pill {
+      background: #020617;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+    }
+
+    .state-pill-label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .state-pill-value {
+      font-size: 14px;
+    }
+
+    .state-pill-value-small {
+      font-size: 13px;
+    }
+
+    .state-detail-hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+
+    .state-section-title {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 8px 0 4px;
+    }
+
+    #stateReformList {
+      margin: 4px 0 0;
+      padding-left: 18px;
+      font-size: 12px;
+    }
+
+    footer {
+      max-width: 1100px;
+      margin: 14px auto 0;
+      padding: 0 16px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+
+  <!-- Main dashboard JS -->
+  <script src="./js/main.js" defer></script>
 </head>
-
 <body>
-<div class="container">
+  <header>
+    <div class="header-row">
+      <h1>Zoning Reform Dashboard — Prototype</h1>
+      <button id="downloadBtn" class="btn">
+        ⬇️ Download Data (CSV)
+      </button>
+    </div>
+    <div class="pill">
+      Data source: <code>data/outputs/reform_impact_metrics.csv</code>
+    </div>
+  </header>
 
-    <button id="downloadBtn">Download Data (CSV)</button>
+  <div class="container">
+    <!-- Top controls -->
+    <div class="card top-controls">
+      <button id="clearFiltersBtn" class="btn btn-secondary">Clear</button>
 
-    <div class="card" style="display:flex;gap:20px;">
-        <button id="clearBtn">Clear</button>
-        <label>Jump to jurisdiction:</label>
-        <select id="jumpFilter"></select>
-        <label>Filter by reform type:</label>
-        <select id="typeFilter"></select>
+      <div>
+        <label for="jurisdictionSelect">Jump to jurisdiction:</label>
+        <select id="jurisdictionSelect">
+          <option value="__ALL__">All jurisdictions</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="typeFilter">Filter by reform type:</label>
+        <select id="typeFilter">
+          <option value="__ALL__">All types</option>
+        </select>
+      </div>
     </div>
 
+    <!-- Summary row -->
     <div class="card">
-        <h3>Summary</h3>
-        <div style="display:flex;gap:25px;">
-            <div>Reforms: <span id="sumReforms"></span></div>
-            <div>Avg % change: <span id="sumAvgPct"></span></div>
-            <div>Effective range: <span id="sumRange"></span></div>
-        </div>
+      <h3>Summary</h3>
+      <div id="summary" class="summary-grid">
+        <!-- Filled by JS -->
+      </div>
     </div>
 
-    <div class="card" style="display:flex;gap:20px;">
-        <canvas id="barChart" width="300"></canvas>
+    <!-- Bar + table -->
+    <div class="grid-2col">
+      <div class="card">
+        <h3>Percent change (post vs pre)</h3>
+        <canvas id="barChart"></canvas>
+      </div>
 
-        <div style="flex:1;overflow:auto;">
-            <table id="reformsTable">
-                <thead>
-                    <tr>
-                        <th>Jurisdiction</th>
-                        <th>Reform</th>
-                        <th>Type</th>
-                        <th>Effective</th>
-                        <th>Pre mean</th>
-                        <th>Post mean</th>
-                        <th>Δ %</th>
-                        <th>Status</th>
-                        <th>Trend</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+      <div class="card">
+        <h3>Reforms table</h3>
+        <div class="table-scroll">
+          <table id="reformsTable">
+            <thead>
+              <tr>
+                <th data-k="jurisdiction">Jurisdiction</th>
+                <th data-k="reform_name">Reform</th>
+                <th data-k="reform_type">Type</th>
+                <th data-k="effective_date">Effective</th>
+                <th data-k="pre_mean_permits">Pre mean</th>
+                <th data-k="post_mean_permits">Post mean</th>
+                <th data-k="percent_change">Δ %</th>
+                <th data-k="status">Status</th>
+                <th>Trend</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
         </div>
+      </div>
     </div>
 
-    <div class="card">
+    <!-- Map + state detail -->
+    <div class="grid-2col-bottom">
+      <div class="card">
         <h3>Reform Impact Map (US States)</h3>
-        <svg id="map"></svg>
-    </div>
-
-    <div class="card">
-        <h3>State detail</h3>
-        <p>Click a state to explore</p>
-        <div>
-            <div>Jurisdiction: <span id="detailState">—</span></div>
-            <div>Avg permits (pre): <span id="detailPre">—</span></div>
-            <div>Avg permits (post): <span id="detailPost">—</span></div>
-            <div>% change: <span id="detailPct">—</span></div>
+        <div class="map-wrapper">
+          <svg id="map" viewBox="0 0 960 600" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="map-legend">
+            <span>Δ %</span>
+            <div class="map-legend-bar"></div>
+            <span id="legendMin">min</span>
+            <span id="legendMax">max</span>
+          </div>
         </div>
-        <canvas id="stateTrend" height="140"></canvas>
+      </div>
+
+      <div class="card">
+        <h3>State detail</h3>
+        <p id="stateDetailHint" class="state-detail-hint">
+          Click a state on the map or pick a jurisdiction above.
+        </p>
+
+        <div class="state-detail-top">
+          <div class="state-pill">
+            <div class="state-pill-label">Jurisdiction</div>
+            <div id="detailJurisdiction" class="state-pill-value">—</div>
+          </div>
+          <div class="state-pill">
+            <div class="state-pill-label">Avg permits (pre)</div>
+            <div id="detailPre" class="state-pill-value-small">—</div>
+          </div>
+          <div class="state-pill">
+            <div class="state-pill-label">Avg permits (post)</div>
+            <div id="detailPost" class="state-pill-value-small">—</div>
+          </div>
+          <div class="state-pill">
+            <div class="state-pill-label">% change</div>
+            <div id="detailPct" class="state-pill-value-small">—</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="state-section-title">Monthly permits trend</div>
+          <canvas id="stateTrendChart"></canvas>
+        </div>
+
+        <div>
+          <div class="state-section-title">Reforms in this jurisdiction</div>
+          <ul id="stateReformList"></ul>
+        </div>
+      </div>
     </div>
+  </div>
 
-</div>
-
-<script src="./js/main.js"></script>
+  <footer>
+    Prototype for local validation. Next: filters, tooltips, and map layer.
+  </footer>
 </body>
 </html>
+
 
 
 
