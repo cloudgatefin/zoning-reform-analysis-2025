@@ -1,0 +1,31 @@
+place_fips,city_name,state_fips,state_name,reform_name,reform_type,effective_date,baseline_wrluri
+2743000,Minneapolis city,27,Minnesota,Minneapolis 2040,Comprehensive Reform,2019-03-01,0.92
+4159000,Portland city,41,Oregon,Residential Infill Project,Comprehensive Reform,2021-08-01,1.15
+0606000,Berkeley city,06,California,SB-9 Implementation + Local ADU,ADU/Lot Split,2022-01-01,1.85
+0653000,Oakland city,06,California,SB-9 Implementation + ADU Expansion,ADU/Lot Split,2022-01-01,1.72
+4805000,Austin city,48,Texas,Land Development Code Revision,Comprehensive Reform,2021-05-01,1.42
+0820000,Denver city,08,Colorado,ADU Ordinance Expansion,ADU/Lot Split,2020-02-01,1.28
+5363000,Seattle city,53,Washington,HALA Mandatory Housing Affordability,Zoning Upzones,2019-03-01,1.68
+0668000,San Jose city,06,California,ADU Ordinance + SB-9,ADU/Lot Split,2021-06-01,1.58
+3535000,Albuquerque city,35,New Mexico,Integrated Development Ordinance,Comprehensive Reform,2018-05-01,0.78
+0404000,Phoenix city,04,Arizona,Accessory Dwelling Unit Ordinance,ADU/Lot Split,2020-11-01,0.95
+0471000,Tucson city,04,Arizona,Unified Development Code Reform,Comprehensive Reform,2017-10-01,0.88
+4967000,Salt Lake City city,49,Utah,Affordable Housing Incentives,Zoning Upzones,2020-09-01,1.05
+0660102,Richmond city,06,California,SB-9 Implementation,ADU/Lot Split,2022-01-01,1.65
+0643000,Long Beach city,06,California,SB-9 + Local ADU Reform,ADU/Lot Split,2022-01-01,1.54
+0666000,San Diego city,06,California,SB-9 Implementation + Bonus ADU,ADU/Lot Split,2022-01-01,1.48
+2255000,New Orleans city,22,Louisiana,Comprehensive Zoning Ordinance,Comprehensive Reform,2015-08-01,1.12
+1304000,Atlanta city,13,Georgia,Atlanta City Design,Zoning Upzones,2018-01-01,1.23
+3712000,Charlotte city,37,North Carolina,Unified Development Ordinance,Comprehensive Reform,2021-06-01,0.98
+3755000,Raleigh city,37,North Carolina,Unified Development Ordinance,Comprehensive Reform,2020-02-01,0.89
+4752006,Nashville-Davidson,47,Tennessee,NashvilleNext,Comprehensive Reform,2017-05-01,1.08
+0667000,San Francisco city,06,California,SB-9 Implementation + ADU Expansion,ADU/Lot Split,2022-01-01,2.15
+2511000,Boston city,25,Massachusetts,PLAN: Roxbury,Zoning Upzones,2021-12-01,1.92
+1714000,Chicago city,17,Illinois,ARO Expansion,Zoning Upzones,2021-10-01,1.35
+3651000,New York city,36,New York,Mandatory Inclusionary Housing,Zoning Upzones,2016-03-01,2.08
+4815976,Arlington city,48,Texas,Missing Middle Housing,Comprehensive Reform,2022-08-01,1.18
+0803000,Boulder city,08,Colorado,Occupancy Limit Reform,Comprehensive Reform,2021-11-01,1.55
+4021000,Eugene city,41,Oregon,Middle Housing Code Amendments,Comprehensive Reform,2022-12-01,1.02
+0664000,Sacramento city,06,California,ADU Ordinance + SB-9,ADU/Lot Split,2021-01-01,1.38
+5340850,Spokane city,53,Washington,Infill Housing Toolkit,ADU/Lot Split,2021-08-01,0.96
+0162000,Palo Alto city,06,California,ADU Ordinance Reform,ADU/Lot Split,2020-03-01,2.25
