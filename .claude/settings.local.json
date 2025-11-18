@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(git fetch:*)",
+      "Bash(/tmp/web_migration_arch.md)",
+      "Bash(/tmp/vscode_claude_answers.md)",
+      "Bash(npx create-next-app@latest --version)",
+      "Bash(npx create-next-app:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run build:*)",
+      "Bash(taskkill:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(curl:*)",
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(nul)",
+      "Bash(dir:*)",
+      "Bash(timeout 10 bash -c 'while ! curl -s http://localhost:3000 > nul 2>&1; do sleep 1; done && echo \"\"Server ready\"\"')",
+      "Bash(timeout 5 bash:*)",
+      "Bash(pip install:*)",
+      "Bash(timeout 10 bash:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nPre-agent integration checkpoint: Complete dashboard v1.0\n\nThis commit represents the stable baseline before integrating outputs\nfrom 8 parallel AI agents running city-level reforms, economic features,\nDiD analysis, and UX enhancements.\n\n## Data Pipeline (Complete)\n- Real Census Bureau data (2015-2024) for 53 states\n- 8,016 monthly permit records from annual state data\n- 6 reform states analyzed (CA, OR, MN, VA, NC, MT)\n- 41 counties with synthetic drill-down data\n- ML predictive model (R^2 = -10.98, needs improvement)\n\n## Next.js Dashboard (Complete)\n- Interactive choropleth map with all 53 states\n- State detail panels and county drill-down\n- State comparison tool\n- Reform timeline animation\n- WRLURI scatter plot\n- ML predictions display\n- Responsive design with Tailwind CSS v4\n\n## Scripts Pipeline\n- 06_use_real_annual_data.py - Census data downloader\n- 04_compute_comprehensive_metrics.py - Pre/post analysis\n- 07_build_all_states_metrics.py - Baseline metrics\n- 09_generate_sample_county_data.py - County data generator\n- 10_build_predictive_model.py - Random Forest model\n- validate_data_quality.py - Data quality checks (5/5 passed)\n\n## Documentation\n- AGENT_OUTPUT_INVENTORY.md - Current state assessment\n- INTEGRATION_PLAN.md - 21-day implementation roadmap\n\n## Data Quality Validation\n✓ All 5 validation checks passed\n✓ 53 states with baseline metrics\n✓ 6 reform states analyzed\n✓ 41 counties across 6 states\n✓ 15 ML predictions generated\n\nReady for agent output integration starting Day 2.\n\n🤖 Generated with Claude Code https://claude.com/claude-code\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

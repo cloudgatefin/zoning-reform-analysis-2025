@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoning Reform Analysis Dashboard - MVP</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson@3"></script>
+    <style>
+        :root {
+            --seq-1: #ffffcc; --seq-2: #c7e9b4; --seq-3: #7fcdbb;
+            --seq-4: #41b6c4; --seq-5: #2c7fb8; --seq-6: #253494;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+        }
+
+        header {
+            background: white;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        svg { width: 100%; height: auto; }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .btn {
+            background: var(--seq-5);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th { background: #f5f5f5; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🏘️ Zoning Reform & Housing Supply Outcomes (2018-2025)</h1>
+        <p>Interactive analysis based on your research framework</p>
+        <button class="btn" onclick="downloadData()">📊 Download CSV</button>
+        <button class="btn" onclick="showMethodology()">📄 Methodology</button>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            <div class="card">
+                <h2>1. Reform Impact Summary</h2>
+                <div id="summary"></div>
+            </div>
+
+            <div class="card">
+                <h2>2. Top Jurisdictions by Impact</h2>
+                <svg id="barchart" viewBox="0 0 600 400"></svg>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>3. Reform Details Table</h2>
+            <table id="reforms-table"></table>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>4. Impact vs. Baseline (Scatter)</h2>
+                <svg id="scatter" viewBox="0 0 600 400"></svg>
+            </div>
+
+            <div class="card">
+                <h2>5. Timeline</h2>
+                <svg id="timeline" viewBox="0 0 600 300"></svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        (async function() {
+            // Load data
+            const data = await d3.csv('../data/outputs/reform_impact_metrics.csv');
+
+            // Parse numbers
+            data.forEach(d => {
+                d.pre_mean_permits = +d.pre_mean_permits;
+                d.post_mean_permits = +d.post_mean_permits;
+                d.absolute_change = +d.absolute_change;
+                d.percent_change = +d.percent_change;
+                d.effective_date = new Date(d.effective_date);
+            });
+
+            // 1. Summary stats
+            const summary = d3.select('#summary');
+            const total = data.length;
+            const avgChange = d3.mean(data, d => d.percent_change);
+            const positiveReforms = data.filter(d => d.percent_change > 0).length;
+
+            summary.html(`
+                <p><strong>Total Reforms Analyzed:</strong> ${total}</p>
+                <p><strong>Average Impact:</strong> ${avgChange.toFixed(2)}%</p>
+                <p><strong>Positive Outcomes:</strong> ${positiveReforms} (${(positiveReforms/total*100).toFixed(1)}%)</p>
+            `);
+
+            // 2. Bar chart
+            const svg = d3.select('#barchart');
+            const margin = {top: 20, right: 30, bottom: 100, left: 150};
+            const width = 600 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const g = svg.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const sorted = [...data].sort((a,b) => d3.descending(a.absolute_change, b.absolute_change));
+
+            const x = d3.scaleLinear()
+                .domain([d3.min(sorted, d => d.absolute_change), d3.max(sorted, d => d.absolute_change)])
+                .range([0, width]);
+
+            const y = d3.scaleBand()
+                .domain(sorted.map(d => d.jurisdiction))
+                .range([0, height])
+                .padding(0.1);
+
+            g.selectAll('rect')
+                .data(sorted)
+                .join('rect')
+                .attr('x', d => x(Math.min(0, d.absolute_change)))
+                .attr('y', d => y(d.jurisdiction))
+                .attr('width', d => Math.abs(x(d.absolute_change) - x(0)))
+                .attr('height', y.bandwidth())
+                .attr('fill', d => d.absolute_change >= 0 ? '#22c55e' : '#ef4444');
+
+            g.append('g')
+                .call(d3.axisLeft(y));
+
+            g.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x));
+
+            // 3. Table
+            const table = d3.select('#reforms-table');
+            table.html(`
+                <thead><tr>
+                    <th>Jurisdiction</th>
+                    <th>Reform Type</th>
+                    <th>Effective Date</th>
+                    <th>Pre Permits</th>
+                    <th>Post Permits</th>
+                    <th>% Change</th>
+                </tr></thead>
+                <tbody>
+                    ${data.map(d => `
+                        <tr>
+                            <td>${d.jurisdiction}</td>
+                            <td>${d.reform_type}</td>
+                            <td>${d.effective_date.toLocaleDateString()}</td>
+                            <td>${d.pre_mean_permits.toFixed(0)}</td>
+                            <td>${d.post_mean_permits.toFixed(0)}</td>
+                            <td style="color: ${d.percent_change >= 0 ? 'green' : 'red'}">${d.percent_change.toFixed(2)}%</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            `);
+
+            // 4. Scatter (simplified - would need WRLURI data)
+            const scatter = d3.select('#scatter');
+            const sg = scatter.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const xScatter = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.pre_mean_permits)])
+                .range([0, width]);
+
+            const yScatter = d3.scaleLinear()
+                .domain([d3.min(data, d => d.percent_change), d3.max(data, d => d.percent_change)])
+                .range([height, 0]);
+
+            sg.selectAll('circle')
+                .data(data)
+                .join('circle')
+                .attr('cx', d => xScatter(d.pre_mean_permits))
+                .attr('cy', d => yScatter(d.percent_change))
+                .attr('r', 5)
+                .attr('fill', '#2563eb')
+                .attr('opacity', 0.6);
+
+            sg.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScatter));
+
+            sg.append('g')
+                .call(d3.axisLeft(yScatter));
+
+            // 5. Timeline
+            const timeline = d3.select('#timeline');
+            const tg = timeline.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const xTime = d3.scaleTime()
+                .domain(d3.extent(data, d => d.effective_date))
+                .range([0, width]);
+
+            const yTime = d3.scaleLinear()
+                .domain([0, data.length])
+                .range([height - 50, 0]);
+
+            tg.selectAll('circle')
+                .data(data)
+                .join('circle')
+                .attr('cx', d => xTime(d.effective_date))
+                .attr('cy', (d, i) => yTime(i))
+                .attr('r', 6)
+                .attr('fill', '#2563eb');
+
+            tg.append('g')
+                .attr('transform', `translate(0,${height - 50})`)
+                .call(d3.axisBottom(xTime));
+
+            // Download function
+            window.downloadData = () => {
+                const csv = d3.csvFormat(data);
+                const blob = new Blob([csv], {type: 'text/csv'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'reform_impact_metrics.csv';
+                a.click();
+            };
+
+            window.showMethodology = () => {
+                alert('Methodology: Pre/Post analysis with 24-month windows and 12-month lag. See full documentation.');
+            };
+        })();
+    </script>
+</body>
+</html>
