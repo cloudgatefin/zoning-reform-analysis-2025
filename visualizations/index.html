@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <title>Zoning Reform Dashboard — Prototype</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#020617" />
+  <meta name="description" content="Interactive dashboard for analyzing zoning reform impacts across jurisdictions" />
+  <link rel="manifest" href="./manifest.json" />
 
   <!-- Base styles -->
   <style>
@@ -65,10 +68,13 @@
       background: var(--accent);
       color: #fff;
       border: none;
-      padding: 6px 14px;
+      padding: 12px 16px;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 14px;
       cursor: pointer;
+      min-height: 44px;
+      min-width: 44px;
+      touch-action: manipulation;
     }
 
     .btn-secondary {
@@ -114,15 +120,30 @@
       color: var(--text);
       border-radius: 8px;
       border: 1px solid var(--border);
-      padding: 4px 8px;
-      font-size: 13px;
+      padding: 12px 10px;
+      font-size: 14px;
+      min-height: 44px;
+      touch-action: manipulation;
     }
 
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: 1fr;
       gap: 10px;
       margin-top: 4px;
+    }
+
+    /* Mobile-first: stack on small screens */
+    @media (min-width: 640px) {
+      .summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 768px) {
+      .summary-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
 
     .summary-item {
@@ -229,8 +250,20 @@
     .map-wrapper {
       position: relative;
       width: 100%;
-      height: 360px;
+      height: 280px;
       margin-top: 6px;
+    }
+
+    @media (min-width: 640px) {
+      .map-wrapper {
+        height: 340px;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .map-wrapper {
+        height: 360px;
+      }
     }
 
     .map-wrapper svg {
@@ -273,9 +306,15 @@
 
     .state-detail-top {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
       margin-bottom: 10px;
+    }
+
+    @media (min-width: 640px) {
+      .state-detail-top {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
     }
 
     .state-pill {
@@ -320,10 +359,296 @@
     footer {
       max-width: 1100px;
       margin: 14px auto 0;
-      padding: 0 16px;
+      padding: 0 16px 20px;
       font-size: 11px;
       color: var(--muted);
       text-align: center;
+    }
+
+    /* ========================================
+       Mobile Navigation & Hamburger Menu
+       ======================================== */
+    .mobile-nav-toggle {
+      display: block;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 24px;
+      padding: 8px;
+      cursor: pointer;
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    @media (min-width: 768px) {
+      .mobile-nav-toggle {
+        display: none;
+      }
+    }
+
+    .mobile-filters {
+      display: none;
+    }
+
+    .mobile-filters.open {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      animation: fadeIn 0.2s ease-in;
+    }
+
+    .mobile-filters-panel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 80%;
+      max-width: 320px;
+      background: var(--card);
+      border-left: 1px solid var(--border);
+      padding: 20px;
+      overflow-y: auto;
+      animation: slideInRight 0.3s ease-out;
+    }
+
+    .mobile-filters-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-filters-close {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 28px;
+      cursor: pointer;
+      padding: 4px;
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    .mobile-filter-group {
+      margin-bottom: 20px;
+    }
+
+    .mobile-filter-group label {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .mobile-filter-group select {
+      width: 100%;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+
+    /* Hide desktop filters on mobile, show hamburger */
+    @media (max-width: 767px) {
+      .top-controls > div {
+        display: none;
+      }
+      .top-controls {
+        justify-content: space-between;
+      }
+    }
+
+    /* ========================================
+       Bottom Sheet for Mobile
+       ======================================== */
+    .bottom-sheet {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2000;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .bottom-sheet.open {
+      display: block;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    .bottom-sheet-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-height: 80vh;
+      background: var(--card);
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      padding: 20px;
+      overflow-y: auto;
+      animation: slideUp 0.3s ease-out;
+    }
+
+    .bottom-sheet-handle {
+      width: 40px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    /* ========================================
+       Swipeable State Cards
+       ======================================== */
+    .state-carousel {
+      position: relative;
+      overflow: hidden;
+      touch-action: pan-y pinch-zoom;
+    }
+
+    .state-cards-container {
+      display: flex;
+      transition: transform 0.3s ease-out;
+    }
+
+    .state-card {
+      min-width: 100%;
+      flex-shrink: 0;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .carousel-dot.active {
+      background: var(--accent);
+    }
+
+    /* ========================================
+       Touch-friendly tooltips
+       ======================================== */
+    .touch-tooltip {
+      position: absolute;
+      background: #020617;
+      color: var(--text);
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 13px;
+      z-index: 9999;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      pointer-events: none;
+      max-width: 280px;
+    }
+
+    /* ========================================
+       Mobile Optimizations
+       ======================================== */
+    @media (max-width: 767px) {
+      body {
+        padding-bottom: 20px;
+      }
+
+      header {
+        padding: 12px 16px 8px;
+      }
+
+      header h1 {
+        font-size: 16px;
+      }
+
+      .header-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+
+      .container {
+        padding: 12px 12px 0;
+      }
+
+      .card {
+        padding: 12px 14px 14px;
+        margin-bottom: 12px;
+      }
+
+      .table-scroll {
+        max-height: 300px;
+      }
+
+      table {
+        font-size: 11px;
+      }
+
+      th, td {
+        padding: 6px 8px;
+      }
+
+      #barChart {
+        height: 220px !important;
+      }
+
+      #stateTrendChart {
+        height: 180px !important;
+      }
+    }
+
+    /* Tablet optimizations */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .container {
+        padding: 14px 14px 0;
+      }
+    }
+
+    /* Pull-to-refresh indicator */
+    .pull-to-refresh {
+      position: fixed;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 13px;
+      z-index: 100;
+      transition: top 0.3s ease-out;
+    }
+
+    .pull-to-refresh.visible {
+      top: 20px;
     }
   </style>
 
@@ -331,6 +656,50 @@
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+
+  <!-- Service Worker Registration -->
+  <script>
+    // Register service worker for PWA functionality
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then((registration) => {
+            console.log('Service Worker registered successfully:', registration.scope);
+
+            // Check for updates
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              console.log('Service Worker update found');
+
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  console.log('New Service Worker available, refresh to update');
+                }
+              });
+            });
+          })
+          .catch((error) => {
+            console.error('Service Worker registration failed:', error);
+          });
+      });
+    }
+
+    // PWA install prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      console.log('PWA install prompt available');
+
+      // Show install button or banner (optional)
+      // You can add a custom install button here
+    });
+
+    window.addEventListener('appinstalled', () => {
+      console.log('PWA installed successfully');
+      deferredPrompt = null;
+    });
+  </script>
 
   <!-- Main dashboard JS -->
   <script src="./js/main.js" defer></script>
@@ -348,9 +717,43 @@
     </div>
   </header>
 
+  <!-- Mobile filters overlay -->
+  <div id="mobileFilters" class="mobile-filters">
+    <div class="mobile-filters-panel">
+      <div class="mobile-filters-header">
+        <h2 style="margin: 0; font-size: 16px;">Filters</h2>
+        <button id="mobileFiltersClose" class="mobile-filters-close">×</button>
+      </div>
+
+      <div class="mobile-filter-group">
+        <label for="mobileJurisdictionSelect">Jump to jurisdiction</label>
+        <select id="mobileJurisdictionSelect">
+          <option value="__ALL__">All jurisdictions</option>
+        </select>
+      </div>
+
+      <div class="mobile-filter-group">
+        <label for="mobileTypeFilter">Filter by reform type</label>
+        <select id="mobileTypeFilter">
+          <option value="__ALL__">All types</option>
+        </select>
+      </div>
+
+      <div class="mobile-filter-group">
+        <button id="mobileClearFiltersBtn" class="btn" style="width: 100%;">Clear Filters</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pull to refresh indicator -->
+  <div id="pullToRefresh" class="pull-to-refresh">
+    <span>🔄 Refreshing...</span>
+  </div>
+
   <div class="container">
     <!-- Top controls -->
     <div class="card top-controls">
+      <button id="mobileNavToggle" class="mobile-nav-toggle">☰</button>
       <button id="clearFiltersBtn" class="btn btn-secondary">Clear</button>
 
       <div>

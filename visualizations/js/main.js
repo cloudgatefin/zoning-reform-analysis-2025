@@ -18,6 +18,15 @@
   const clearBtn = document.getElementById("clearFiltersBtn");
   const downloadBtn = document.getElementById("downloadBtn");
 
+  // Mobile navigation
+  const mobileNavToggle = document.getElementById("mobileNavToggle");
+  const mobileFilters = document.getElementById("mobileFilters");
+  const mobileFiltersClose = document.getElementById("mobileFiltersClose");
+  const mobileJurisdictionSelect = document.getElementById("mobileJurisdictionSelect");
+  const mobileTypeFilter = document.getElementById("mobileTypeFilter");
+  const mobileClearBtn = document.getElementById("mobileClearFiltersBtn");
+  const pullToRefreshEl = document.getElementById("pullToRefresh");
+
   const summaryEl = d3.select("#summary");
   const tableBody = d3.select("#reformsTable tbody");
   const mapSvg = d3.select("#map");
@@ -99,19 +108,19 @@
   // -------------------------------
   // Populate filters
   // -------------------------------
-  jurisdictions.forEach((j) => {
-    const opt = document.createElement("option");
-    opt.value = j;
-    opt.textContent = j;
-    jurisdictionSelect.appendChild(opt);
-  });
+  function populateSelect(selectEl, values) {
+    values.forEach((v) => {
+      const opt = document.createElement("option");
+      opt.value = v;
+      opt.textContent = v;
+      selectEl.appendChild(opt);
+    });
+  }
 
-  types.forEach((t) => {
-    const opt = document.createElement("option");
-    opt.value = t;
-    opt.textContent = t;
-    typeFilter.appendChild(opt);
-  });
+  populateSelect(jurisdictionSelect, jurisdictions);
+  populateSelect(typeFilter, types);
+  populateSelect(mobileJurisdictionSelect, jurisdictions);
+  populateSelect(mobileTypeFilter, types);
 
   // -------------------------------
   // Charts
@@ -583,6 +592,241 @@
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+  });
+
+  // -------------------------------
+  // Mobile Navigation
+  // -------------------------------
+  mobileNavToggle.addEventListener("click", () => {
+    mobileFilters.classList.add("open");
+    document.body.style.overflow = "hidden";
+  });
+
+  mobileFiltersClose.addEventListener("click", () => {
+    mobileFilters.classList.remove("open");
+    document.body.style.overflow = "";
+  });
+
+  // Close on backdrop click
+  mobileFilters.addEventListener("click", (e) => {
+    if (e.target === mobileFilters) {
+      mobileFilters.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+  });
+
+  // Sync mobile and desktop filters
+  function syncFilters(source) {
+    if (source === "mobile") {
+      jurisdictionSelect.value = mobileJurisdictionSelect.value;
+      typeFilter.value = mobileTypeFilter.value;
+    } else {
+      mobileJurisdictionSelect.value = jurisdictionSelect.value;
+      mobileTypeFilter.value = typeFilter.value;
+    }
+  }
+
+  mobileJurisdictionSelect.addEventListener("change", () => {
+    syncFilters("mobile");
+    applyFilters();
+    const jVal = mobileJurisdictionSelect.value;
+    updateStateDetail(jVal !== "__ALL__" ? jVal : null);
+  });
+
+  mobileTypeFilter.addEventListener("change", () => {
+    syncFilters("mobile");
+    applyFilters();
+  });
+
+  mobileClearBtn.addEventListener("click", () => {
+    mobileJurisdictionSelect.value = "__ALL__";
+    mobileTypeFilter.value = "__ALL__";
+    syncFilters("mobile");
+    updateStateDetail(null);
+    applyFilters();
+    mobileFilters.classList.remove("open");
+    document.body.style.overflow = "";
+  });
+
+  // -------------------------------
+  // Touch-friendly map interactions
+  // -------------------------------
+  let touchTooltipTimeout;
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  if (isTouchDevice) {
+    // Override map tooltip behavior for touch devices
+    const originalRenderMap = renderMap;
+    renderMap = async function(data, selectedJurisdiction) {
+      await originalRenderMap(data, selectedJurisdiction);
+
+      // Add tap handlers for touch devices
+      mapSvg.selectAll("path").on("touchstart", function(event, d) {
+        event.preventDefault();
+        const stateName = d.properties.name;
+
+        // Show tooltip on tap
+        const key = normalizeName(stateName);
+        const byState = {};
+        allData.forEach((row) => {
+          const k = normalizeName(row.jurisdiction);
+          if (!k) return;
+          byState[k] = row;
+        });
+
+        const rec = byState[key];
+        const pct = rec?.percent_change;
+        const pre = rec?.pre_mean_permits;
+        const post = rec?.post_mean_permits;
+        const reformsCount = allData.filter(
+          (x) => normalizeName(x.jurisdiction) === key
+        ).length;
+
+        const html = `
+          <div style="font-weight:600;margin-bottom:2px;">${stateName}</div>
+          <div style="font-size:12px;color:#e5e7eb;">
+            Δ: ${pct != null && Number.isFinite(pct) ? fmtPct(pct) + "%" : "—"}<br/>
+            Pre: ${pre ?? "—"}<br/>
+            Post: ${post ?? "—"}<br/>
+            Reforms: ${reformsCount}
+          </div>
+        `;
+
+        const touch = event.touches[0];
+        mapTooltip
+          .style("opacity", 1)
+          .html(html)
+          .style("left", touch.pageX + 14 + "px")
+          .style("top", touch.pageY - 60 + "px");
+
+        // Hide tooltip after 2 seconds
+        clearTimeout(touchTooltipTimeout);
+        touchTooltipTimeout = setTimeout(() => {
+          mapTooltip.style("opacity", 0);
+        }, 2000);
+      });
+    };
+  }
+
+  // -------------------------------
+  // Pull-to-refresh
+  // -------------------------------
+  let startY = 0;
+  let isPulling = false;
+
+  document.addEventListener("touchstart", (e) => {
+    if (window.scrollY === 0) {
+      startY = e.touches[0].pageY;
+      isPulling = true;
+    }
+  });
+
+  document.addEventListener("touchmove", (e) => {
+    if (!isPulling) return;
+
+    const currentY = e.touches[0].pageY;
+    const pullDistance = currentY - startY;
+
+    if (pullDistance > 80 && window.scrollY === 0) {
+      pullToRefreshEl.classList.add("visible");
+    }
+  });
+
+  document.addEventListener("touchend", async (e) => {
+    if (!isPulling) return;
+
+    const endY = e.changedTouches[0].pageY;
+    const pullDistance = endY - startY;
+
+    if (pullDistance > 80 && window.scrollY === 0) {
+      // Refresh data
+      await applyFilters();
+
+      setTimeout(() => {
+        pullToRefreshEl.classList.remove("visible");
+      }, 1000);
+    } else {
+      pullToRefreshEl.classList.remove("visible");
+    }
+
+    isPulling = false;
+    startY = 0;
+  });
+
+  // -------------------------------
+  // Swipe gestures for state navigation
+  // -------------------------------
+  let touchStartX = 0;
+  let touchEndX = 0;
+  let currentStateIndex = 0;
+  const allStates = jurisdictions.slice();
+
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // Swipe left - next state
+        currentStateIndex = (currentStateIndex + 1) % allStates.length;
+      } else {
+        // Swipe right - previous state
+        currentStateIndex = (currentStateIndex - 1 + allStates.length) % allStates.length;
+      }
+
+      const newState = allStates[currentStateIndex];
+      jurisdictionSelect.value = newState;
+      mobileJurisdictionSelect.value = newState;
+      applyFilters();
+      updateStateDetail(newState);
+    }
+  }
+
+  // Add swipe listeners to state detail card
+  const stateDetailCard = document.querySelector('.grid-2col-bottom .card:last-child');
+  if (stateDetailCard && isTouchDevice) {
+    stateDetailCard.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    stateDetailCard.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+  }
+
+  // -------------------------------
+  // Performance optimizations
+  // -------------------------------
+  // Debounce resize events
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      barChart.resize();
+      stateTrendChart.resize();
+    }, 250);
+  });
+
+  // Lazy load charts only when visible
+  const observerOptions = {
+    root: null,
+    rootMargin: '50px',
+    threshold: 0.1
+  };
+
+  const chartObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+      }
+    });
+  }, observerOptions);
+
+  const chartElements = document.querySelectorAll('canvas');
+  chartElements.forEach(el => {
+    el.style.transition = 'opacity 0.3s';
+    chartObserver.observe(el);
   });
 
   // -------------------------------
