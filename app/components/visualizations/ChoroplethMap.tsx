@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { feature } from "topojson-client";
-import { ReformMetric, BaselineStateMetric } from "@/lib/types";
+import { ReformMetric, BaselineStateMetric, toNumber } from "@/lib/types";
 
 interface ChoroplethMapProps {
   data: ReformMetric[];
@@ -69,6 +69,7 @@ export function ChoroplethMap({ data, width = 960, height = 600, onStateClick }:
 
           // Overlay reform states (they override baseline data)
           data.forEach(reform => {
+            if (!reform.state_fips) return;
             stateMap.set(reform.state_fips, {
               state_fips: reform.state_fips,
               state_name: reform.jurisdiction,
@@ -77,9 +78,9 @@ export function ChoroplethMap({ data, width = 960, height = 600, onStateClick }:
               reform_name: reform.reform_name,
               reform_type: reform.reform_type,
               effective_date: reform.effective_date,
-              pct_change: parseFloat(reform.pct_change as any),
-              pre_mean_total: parseFloat(reform.pre_mean_total as any),
-              post_mean_total: parseFloat(reform.post_mean_total as any),
+              pct_change: toNumber(reform.pct_change),
+              pre_mean_total: toNumber(reform.pre_mean_total),
+              post_mean_total: toNumber(reform.post_mean_total),
             });
           });
 

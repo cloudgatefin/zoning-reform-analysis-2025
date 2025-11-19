@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import { ReformMetric } from "@/lib/types";
+import { ReformMetric, toNumber } from "@/lib/types";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
 
 interface StateDetailPanelProps {
@@ -91,7 +91,7 @@ export function StateDetailPanel({ state, onClose }: StateDetailPanelProps) {
 
   if (!state) return null;
 
-  const pctChange = parseFloat(state.pct_change as any);
+  const pctChange = toNumber(state.pct_change);
   const isPositive = pctChange >= 0;
 
   return (
@@ -121,7 +121,7 @@ export function StateDetailPanel({ state, onClose }: StateDetailPanelProps) {
           <div className="bg-[var(--bg-primary)] p-3 rounded-lg">
             <div className="text-xs text-[var(--text-muted)] mb-1">Pre-Reform</div>
             <div className="text-lg font-semibold text-[var(--text-primary)]">
-              {parseFloat(state.pre_mean_total as any).toFixed(0)}
+              {toNumber(state.pre_mean_total).toFixed(0)}
             </div>
             <div className="text-xs text-[var(--text-muted)]">permits/month</div>
           </div>
@@ -129,7 +129,7 @@ export function StateDetailPanel({ state, onClose }: StateDetailPanelProps) {
           <div className="bg-[var(--bg-primary)] p-3 rounded-lg">
             <div className="text-xs text-[var(--text-muted)] mb-1">Post-Reform</div>
             <div className="text-lg font-semibold text-[var(--text-primary)]">
-              {parseFloat(state.post_mean_total as any).toFixed(0)}
+              {toNumber(state.post_mean_total).toFixed(0)}
             </div>
             <div className="text-xs text-[var(--text-muted)]">permits/month</div>
           </div>
@@ -158,8 +158,8 @@ export function StateDetailPanel({ state, onClose }: StateDetailPanelProps) {
         <div className="border-t border-[var(--border-default)] pt-3 space-y-2">
           <div className="flex justify-between text-sm">
             <span className="text-[var(--text-muted)]">MF Share Change:</span>
-            <span className={parseFloat(state.mf_share_change as any) >= 0 ? 'text-[var(--positive-green)]' : 'text-[var(--negative-red)]'}>
-              {parseFloat(state.mf_share_change as any) >= 0 ? '+' : ''}{parseFloat(state.mf_share_change as any).toFixed(2)}%
+            <span className={toNumber(state.mf_share_change) >= 0 ? 'text-[var(--positive-green)]' : 'text-[var(--negative-red)]'}>
+              {toNumber(state.mf_share_change) >= 0 ? '+' : ''}{toNumber(state.mf_share_change).toFixed(2)}%
             </span>
           </div>
           <div className="flex justify-between text-sm">
@@ -188,8 +188,8 @@ function generateTrendData(state: ReformMetric) {
 
   // Generate monthly data points
   let currentDate = new Date(startDate);
-  const preMean = parseFloat(state.pre_mean_total as any);
-  const postMean = parseFloat(state.post_mean_total as any);
+  const preMean = toNumber(state.pre_mean_total);
+  const postMean = toNumber(state.post_mean_total);
 
   while (currentDate <= endDate) {
     const monthsSinceStart = (currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 30);

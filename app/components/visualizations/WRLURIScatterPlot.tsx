@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import { ReformMetric } from "@/lib/types";
+import { ReformMetric, toNumber } from "@/lib/types";
 
 interface WRLURIScatterPlotProps {
   data: ReformMetric[];
@@ -44,8 +44,8 @@ export function WRLURIScatterPlot({
 
     const yScale = d3.scaleLinear()
       .domain([
-        d3.min(data, d => parseFloat(d.pct_change as any)) as number * 1.2,
-        d3.max(data, d => parseFloat(d.pct_change as any)) as number * 1.2
+        (d3.min(data, d => toNumber(d.pct_change)) ?? 0) * 1.2,
+        (d3.max(data, d => toNumber(d.pct_change)) ?? 0) * 1.2
       ])
       .range([innerHeight, 0]);
 
@@ -98,7 +98,7 @@ export function WRLURIScatterPlot({
       .data(data)
       .join("circle")
       .attr("cx", d => xScale(d.baseline_wrluri))
-      .attr("cy", d => yScale(parseFloat(d.pct_change as any)))
+      .attr("cy", d => yScale(toNumber(d.pct_change)))
       .attr("r", 8)
       .attr("fill", d => colorScale(d.reform_type))
       .attr("opacity", 0.8)
@@ -124,8 +124,8 @@ export function WRLURIScatterPlot({
                   </div>
                   <div class="flex justify-between gap-3">
                     <span class="text-[var(--text-muted)]">Change:</span>
-                    <span class="${parseFloat(d.pct_change as any) >= 0 ? 'text-[var(--positive-green)]' : 'text-[var(--negative-red)]'}">
-                      ${parseFloat(d.pct_change as any) >= 0 ? '+' : ''}${parseFloat(d.pct_change as any).toFixed(1)}%
+                    <span class="${toNumber(d.pct_change) >= 0 ? 'text-[var(--positive-green)]' : 'text-[var(--negative-red)]'}">
+                      ${toNumber(d.pct_change) >= 0 ? '+' : ''}${toNumber(d.pct_change).toFixed(1)}%
                     </span>
                   </div>
                 </div>

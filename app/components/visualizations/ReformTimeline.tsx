@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { ReformMetric } from "@/lib/types";
+import { ReformMetric, toNumber } from "@/lib/types";
 import * as d3 from "d3";
 
 interface ReformTimelineProps {
@@ -31,8 +31,8 @@ export function ReformTimeline({ data }: ReformTimelineProps) {
       jurisdiction: d.jurisdiction,
       reform_name: d.reform_name,
       reform_type: d.reform_type,
-      pct_change: parseFloat(d.pct_change as any),
-      state_fips: d.state_fips,
+      pct_change: toNumber(d.pct_change),
+      state_fips: d.state_fips ?? '',
     }))
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 
