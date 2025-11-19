@@ -7,6 +7,8 @@
     "build": "echo \"(no build step yet)\""
   },
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "html2canvas": "^1.4.1",
+    "http-server": "^14.1.1",
+    "jspdf": "^3.0.3"
   }
 }

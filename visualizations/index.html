@@ -317,6 +317,265 @@
       font-size: 12px;
     }
 
+    /* Date range selector */
+    .date-range-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .date-label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .date-input {
+      background: #020617;
+      color: var(--text);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 4px 8px;
+      font-size: 13px;
+    }
+
+    /* Reform type filter */
+    .reform-type-filter {
+      width: 100%;
+    }
+
+    .filter-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .btn-link {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 12px;
+      cursor: pointer;
+      padding: 2px 6px;
+      text-decoration: underline;
+    }
+
+    .btn-link:hover {
+      color: #3b82f6;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 8px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .checkbox-label:hover {
+      background: #111827;
+    }
+
+    .reform-checkbox {
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+    }
+
+    .checkbox-text {
+      user-select: none;
+    }
+
+    /* Export controls */
+    .export-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-success {
+      background: var(--positive) !important;
+    }
+
+    /* Comparison mode */
+    .comparison-mode-wrapper {
+      width: 100%;
+    }
+
+    .comparison-header {
+      margin-bottom: 8px;
+    }
+
+    .comparison-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      user-select: none;
+    }
+
+    .comparison-toggle input[type="checkbox"] {
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+    }
+
+    .comparison-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .comparison-select-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .compare-label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .compare-select {
+      background: #020617;
+      color: var(--text);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 4px 8px;
+      font-size: 13px;
+      min-width: 160px;
+    }
+
+    .comparison-vs {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 14px;
+    }
+
+    .comparison-view {
+      margin-top: 12px;
+    }
+
+    .comparison-view h3 {
+      font-size: 14px;
+      margin: 0 0 12px;
+    }
+
+    .comparison-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .comparison-metric {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 8px;
+      padding: 8px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+
+    .comparison-metric:first-child {
+      background: #111827;
+      font-weight: 600;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .metric-name {
+      color: var(--text);
+    }
+
+    .metric-value {
+      text-align: center;
+      color: var(--text);
+    }
+
+    .comparison-hint {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Loading skeletons */
+    .skeleton-wrapper {
+      padding: 20px;
+    }
+
+    .skeleton {
+      background: linear-gradient(90deg, #111827 25%, #1f2937 50%, #111827 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s ease-in-out infinite;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .skeleton-text {
+      height: 16px;
+      width: 100%;
+    }
+
+    @keyframes loading {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+
+    .loading-chart {
+      position: relative;
+      opacity: 0.5;
+    }
+
+    .loading-chart::after {
+      content: "Loading...";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Expanded controls area */
+    .controls-section {
+      margin-bottom: 14px;
+    }
+
+    .controls-divider {
+      border-top: 1px solid var(--border);
+      margin: 12px 0;
+    }
+
     footer {
       max-width: 1100px;
       margin: 14px auto 0;
@@ -331,20 +590,18 @@
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 
-  <!-- Forecast module -->
-  <script src="./js/forecast.js"></script>
-
-  <!-- Main dashboard JS -->
-  <script src="./js/main.js" defer></script>
+  <!-- Main dashboard JS (as module) -->
+  <script src="./js/main.js" type="module"></script>
 </head>
 <body>
   <header>
     <div class="header-row">
-      <h1>Zoning Reform Dashboard — Prototype</h1>
-      <button id="downloadBtn" class="btn">
-        ⬇️ Download Data (CSV)
-      </button>
+      <h1>Zoning Reform Dashboard — Enhanced</h1>
+      <div id="exportButtonsContainer"></div>
     </div>
     <div class="pill">
       Data source: <code>data/outputs/reform_impact_metrics.csv</code>
@@ -352,23 +609,28 @@
   </header>
 
   <div class="container">
-    <!-- Top controls -->
-    <div class="card top-controls">
-      <button id="clearFiltersBtn" class="btn btn-secondary">Clear</button>
+    <!-- Enhanced filter controls -->
+    <div class="card controls-section">
+      <div class="top-controls">
+        <button id="clearFiltersBtn" class="btn btn-secondary">Clear All Filters</button>
 
-      <div>
-        <label for="jurisdictionSelect">Jump to jurisdiction:</label>
-        <select id="jurisdictionSelect">
-          <option value="__ALL__">All jurisdictions</option>
-        </select>
+        <div>
+          <label for="jurisdictionSelect">Jump to jurisdiction:</label>
+          <select id="jurisdictionSelect">
+            <option value="__ALL__">All jurisdictions</option>
+          </select>
+        </div>
+
+        <div id="dateRangeContainer"></div>
       </div>
 
-      <div>
-        <label for="typeFilter">Filter by reform type:</label>
-        <select id="typeFilter">
-          <option value="__ALL__">All types</option>
-        </select>
-      </div>
+      <div class="controls-divider"></div>
+
+      <div id="reformTypeFilterContainer"></div>
+
+      <div class="controls-divider"></div>
+
+      <div id="comparisonModeContainer"></div>
     </div>
 
     <!-- Summary row -->
@@ -430,40 +692,44 @@
           Click a state on the map or pick a jurisdiction above.
         </p>
 
-        <div class="state-detail-top">
-          <div class="state-pill">
-            <div class="state-pill-label">Jurisdiction</div>
-            <div id="detailJurisdiction" class="state-pill-value">—</div>
-          </div>
-          <div class="state-pill">
-            <div class="state-pill-label">Avg permits (pre)</div>
-            <div id="detailPre" class="state-pill-value-small">—</div>
-          </div>
-          <div class="state-pill">
-            <div class="state-pill-label">Avg permits (post)</div>
-            <div id="detailPost" class="state-pill-value-small">—</div>
-          </div>
-          <div class="state-pill">
-            <div class="state-pill-label">% change</div>
-            <div id="detailPct" class="state-pill-value-small">—</div>
-          </div>
-        </div>
+        <div id="comparisonViewContainer"></div>
 
-        <div>
-          <div class="state-section-title">Monthly permits trend</div>
-          <canvas id="stateTrendChart"></canvas>
-        </div>
+        <div id="stateDetailContainer">
+          <div class="state-detail-top">
+            <div class="state-pill">
+              <div class="state-pill-label">Jurisdiction</div>
+              <div id="detailJurisdiction" class="state-pill-value">—</div>
+            </div>
+            <div class="state-pill">
+              <div class="state-pill-label">Avg permits (pre)</div>
+              <div id="detailPre" class="state-pill-value-small">—</div>
+            </div>
+            <div class="state-pill">
+              <div class="state-pill-label">Avg permits (post)</div>
+              <div id="detailPost" class="state-pill-value-small">—</div>
+            </div>
+            <div class="state-pill">
+              <div class="state-pill-label">% change</div>
+              <div id="detailPct" class="state-pill-value-small">—</div>
+            </div>
+          </div>
 
-        <div>
-          <div class="state-section-title">Reforms in this jurisdiction</div>
-          <ul id="stateReformList"></ul>
+          <div>
+            <div class="state-section-title">Monthly permits trend</div>
+            <canvas id="stateTrendChart"></canvas>
+          </div>
+
+          <div>
+            <div class="state-section-title">Reforms in this jurisdiction</div>
+            <ul id="stateReformList"></ul>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <footer>
-    Prototype for local validation. Next: filters, tooltips, and map layer.
+    Enhanced Dashboard with Advanced Filtering, PDF Export, Comparison Mode, and Data Export
   </footer>
 </body>
 </html>
