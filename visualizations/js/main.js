@@ -1,14 +1,7 @@
-// main-enhanced.js - Enhanced dashboard with all new features
-
-import { DateRangeSelector } from './date-range-selector.js';
-import { ReformTypeFilter } from './reform-type-filter.js';
-import { PDFExport } from './pdf-export.js';
-import { DataExport } from './data-export.js';
-import { ComparisonMode } from './comparison-mode.js';
-import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
+// main.js - compact layout, map + chart tooltips, state detail panel
 
 (async function () {
-  console.log("Enhanced dashboard loading...");
+  console.log("main.js loaded");
 
   // -------------------------------
   // Paths
@@ -18,20 +11,21 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
   const MAP_JSON_PATH = "./map/states-10m.json";
 
   // -------------------------------
-  // Initialize modules
-  // -------------------------------
-  const dateRangeSelector = new DateRangeSelector();
-  const reformTypeFilter = new ReformTypeFilter();
-  const pdfExport = new PDFExport();
-  const dataExport = new DataExport();
-  const comparisonMode = new ComparisonMode();
-  const memoizer = new Memoizer();
-
-  // -------------------------------
   // DOM references
   // -------------------------------
   const jurisdictionSelect = document.getElementById("jurisdictionSelect");
+  const typeFilter = document.getElementById("typeFilter");
   const clearBtn = document.getElementById("clearFiltersBtn");
+  const downloadBtn = document.getElementById("downloadBtn");
+
+  // Mobile navigation
+  const mobileNavToggle = document.getElementById("mobileNavToggle");
+  const mobileFilters = document.getElementById("mobileFilters");
+  const mobileFiltersClose = document.getElementById("mobileFiltersClose");
+  const mobileJurisdictionSelect = document.getElementById("mobileJurisdictionSelect");
+  const mobileTypeFilter = document.getElementById("mobileTypeFilter");
+  const mobileClearBtn = document.getElementById("mobileClearFiltersBtn");
+  const pullToRefreshEl = document.getElementById("pullToRefresh");
 
   const summaryEl = d3.select("#summary");
   const tableBody = d3.select("#reformsTable tbody");
@@ -45,7 +39,6 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
   const detailPctEl = document.getElementById("detailPct");
   const stateReformListEl = document.getElementById("stateReformList");
   const stateDetailHintEl = document.getElementById("stateDetailHint");
-  const stateDetailContainer = document.getElementById("stateDetailContainer");
 
   const barCtx = document.getElementById("barChart").getContext("2d");
   const stateTrendCtx = document.getElementById("stateTrendChart").getContext("2d");
@@ -78,10 +71,8 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
   }
 
   // -------------------------------
-  // Load data with loading states
+  // Load data
   // -------------------------------
-  LoadingSkeleton.show('summary');
-
   const [metricsText, tsText] = await Promise.all([
     fetch(CSV_URL).then((r) => r.text()),
     fetch(TS_URL).then((r) => r.text()),
@@ -114,43 +105,22 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
     new Set(allData.map((d) => d.reform_type).filter(Boolean))
   ).sort();
 
-  console.log(`Loaded ${allData.length} reforms, ${allTimeseries.length} timeseries points`);
-
   // -------------------------------
-  // Initialize filter modules
+  // Populate filters
   // -------------------------------
-  reformTypeFilter.setTypes(types);
-  comparisonMode.setData(allData, allTimeseries);
+  function populateSelect(selectEl, values) {
+    values.forEach((v) => {
+      const opt = document.createElement("option");
+      opt.value = v;
+      opt.textContent = v;
+      selectEl.appendChild(opt);
+    });
+  }
 
-  // Populate jurisdiction dropdown
-  jurisdictions.forEach((j) => {
-    const opt = document.createElement("option");
-    opt.value = j;
-    opt.textContent = j;
-    jurisdictionSelect.appendChild(opt);
-  });
-
-  // Render filter controls
-  dateRangeSelector.render('dateRangeContainer');
-  reformTypeFilter.render('reformTypeFilterContainer');
-  comparisonMode.render('comparisonModeContainer');
-
-  // Render export controls
-  const exportContainer = document.getElementById('exportButtonsContainer');
-  exportContainer.innerHTML = `
-    <button id="downloadPDFBtn" class="btn">
-      📄 Download PDF Report
-    </button>
-    <button id="exportCSVBtn" class="btn btn-secondary">
-      📊 Export CSV
-    </button>
-    <button id="exportJSONBtn" class="btn btn-secondary">
-      📋 Export JSON
-    </button>
-    <button id="copyStatsBtn" class="btn btn-secondary">
-      📑 Copy Summary
-    </button>
-  `;
+  populateSelect(jurisdictionSelect, jurisdictions);
+  populateSelect(typeFilter, types);
+  populateSelect(mobileJurisdictionSelect, jurisdictions);
+  populateSelect(mobileTypeFilter, types);
 
   // -------------------------------
   // Charts
@@ -241,30 +211,27 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
   });
 
   // -------------------------------
-  // Rendering helpers (with memoization)
+  // Rendering helpers
   // -------------------------------
   function computeSummary(data) {
-    const cacheKey = `summary-${data.length}-${data.map(d => d.jurisdiction).join(',')}`;
-    return memoizer.memoize(cacheKey, () => {
-      const pctValues = onlyFinite(data.map((d) => d.percent_change));
-      const avgPct = pctValues.length ? d3.mean(pctValues) : null;
+    const pctValues = onlyFinite(data.map((d) => d.percent_change));
+    const avgPct = pctValues.length ? d3.mean(pctValues) : null;
 
-      const dates = data
-        .map((d) => (d.effective_date ? new Date(d.effective_date) : null))
-        .filter((d) => d && !isNaN(d));
+    const dates = data
+      .map((d) => (d.effective_date ? new Date(d.effective_date) : null))
+      .filter((d) => d && !isNaN(d));
 
-      const earliest = dates.length ? d3.min(dates) : null;
-      const latest = dates.length ? d3.max(dates) : null;
+    const earliest = dates.length ? d3.min(dates) : null;
+    const latest = dates.length ? d3.max(dates) : null;
 
-      return {
-        reformsOk: data.filter((d) => d.status === "ok").length,
-        avgPct,
-        range: {
-          earliest,
-          latest,
-        },
-      };
-    });
+    return {
+      reformsOk: data.filter((d) => d.status === "ok").length,
+      avgPct,
+      range: {
+        earliest,
+        latest,
+      },
+    };
   }
 
   function renderSummary(data) {
@@ -316,9 +283,6 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
         (d) => (d.big ? "summary-value" : "summary-value-small")
       )
       .text((d) => d.value);
-
-    // Update data export
-    dataExport.updateData(s, data);
   }
 
   function renderBarChart(data) {
@@ -549,39 +513,17 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
       stateReformListEl.appendChild(li);
     });
 
-    // Timeseries (lazy loaded)
+    // Timeseries
     const ts = allTimeseries
       .filter((d) => d.jurisdiction === j)
       .sort((a, b) => a.date - b.date);
 
-    // Check if forecast module is enabled
-    if (window.ForecastModule && window.ForecastModule.isEnabled()) {
-      // Use forecast module to create enhanced chart
-      if (stateTrendChart) {
-        stateTrendChart.destroy();
-      }
-      stateTrendChart = window.ForecastModule.createForecastChart(
-        stateTrendCtx,
-        ts,
-        j
-      );
+    const labels = ts.map((d) => fmtMonthYear(d.date));
+    const values = ts.map((d) => d.permits);
 
-      // Update forecast metrics
-      window.ForecastModule.updateForecastMetrics(j);
-    } else {
-      // Standard chart without forecasts
-      const labels = ts.map((d) => fmtMonthYear(d.date));
-      const values = ts.map((d) => d.permits);
-
-      stateTrendChart.data.labels = labels;
-      stateTrendChart.data.datasets[0].data = values;
-      stateTrendChart.update();
-
-      // Hide forecast metrics if they exist
-      if (window.ForecastModule) {
-        window.ForecastModule.updateForecastMetrics(j);
-      }
-    }
+    stateTrendChart.data.labels = labels;
+    stateTrendChart.data.datasets[0].data = values;
+    stateTrendChart.update();
 
     stateDetailHintEl.textContent = "";
   }
@@ -590,39 +532,26 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
   // Filter + update pipeline
   // -------------------------------
   async function applyFilters() {
-    // Clear memoization cache on filter change
-    memoizer.clear();
-
     const jVal = jurisdictionSelect.value;
+    const tVal = typeFilter.value;
 
-    // Apply all filters in sequence
     let filtered = allData.slice();
 
-    // Jurisdiction filter
     if (jVal && jVal !== "__ALL__") {
       filtered = filtered.filter(
         (d) => d.jurisdiction === jVal
       );
     }
 
-    // Date range filter
-    filtered = dateRangeSelector.filterData(filtered);
-
-    // Reform type filter
-    filtered = reformTypeFilter.filterData(filtered);
+    if (tVal && tVal !== "__ALL__") {
+      filtered = filtered.filter(
+        (d) => d.reform_type === tVal
+      );
+    }
 
     if (!filtered.length) {
       // fall back to allData to avoid empty visuals
       filtered = allData.slice();
-    }
-
-    // Check if comparison mode is active
-    if (comparisonMode.isActive) {
-      comparisonMode.renderComparisonView('comparisonViewContainer');
-      stateDetailContainer.style.display = 'none';
-    } else {
-      document.getElementById('comparisonViewContainer').innerHTML = '';
-      stateDetailContainer.style.display = 'block';
     }
 
     renderSummary(filtered);
@@ -640,96 +569,270 @@ import { LoadingSkeleton, Memoizer } from './loading-skeleton.js';
   jurisdictionSelect.addEventListener("change", () => {
     applyFilters();
     const jVal = jurisdictionSelect.value;
-    if (!comparisonMode.isActive) {
-      updateStateDetail(
-        jVal !== "__ALL__" ? jVal : null
-      );
-    }
+    updateStateDetail(
+      jVal !== "__ALL__" ? jVal : null
+    );
+  });
+
+  typeFilter.addEventListener("change", () => {
+    applyFilters();
   });
 
   clearBtn.addEventListener("click", () => {
     jurisdictionSelect.value = "__ALL__";
-    dateRangeSelector.reset();
-    reformTypeFilter.reset();
-    comparisonMode.reset();
-    comparisonMode.render('comparisonModeContainer');
+    typeFilter.value = "__ALL__";
     updateStateDetail(null);
     applyFilters();
   });
 
-  // Date range filter change
-  dateRangeSelector.onChange = () => {
+  downloadBtn.addEventListener("click", () => {
+    const a = document.createElement("a");
+    a.href = CSV_URL;
+    a.download = "reform_impact_metrics.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+
+  // -------------------------------
+  // Mobile Navigation
+  // -------------------------------
+  mobileNavToggle.addEventListener("click", () => {
+    mobileFilters.classList.add("open");
+    document.body.style.overflow = "hidden";
+  });
+
+  mobileFiltersClose.addEventListener("click", () => {
+    mobileFilters.classList.remove("open");
+    document.body.style.overflow = "";
+  });
+
+  // Close on backdrop click
+  mobileFilters.addEventListener("click", (e) => {
+    if (e.target === mobileFilters) {
+      mobileFilters.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+  });
+
+  // Sync mobile and desktop filters
+  function syncFilters(source) {
+    if (source === "mobile") {
+      jurisdictionSelect.value = mobileJurisdictionSelect.value;
+      typeFilter.value = mobileTypeFilter.value;
+    } else {
+      mobileJurisdictionSelect.value = jurisdictionSelect.value;
+      mobileTypeFilter.value = typeFilter.value;
+    }
+  }
+
+  mobileJurisdictionSelect.addEventListener("change", () => {
+    syncFilters("mobile");
     applyFilters();
-  };
+    const jVal = mobileJurisdictionSelect.value;
+    updateStateDetail(jVal !== "__ALL__" ? jVal : null);
+  });
 
-  // Reform type filter change
-  reformTypeFilter.onChange = () => {
+  mobileTypeFilter.addEventListener("change", () => {
+    syncFilters("mobile");
     applyFilters();
-  };
+  });
 
-  // Comparison mode change
-  comparisonMode.onChange = () => {
+  mobileClearBtn.addEventListener("click", () => {
+    mobileJurisdictionSelect.value = "__ALL__";
+    mobileTypeFilter.value = "__ALL__";
+    syncFilters("mobile");
+    updateStateDetail(null);
     applyFilters();
-  };
+    mobileFilters.classList.remove("open");
+    document.body.style.overflow = "";
+  });
 
-  // Export handlers
-  document.getElementById('downloadPDFBtn')?.addEventListener('click', async () => {
-    const jVal = jurisdictionSelect.value;
-    let filtered = allData.slice();
+  // -------------------------------
+  // Touch-friendly map interactions
+  // -------------------------------
+  let touchTooltipTimeout;
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-    if (jVal && jVal !== "__ALL__") {
-      filtered = filtered.filter(d => d.jurisdiction === jVal);
+  if (isTouchDevice) {
+    // Override map tooltip behavior for touch devices
+    const originalRenderMap = renderMap;
+    renderMap = async function(data, selectedJurisdiction) {
+      await originalRenderMap(data, selectedJurisdiction);
+
+      // Add tap handlers for touch devices
+      mapSvg.selectAll("path").on("touchstart", function(event, d) {
+        event.preventDefault();
+        const stateName = d.properties.name;
+
+        // Show tooltip on tap
+        const key = normalizeName(stateName);
+        const byState = {};
+        allData.forEach((row) => {
+          const k = normalizeName(row.jurisdiction);
+          if (!k) return;
+          byState[k] = row;
+        });
+
+        const rec = byState[key];
+        const pct = rec?.percent_change;
+        const pre = rec?.pre_mean_permits;
+        const post = rec?.post_mean_permits;
+        const reformsCount = allData.filter(
+          (x) => normalizeName(x.jurisdiction) === key
+        ).length;
+
+        const html = `
+          <div style="font-weight:600;margin-bottom:2px;">${stateName}</div>
+          <div style="font-size:12px;color:#e5e7eb;">
+            Δ: ${pct != null && Number.isFinite(pct) ? fmtPct(pct) + "%" : "—"}<br/>
+            Pre: ${pre ?? "—"}<br/>
+            Post: ${post ?? "—"}<br/>
+            Reforms: ${reformsCount}
+          </div>
+        `;
+
+        const touch = event.touches[0];
+        mapTooltip
+          .style("opacity", 1)
+          .html(html)
+          .style("left", touch.pageX + 14 + "px")
+          .style("top", touch.pageY - 60 + "px");
+
+        // Hide tooltip after 2 seconds
+        clearTimeout(touchTooltipTimeout);
+        touchTooltipTimeout = setTimeout(() => {
+          mapTooltip.style("opacity", 0);
+        }, 2000);
+      });
+    };
+  }
+
+  // -------------------------------
+  // Pull-to-refresh
+  // -------------------------------
+  let startY = 0;
+  let isPulling = false;
+
+  document.addEventListener("touchstart", (e) => {
+    if (window.scrollY === 0) {
+      startY = e.touches[0].pageY;
+      isPulling = true;
+    }
+  });
+
+  document.addEventListener("touchmove", (e) => {
+    if (!isPulling) return;
+
+    const currentY = e.touches[0].pageY;
+    const pullDistance = currentY - startY;
+
+    if (pullDistance > 80 && window.scrollY === 0) {
+      pullToRefreshEl.classList.add("visible");
+    }
+  });
+
+  document.addEventListener("touchend", async (e) => {
+    if (!isPulling) return;
+
+    const endY = e.changedTouches[0].pageY;
+    const pullDistance = endY - startY;
+
+    if (pullDistance > 80 && window.scrollY === 0) {
+      // Refresh data
+      await applyFilters();
+
+      setTimeout(() => {
+        pullToRefreshEl.classList.remove("visible");
+      }, 1000);
+    } else {
+      pullToRefreshEl.classList.remove("visible");
     }
 
-    filtered = dateRangeSelector.filterData(filtered);
-    filtered = reformTypeFilter.filterData(filtered);
-
-    const summaryData = computeSummary(filtered);
-    await pdfExport.generatePDF(summaryData, filtered);
-  });
-
-  document.getElementById('exportCSVBtn')?.addEventListener('click', () => {
-    dataExport.exportCSV();
-  });
-
-  document.getElementById('exportJSONBtn')?.addEventListener('click', () => {
-    dataExport.exportJSON();
-  });
-
-  document.getElementById('copyStatsBtn')?.addEventListener('click', () => {
-    dataExport.copyToClipboard();
+    isPulling = false;
+    startY = 0;
   });
 
   // -------------------------------
-  // Forecast module integration
+  // Swipe gestures for state navigation
   // -------------------------------
-  if (window.ForecastModule) {
-    // Initialize forecast module
-    window.ForecastModule.init().then(success => {
-      if (success) {
-        console.log('Forecast module initialized successfully');
+  let touchStartX = 0;
+  let touchEndX = 0;
+  let currentStateIndex = 0;
+  const allStates = jurisdictions.slice();
 
-        // Listen for forecast toggle events
-        document.addEventListener('forecastToggled', (event) => {
-          console.log('Forecast toggled:', event.detail.enabled);
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
 
-          // Refresh state detail if a jurisdiction is selected
-          const jVal = jurisdictionSelect.value;
-          if (jVal && jVal !== '__ALL__') {
-            updateStateDetail(jVal);
-          }
-        });
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // Swipe left - next state
+        currentStateIndex = (currentStateIndex + 1) % allStates.length;
       } else {
-        console.log('Forecast module initialization failed');
+        // Swipe right - previous state
+        currentStateIndex = (currentStateIndex - 1 + allStates.length) % allStates.length;
       }
+
+      const newState = allStates[currentStateIndex];
+      jurisdictionSelect.value = newState;
+      mobileJurisdictionSelect.value = newState;
+      applyFilters();
+      updateStateDetail(newState);
+    }
+  }
+
+  // Add swipe listeners to state detail card
+  const stateDetailCard = document.querySelector('.grid-2col-bottom .card:last-child');
+  if (stateDetailCard && isTouchDevice) {
+    stateDetailCard.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    stateDetailCard.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
     });
   }
 
   // -------------------------------
+  // Performance optimizations
+  // -------------------------------
+  // Debounce resize events
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      barChart.resize();
+      stateTrendChart.resize();
+    }, 250);
+  });
+
+  // Lazy load charts only when visible
+  const observerOptions = {
+    root: null,
+    rootMargin: '50px',
+    threshold: 0.1
+  };
+
+  const chartObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+      }
+    });
+  }, observerOptions);
+
+  const chartElements = document.querySelectorAll('canvas');
+  chartElements.forEach(el => {
+    el.style.transition = 'opacity 0.3s';
+    chartObserver.observe(el);
+  });
+
+  // -------------------------------
   // Initial render
   // -------------------------------
-  LoadingSkeleton.hide('summary');
   await applyFilters();
-
-  console.log("Enhanced dashboard loaded successfully!");
 })();
+
+
