@@ -4,6 +4,7 @@
 
 export interface ReformMetric {
   jurisdiction: string;
+  place_fips?: string;
   reform_name: string;
   reform_type: string;
   effective_date: string;

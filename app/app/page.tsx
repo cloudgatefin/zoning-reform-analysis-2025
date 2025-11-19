@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { DashboardHeader, FilterControls, SummaryCards, PercentChangeChart, ReformsTable } from "@/components/dashboard";
-import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions } from "@/components/visualizations";
+import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison } from "@/components/visualizations";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
 import { useReformMetrics } from "@/lib/hooks/useReformMetrics";
 import { computeSummary, getUniqueJurisdictions, getUniqueReformTypes } from "@/lib/data-transforms";
@@ -13,6 +13,7 @@ export default function DashboardPage() {
   const [selectedJurisdiction, setSelectedJurisdiction] = useState("__ALL__");
   const [selectedReformType, setSelectedReformType] = useState("__ALL__");
   const [selectedState, setSelectedState] = useState<ReformMetric | null>(null);
+  const [selectedCity, setSelectedCity] = useState<{ fips: string; name: string } | null>(null);
   const [countyDrillDown, setCountyDrillDown] = useState<{ stateFips: string; stateName: string } | null>(null);
 
   // Get unique values for filters
@@ -117,6 +118,44 @@ export default function DashboardPage() {
         <ReformPredictions />
       </div>
 
+      {/* City-Level Analysis Section */}
+      {selectedCity && (
+        <div className="space-y-5 mb-5">
+          <Card className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-l-amber-500">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-gray-900">
+                City-Level Analysis: {selectedCity.name}
+              </h2>
+              <button
+                onClick={() => setSelectedCity(null)}
+                className="text-gray-500 hover:text-gray-700 font-bold text-2xl"
+              >
+                ×
+              </button>
+            </div>
+            <p className="text-sm text-gray-600 mt-2">
+              Detailed economic context and causal inference analysis for this jurisdiction
+            </p>
+          </Card>
+
+          {/* Economic Context Section */}
+          <Card className="p-4">
+            <EconomicContextPanel
+              jurisdictionFips={selectedCity.fips}
+              jurisdictionName={selectedCity.name}
+            />
+          </Card>
+
+          {/* Causal Methods Comparison Section */}
+          <Card className="p-4">
+            <CausalMethodsComparison
+              jurisdictionFips={selectedCity.fips}
+              jurisdictionName={selectedCity.name}
+            />
+          </Card>
+        </div>
+      )}
+
       {/* Scatter Plot & Bar Chart Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
         <Card>
@@ -147,7 +186,13 @@ export default function DashboardPage() {
           <CardTitle>Reform Details</CardTitle>
         </CardHeader>
         <CardContent>
-          <ReformsTable data={filteredData} />
+          <ReformsTable
+            data={filteredData}
+            onCityClick={(fips, name) => setSelectedCity({ fips, name })}
+          />
+          <p className="text-xs text-gray-500 mt-3">
+            💡 Click on any city name to view detailed economic context and causal analysis
+          </p>
         </CardContent>
       </Card>
 

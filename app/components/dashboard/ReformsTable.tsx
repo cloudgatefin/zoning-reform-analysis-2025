@@ -7,9 +7,10 @@ import { formatPercent } from "@/lib/data-transforms";
 
 interface ReformsTableProps {
   data: ReformMetric[];
+  onCityClick?: (fips: string, name: string) => void;
 }
 
-export function ReformsTable({ data }: ReformsTableProps) {
+export function ReformsTable({ data, onCityClick }: ReformsTableProps) {
   return (
     <div className="overflow-auto max-h-[400px]">
       <Table>
@@ -37,7 +38,18 @@ export function ReformsTable({ data }: ReformsTableProps) {
 
             return (
               <TableRow key={idx}>
-                <TableCell>{row.jurisdiction ?? "—"}</TableCell>
+                <TableCell>
+                  {onCityClick && row.jurisdiction && row.place_fips ? (
+                    <button
+                      onClick={() => onCityClick(row.place_fips, row.jurisdiction)}
+                      className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
+                    >
+                      {row.jurisdiction}
+                    </button>
+                  ) : (
+                    row.jurisdiction ?? "—"
+                  )}
+                </TableCell>
                 <TableCell>{row.reform_name ?? "—"}</TableCell>
                 <TableCell>{row.reform_type ?? "—"}</TableCell>
                 <TableCell>{row.effective_date ?? "—"}</TableCell>
