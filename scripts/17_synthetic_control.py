@@ -210,7 +210,8 @@ class SyntheticControl:
                 if problem.status in ['optimal', 'optimal_inaccurate']:
                     solved = True
                     break
-            except:
+            except Exception as e:
+                # Solver failed, try next one
                 continue
 
         if not solved:
@@ -357,7 +358,8 @@ class SyntheticControl:
                 if problem.status in ['optimal', 'optimal_inaccurate']:
                     solved = True
                     break
-            except:
+            except Exception as e:
+                # Solver failed, try next one
                 continue
 
         if not solved or w.value is None:
@@ -685,11 +687,11 @@ def main():
 
     # Get reform states and their treatment dates
     reform_states = {}
-    for _, row in metrics.iterrows():
-        reform_states[row['jurisdiction']] = {
-            'date': pd.to_datetime(row['effective_date']),
-            'reform_name': row['reform_name'],
-            'reform_type': row['reform_type']
+    for row in metrics.itertuples(index=False):
+        reform_states[row.jurisdiction] = {
+            'date': pd.to_datetime(row.effective_date),
+            'reform_name': row.reform_name,
+            'reform_type': row.reform_type
         }
 
     print(f"  Reform states: {list(reform_states.keys())}")
@@ -780,16 +782,16 @@ def main():
     print("COMPARISON WITH DIFFERENCE-IN-DIFFERENCES")
     print("=" * 70)
 
-    for _, row in results_df.iterrows():
+    for row in results_df.itertuples(index=False):
         # Get DiD estimate from metrics
-        did_row = metrics[metrics['jurisdiction'] == row['state']].iloc[0]
+        did_row = metrics[metrics['jurisdiction'] == row.state].iloc[0]
         did_effect = did_row['absolute_change']
 
-        sc_effect = row['actual_effect']
+        sc_effect = row.actual_effect
         diff = abs(sc_effect - did_effect)
         pct_diff = (diff / abs(did_effect)) * 100 if did_effect != 0 else np.nan
 
-        print(f"\n{row['state']}:")
+        print(f"\n{row.state}:")
         print(f"  DiD estimate: {did_effect:.2f}")
         print(f"  Synthetic Control estimate: {sc_effect:.2f}")
         print(f"  Absolute difference: {diff:.2f}")

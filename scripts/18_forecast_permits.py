@@ -79,7 +79,7 @@ def load_and_prepare_data():
         merged['permits'] = merged['permits'].interpolate(method='linear')
 
         # Fill any remaining NaN values (at start/end) with forward/backward fill
-        merged['permits'] = merged['permits'].fillna(method='ffill').fillna(method='bfill')
+        merged['permits'] = merged['permits'].ffill().bfill()
 
         # Add small random variation to make it more realistic (±3%)
         np.random.seed(hash(state) % 2**32)  # Consistent seed per state

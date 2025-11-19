@@ -79,9 +79,9 @@ def build_all_states_metrics():
 
     all_metrics = []
 
-    for _, state_row in states.iterrows():
-        state_fips = state_row['state_fips']
-        state_name = state_row['state_name']
+    for state_row in states.itertuples(index=False):
+        state_fips = state_row.state_fips
+        state_name = state_row.state_name
 
         # Skip aggregated regions (they have non-standard FIPS)
         if not state_fips.isdigit() or len(state_fips) != 2:
@@ -122,8 +122,8 @@ def build_all_states_metrics():
     print("TOP 10 STATES BY TOTAL PERMITS (2015-2024)")
     print("=" * 60)
 
-    for i, row in df.head(10).iterrows():
-        print(f"{row['state_name']:25s}: {row['total_permits_2015_2024']:>12,} total | {row['avg_monthly_permits']:>6,}/mo | {row['growth_rate_pct']:>6.1f}% growth")
+    for row in df.head(10).itertuples(index=False):
+        print(f"{row.state_name:25s}: {row.total_permits_2015_2024:>12,} total | {row.avg_monthly_permits:>6,}/mo | {row.growth_rate_pct:>6.1f}% growth")
 
     # States with highest growth
     print("\n" + "=" * 60)
@@ -132,8 +132,8 @@ def build_all_states_metrics():
 
     top_growth = df.nlargest(10, 'growth_rate_pct')
 
-    for i, row in top_growth.iterrows():
-        print(f"{row['state_name']:25s}: {row['growth_rate_pct']:>6.1f}% growth | {row['first_half_avg']:>6,} -> {row['second_half_avg']:>6,} permits/mo")
+    for row in top_growth.itertuples(index=False):
+        print(f"{row.state_name:25s}: {row.growth_rate_pct:>6.1f}% growth | {row.first_half_avg:>6,} -> {row.second_half_avg:>6,} permits/mo")
 
     return df
 

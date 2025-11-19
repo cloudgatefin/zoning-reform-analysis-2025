@@ -276,9 +276,9 @@ def match_control_states(treatment_state, treatment_attrs, pre_reform_data,
     selected = scores_df.head(n_controls)
 
     print(f"\n🎯 Control states for {treatment_state}:")
-    for _, row in selected.iterrows():
-        print(f"   {row['control_state']:20s} | Score: {row['score']:.3f} | "
-              f"Permit diff: {row['permit_diff_pct']:+.1f}% | Region: {row['region']}")
+    for row in selected.itertuples(index=False):
+        print(f"   {row.control_state:20s} | Score: {row.score:.3f} | "
+              f"Permit diff: {row.permit_diff_pct:+.1f}% | Region: {row.region}")
 
     return selected['control_state'].tolist()
 
@@ -554,10 +554,10 @@ def run_did_analysis():
     results = []
 
     # Analyze each reform
-    for idx, reform in reforms.iterrows():
-        treatment_state = reform['jurisdiction']
-        reform_name = reform['reform_name']
-        reform_date = pd.to_datetime(reform['effective_date'])
+    for reform in reforms.itertuples(index=False):
+        treatment_state = reform.jurisdiction
+        reform_name = reform.reform_name
+        reform_date = pd.to_datetime(reform.effective_date)
 
         print(f"\n{'='*70}")
         print(f"🔬 ANALYZING: {treatment_state} - {reform_name}")

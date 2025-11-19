@@ -71,16 +71,16 @@ def main():
 
     # Compute windows
     rows = []
-    for _, r in reforms.iterrows():
-        state = r["match_field"]
-        t0 = r["effective_month"]
+    for r in reforms.itertuples(index=False):
+        state = r.match_field
+        t0 = r.effective_month
         g = ts_filled[ts_filled["areaname"].str.lower() == state.lower()].copy()
         if g.empty:
             rows.append({
-                "jurisdiction": r["jurisdiction"],
-                "reform_name": r["reform_name"],
-                "reform_type": r["reform_type"],
-                "effective_date": r["effective_date"],
+                "jurisdiction": r.jurisdiction,
+                "reform_name": r.reform_name,
+                "reform_type": r.reform_type,
+                "effective_date": r.effective_date,
                 "status": "no_data_for_state"
             })
             continue
@@ -101,10 +101,10 @@ def main():
         pct       = (delta / pre_mean * 100.0) if pre_mean and pd.notna(delta) else np.nan
 
         rows.append({
-            "jurisdiction": r["jurisdiction"],
-            "reform_name": r["reform_name"],
-            "reform_type": r["reform_type"],
-            "effective_date": r["effective_date"].date(),
+            "jurisdiction": r.jurisdiction,
+            "reform_name": r.reform_name,
+            "reform_type": r.reform_type,
+            "effective_date": r.effective_date.date(),
             "pre_window_months": PRE_MONTHS,
             "buffer_months": BUFFER_MONTHS,
             "post_window_months": POST_MONTHS,
