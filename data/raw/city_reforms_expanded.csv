@@ -1,0 +1,503 @@
+place_fips,city_name,state_fips,state_name,reform_name,reform_type,effective_date,baseline_wrluri
+2743000,Minneapolis city,27,Minnesota,Minneapolis 2040,Comprehensive Reform,2019-03-01,0.92
+4159000,Portland city,41,Oregon,Residential Infill Project,Comprehensive Reform,2021-08-01,1.15
+606000,Berkeley city,6,California,SB-9 Implementation + Local ADU,ADU/Lot Split,2022-01-01,1.85
+653000,Oakland city,6,California,SB-9 Implementation + ADU Expansion,ADU/Lot Split,2022-01-01,1.72
+4805000,Austin city,48,Texas,Land Development Code Revision,Comprehensive Reform,2021-05-01,1.42
+820000,Denver city,8,Colorado,ADU Ordinance Expansion,ADU/Lot Split,2020-02-01,1.28
+5363000,Seattle city,53,Washington,HALA Mandatory Housing Affordability,Zoning Upzones,2019-03-01,1.68
+668000,San Jose city,6,California,ADU Ordinance + SB-9,ADU/Lot Split,2021-06-01,1.58
+3535000,Albuquerque city,35,New Mexico,Integrated Development Ordinance,Comprehensive Reform,2018-05-01,0.78
+404000,Phoenix city,4,Arizona,Accessory Dwelling Unit Ordinance,ADU/Lot Split,2020-11-01,0.95
+471000,Tucson city,4,Arizona,Unified Development Code Reform,Comprehensive Reform,2017-10-01,0.88
+4967000,Salt Lake City city,49,Utah,Affordable Housing Incentives,Zoning Upzones,2020-09-01,1.05
+660102,Richmond city,6,California,SB-9 Implementation,ADU/Lot Split,2022-01-01,1.65
+643000,Long Beach city,6,California,SB-9 + Local ADU Reform,ADU/Lot Split,2022-01-01,1.54
+666000,San Diego city,6,California,SB-9 Implementation + Bonus ADU,ADU/Lot Split,2022-01-01,1.48
+2255000,New Orleans city,22,Louisiana,Comprehensive Zoning Ordinance,Comprehensive Reform,2015-08-01,1.12
+1304000,Atlanta city,13,Georgia,Atlanta City Design,Zoning Upzones,2018-01-01,1.23
+3712000,Charlotte city,37,North Carolina,Unified Development Ordinance,Comprehensive Reform,2021-06-01,0.98
+3755000,Raleigh city,37,North Carolina,Unified Development Ordinance,Comprehensive Reform,2020-02-01,0.89
+4752006,Nashville-Davidson,47,Tennessee,NashvilleNext,Comprehensive Reform,2017-05-01,1.08
+667000,San Francisco city,6,California,SB-9 Implementation + ADU Expansion,ADU/Lot Split,2022-01-01,2.15
+2511000,Boston city,25,Massachusetts,PLAN: Roxbury,Zoning Upzones,2021-12-01,1.92
+1714000,Chicago city,17,Illinois,ARO Expansion,Zoning Upzones,2021-10-01,1.35
+3651000,New York city,36,New York,Mandatory Inclusionary Housing,Zoning Upzones,2016-03-01,2.08
+4815976,Arlington city,48,Texas,Missing Middle Housing,Comprehensive Reform,2022-08-01,1.18
+803000,Boulder city,8,Colorado,Occupancy Limit Reform,Comprehensive Reform,2021-11-01,1.55
+4021000,Eugene city,41,Oregon,Middle Housing Code Amendments,Comprehensive Reform,2022-12-01,1.02
+664000,Sacramento city,6,California,ADU Ordinance + SB-9,ADU/Lot Split,2021-01-01,1.38
+5340850,Spokane city,53,Washington,Infill Housing Toolkit,ADU/Lot Split,2021-08-01,0.96
+162000,Palo Alto city,6,California,ADU Ordinance Reform,ADU/Lot Split,2020-03-01,2.25
+0601620,Los Angeles city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.87
+0602741,Fresno city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.85
+0603319,Bakersfield city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.93
+0604589,Anaheim city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.9
+0605593,Santa Ana city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,2.02
+0606003,Riverside city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.81
+0607740,Stockton city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,2.0
+0608952,Irvine city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.83
+0609698,Chula Vista city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.97
+0610825,Fremont city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,2.07
+0611488,San Bernardino city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,2.06
+0612501,Modesto city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,2.07
+0613389,Fontana city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.85
+0614966,Moreno Valley city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.87
+0615992,Glendale city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,2.04
+0616603,Huntington Beach city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.9
+0617774,Santa Clarita city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,2.06
+0618614,Garden Grove city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.68
+0619171,Oceanside city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.56
+0620648,Rancho Cucamonga city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.55
+0621191,Santa Rosa city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.84
+0622329,Ontario city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.86
+0623385,Elk Grove city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.82
+0624564,Corona city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.44
+0625313,Lancaster city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.51
+0626858,Palmdale city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.56
+0627990,Salinas city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.9
+0628459,Pomona city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.45
+0629904,Hayward city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.84
+0630826,Escondido city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.45
+0631626,Sunnyvale city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.56
+0632139,Torrance city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.8
+0633003,Pasadena city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.56
+0634025,Orange city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.85
+0635487,Fullerton city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.77
+0636820,Thousand Oaks city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.68
+0637457,Visalia city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.45
+0638570,Roseville city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.73
+0639786,Concord city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.56
+0640500,Simi Valley city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.84
+0641079,Santa Clara city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.56
+0642773,Victorville city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.82
+0643690,Vallejo city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.8
+0644483,El Monte city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.76
+0645555,Downey city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.68
+0646971,Costa Mesa city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.65
+0647896,Inglewood city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.69
+0648992,Carlsbad city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.76
+0649981,San Buenaventura city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.73
+0650598,Fairfield city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.77
+0651588,West Covina city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.42
+0652506,Murrieta city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.69
+0653487,Antioch city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.67
+0654262,Temecula city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.5
+0655854,Norwalk city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.79
+0656347,Burbank city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.49
+0657704,Daly City city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.53
+0658205,El Cajon city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.65
+0659449,Rialto city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.58
+0660651,Clovis city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.84
+0661361,Compton city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.4
+0662155,Jurupa Valley city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.63
+0663312,Vista city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.46
+0664865,South Gate city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.76
+0665680,Mission Viejo city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.42
+0666926,Vacaville city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.69
+0667942,Carson city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.45
+0668971,Hesperia city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.55
+0669324,Santa Maria city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.84
+0670658,Redding city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.43
+0671785,Westminster city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.5
+0672325,Santa Monica city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.66
+0673048,Chico city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.47
+0674698,Newport Beach city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.86
+0675979,San Leandro city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.65
+0676502,San Marcos city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.52
+0677426,Whittier city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.74
+0678647,Hawthorne city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.56
+0679903,Citrus Heights city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.58
+0680493,Alhambra city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.67
+0681991,Tracy city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.69
+0682177,Livermore city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.52
+0683214,Buena Park city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.74
+0684114,Menifee city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.45
+0685105,Hemet city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.84
+0686368,Lakewood city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.88
+0687695,Merced city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.81
+0688225,Chino city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.83
+0689706,Indio city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.6
+0690556,Redwood City city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.66
+0691403,Lake Forest city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.76
+0692359,Napa city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.47
+0693888,Tustin city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.47
+0694988,Bellflower city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.85
+0695368,Mountain View city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.42
+0696629,Chino Hills city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.54
+0697604,Baldwin Park city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.43
+0698362,Alameda city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.54
+0699634,Upland city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.68
+06100694,San Ramon city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.82
+06101585,Folsom city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.84
+06102810,Pleasanton city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.64
+06103627,Lynwood city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.85
+06104106,Union City city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.52
+06105469,Apple Valley city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.82
+06106844,Redlands city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.46
+06107705,Turlock city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.73
+06108346,Perris city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.81
+06109076,Manteca city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.53
+06110706,Milpitas city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.86
+06111259,Lodi city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.84
+06112853,Cupertino city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.58
+06113500,San Luis Obispo city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.45
+06114805,Walnut Creek city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.43
+06115339,Tulare city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.79
+06116505,Yorba Linda city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.7
+06117181,Davis city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.31
+06118396,Camarillo city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.62
+06119503,Madera city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.5
+06120236,Yuba City city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.87
+06121803,San Clemente city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.78
+06122186,Pico Rivera city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.41
+06123020,Laguna Niguel city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.84
+06124273,South San Francisco city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.58
+06125957,Montebello city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.62
+06126558,Encinitas city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.48
+06127871,Petaluma city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.3
+06128526,San Rafael city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.44
+06129749,La Habra city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.69
+06130512,Santee city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.86
+06131039,Arcadia city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.53
+06132581,Fountain Valley city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.7
+06133884,Diamond Bar city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.83
+06134240,Porterville city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.48
+06135575,Novato city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.8
+06136211,Woodland city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.41
+06137203,Hanford city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.59
+06138307,Poway city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.72
+06139130,Highland city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.85
+06140941,West Sacramento city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.67
+06141103,Rancho Cordova city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.74
+06142119,San Jacinto city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.41
+06143595,Rocklin city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.78
+06144833,Cathedral City city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.61
+06145413,Dublin city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.7
+06146283,Delano city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.87
+06147824,Morgan Hill city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.82
+06148619,Colton city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.58
+06149772,Danville city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.3
+06150035,San Gabriel city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.81
+06151617,La Mesa city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.47
+06152799,Azusa city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.73
+06153966,Gilroy city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.87
+06154270,Rancho Palos Verdes city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.38
+06155719,Paramount city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.67
+06156825,Brea city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.6
+06157492,Beaumont city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.48
+06158081,Glendora city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.73
+06159267,Palm Springs city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.4
+06160204,Cerritos city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.57
+06161000,West Hollywood city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.33
+06162558,Aliso Viejo city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.73
+06163744,San Bruno city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.65
+06164514,Covina city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.81
+06165683,La Mirada city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.87
+06166123,Rohnert Park city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.74
+06167790,Cypress city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.79
+06168686,Newark city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.85
+06169035,Eastvale city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.78
+06170715,Coachella city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.59
+06171925,Pittsburg city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.59
+06172335,Campbell city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.33
+06173281,Martinez city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.46
+06174166,Palm Desert city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.49
+06175291,Brentwood city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.64
+06176800,Pacifica city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.45
+06177003,Los Banos city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.86
+06178442,Beverly Hills city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.34
+06179359,San Dimas city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.44
+06180532,Culver City city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.49
+06181694,Gardena city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.89
+06182408,Rosemead city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.42
+06183952,Lompoc city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.72
+06184533,National City city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.43
+06185609,Laguna Hills city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.47
+06186487,Stanton city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.56
+06187700,La Quinta city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.67
+06188793,Oakley city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.62
+06189642,Monterey Park city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.82
+06190455,La Puente city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.85
+06191556,Monrovia city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.82
+06192185,Hercules city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.49
+06193144,Temple City city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.46
+06194769,Hollister city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.45
+06195016,Bell Gardens city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.72
+06196671,Ceres city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.53
+06197561,Los Gatos city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.45
+06198121,Saratoga city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.39
+06199569,Benicia city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.39
+06200823,San Fernando city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.39
+06201765,El Centro city,06,California,SB9 Implementation,ADU/Lot Split,2022-01-01,1.51
+4101553,Salem city,41,Oregon,HB2001 Middle Housing,Comprehensive Reform,2022-06-01,1.19
+4102207,Gresham city,41,Oregon,HB2001 Middle Housing,Comprehensive Reform,2022-06-01,1.19
+4103599,Hillsboro city,41,Oregon,HB2001 Middle Housing,Comprehensive Reform,2022-06-01,1.17
+4104108,Bend city,41,Oregon,HB2001 Middle Housing,Comprehensive Reform,2022-06-01,1.33
+4105171,Beaverton city,41,Oregon,HB2001 Middle Housing,Comprehensive Reform,2022-06-01,1.26
+4106066,Medford city,41,Oregon,HB2001 Middle Housing,Comprehensive Reform,2022-06-01,1.15
+4107430,Springfield city,41,Oregon,HB2001 Middle Housing,Comprehensive Reform,2022-06-01,1.15
+4108218,Corvallis city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,1.18
+4109143,Albany city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.75
+4110673,Tigard city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.95
+4111716,Lake Oswego city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,1.13
+4112315,Keizer city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.82
+4113476,Grants Pass city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.81
+4114327,Oregon City city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.92
+4115882,McMinnville city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.99
+4116671,Redmond city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,1.12
+4117481,Tualatin city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.85
+4118751,West Linn city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.87
+4119829,Woodburn city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.94
+4120578,Wilsonville city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.73
+4121791,Forest Grove city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.61
+4122570,Newberg city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.8
+4123911,Roseburg city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,1.1
+4124008,Klamath Falls city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,1.12
+4125229,Ashland city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.63
+4126570,Milwaukie city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.76
+4127249,Central Point city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.67
+4128450,Canby city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.71
+4129762,Troutdale city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.72
+4130019,Pendleton city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.79
+4131432,Hermiston city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.71
+4132460,La Grande city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.79
+4133801,Coos Bay city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.68
+4134343,The Dalles city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.73
+4135985,St. Helens city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.74
+4136754,Silverton city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.69
+4137076,Happy Valley city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.97
+4138095,Sherwood city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.68
+4139365,Dallas city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.73
+4140222,Lebanon city,41,Oregon,HB2001 Duplex Allowance,ADU/Lot Split,2021-06-01,0.64
+5301016,Tacoma city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.31
+5302253,Vancouver city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.34
+5303808,Bellevue city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.34
+5304763,Kent city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.34
+5305211,Everett city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.27
+5306866,Renton city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.2
+5307950,Federal Way city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.31
+5308640,Spokane Valley city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.44
+5309098,Kirkland city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.29
+5310571,Bellingham city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.9
+5311939,Auburn city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.82
+5312336,Kennewick city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.11
+5313437,Marysville city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.93
+5314259,Pasco city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.17
+5315478,Lakewood city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.94
+5316680,Redmond city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.89
+5317063,Sammamish city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.25
+5318349,Richland city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.99
+5319922,Olympia city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.84
+5320000,Lacey city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.19
+5321587,Burien city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.8
+5322206,Bothell city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.99
+5323946,Edmonds city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.89
+5324607,Puyallup city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.04
+5325762,Bremerton city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.93
+5326432,Lynnwood city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.03
+5327408,Longview city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.19
+5328496,Issaquah city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.82
+5329741,Shoreline city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.09
+5330785,Yakima city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.33
+5331624,University Place city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.14
+5332626,Lake Stevens city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.0
+5333275,Wenatchee city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.16
+5334743,Mount Vernon city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.19
+5335764,Tumwater city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.24
+5336364,Des Moines city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.16
+5337451,SeaTac city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.83
+5338484,Pullman city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.79
+5339892,Maple Valley city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.9
+5340162,Kenmore city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.25
+5341778,Mukilteo city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.97
+5342910,Mercer Island city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.74
+5343739,Camas city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.74
+5344771,Oak Harbor city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.79
+5345837,Covington city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.09
+5346641,Woodinville city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.79
+5347169,Bonney Lake city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.87
+5348289,Battle Ground city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,0.87
+5349296,Tukwila city,53,Washington,HB1110 Middle Housing,Comprehensive Reform,2024-06-01,1.1
+3001949,Billings city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,0.47
+3002571,Missoula city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,0.43
+3003469,Great Falls city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,0.26
+3004412,Bozeman city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,0.29
+3005948,Butte-Silver Bow city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,0.45
+3006186,Helena city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,0.01
+3007798,Kalispell city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,-0.03
+3008339,Havre city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,0.02
+3009426,Anaconda city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,-0.01
+3010900,Miles City city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,-0.03
+3011440,Belgrade city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,0.04
+3012961,Livingston city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,0.06
+3013583,Laurel city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,-0.06
+3014491,Whitefish city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,0.01
+3015984,Lewistown city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,-0.06
+3016499,Sidney city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,0.05
+3017719,Columbia Falls city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,-0.02
+3018039,Polson city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,-0.05
+3019269,Hamilton city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,-0.04
+3020651,Dillon city,30,Montana,SB323/SB528 Reform,ADU/Lot Split,2024-01-01,0.02
+0801894,Aurora city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,1.2
+0802385,Colorado Springs city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,1.22
+0803653,Lakewood city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,1.25
+0804354,Thornton city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,1.2
+0805566,Arvada city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,1.19
+0806071,Westminster city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,0.85
+0807488,Pueblo city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,1.18
+0808919,Centennial city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,0.75
+0809463,Fort Collins city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,0.86
+0810644,Greeley city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,1.02
+0811837,Longmont city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,1.02
+0812362,Loveland city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,0.83
+0813430,Grand Junction city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,0.76
+0814766,Commerce City city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,0.9
+0815752,Parker city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,1.16
+0816704,Brighton city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,0.89
+0817738,Northglenn city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,0.7
+0818691,Castle Rock city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,0.78
+0819156,Broomfield city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,1.07
+0820460,Englewood city,08,Colorado,SB24-106 ADU Reform,ADU/Lot Split,2024-08-01,1.18
+2701096,St. Paul city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.83
+2702684,Rochester city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.71
+2703832,Duluth city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.51
+2704445,Bloomington city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.61
+2705790,Brooklyn Park city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.36
+2706365,Plymouth city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.42
+2707541,St. Cloud city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.76
+2708032,Eagan city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.51
+2709436,Woodbury city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.4
+2710634,Maple Grove city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.67
+2711454,Eden Prairie city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.3
+2712212,Coon Rapids city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.35
+2713905,Burnsville city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.61
+2714649,Blaine city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.49
+2715844,Lakeville city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.77
+2716220,Minnetonka city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.59
+2717808,Apple Valley city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.36
+2718543,Edina city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.68
+2719017,St. Louis Park city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.76
+2720981,Moorhead city,27,Minnesota,ADU/Missing Middle,ADU/Lot Split,2021-01-01,0.37
+4801166,Houston city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.62
+4802675,San Antonio city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.69
+4803471,Dallas city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.75
+4804221,Fort Worth city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.6
+4805047,El Paso city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.62
+4806152,Plano city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.75
+4807398,Lubbock city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.47
+4808982,Laredo city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.37
+4809509,Irving city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.31
+4810349,Garland city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.44
+4811749,Amarillo city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.24
+4812512,Grand Prairie city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.13
+4813666,McKinney city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.34
+4814880,Frisco city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.33
+4815223,Brownsville city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.18
+4816906,Pasadena city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.1
+4817776,Mesquite city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.35
+4818108,Killeen city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.39
+4819384,McAllen city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.24
+4820984,Denton city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.34
+4821224,Waco city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.42
+4822549,Carrollton city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.32
+4823130,Midland city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.42
+4824876,Abilene city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.37
+4825766,Beaumont city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.59
+4826827,Round Rock city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.21
+4827921,Odessa city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.56
+4828090,Richardson city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.39
+4829310,Pearland city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.33
+4830970,College Station city,48,Texas,ADU Ordinance,ADU/Lot Split,2022-06-01,0.23
+0401324,Mesa city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.97
+0402425,Chandler city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,1.05
+0403100,Scottsdale city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,1.03
+0404884,Glendale city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,1.02
+0405507,Gilbert city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.87
+0406636,Tempe city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.9
+0407497,Peoria city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.65
+0408625,Surprise city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.73
+0409374,Yuma city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.4
+0410191,Goodyear city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.6
+0411386,Buckeye city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.86
+0412043,Avondale city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.72
+0413929,Flagstaff city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.42
+0414041,Casa Grande city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.66
+0415969,Lake Havasu City city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.77
+0416323,Maricopa city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.86
+0417959,Prescott city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.39
+0418225,San Luis city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.67
+0419069,Bullhead City city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.5
+0420772,Apache Junction city,04,Arizona,ADU Ordinance,ADU/Lot Split,2021-01-01,0.49
+1201925,Jacksonville city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.95
+1202091,Miami city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.92
+1203847,Tampa city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,1.16
+1204311,Orlando city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,1.09
+1205197,St. Petersburg city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,1.01
+1206393,Hialeah city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,1.04
+1207364,Tallahassee city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.77
+1208309,Port St. Lucie city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.61
+1209448,Fort Lauderdale city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.99
+1210121,Cape Coral city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.67
+1211226,Pembroke Pines city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.99
+1212744,Hollywood city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.78
+1213257,Gainesville city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.88
+1214911,Miramar city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.69
+1215201,Coral Springs city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.61
+1216758,Palm Bay city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.82
+1217115,West Palm Beach city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.95
+1218213,Clearwater city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.73
+1219560,Lakeland city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.8
+1220758,Pompano Beach city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.75
+1221448,Davie city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.89
+1222340,Boca Raton city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.78
+1223313,Miami Gardens city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.8
+1224627,Sunrise city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.86
+1225637,Plantation city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.68
+1226217,Deltona city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.54
+1227409,Palm Coast city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.59
+1228543,Largo city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.59
+1229615,Deerfield Beach city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,0.94
+1230723,Melbourne city,12,Florida,Live Local Act,Zoning Upzones,2023-07-01,1.0
+3601552,Buffalo city,36,New York,Parking Minimum Elimination,Parking Reform,2017-01-01,1.57
+0901428,Hartford city,09,Connecticut,Parking Minimum Elimination,Parking Reform,2017-09-01,1.59
+0501026,Fayetteville city,05,Arkansas,Parking Minimum Elimination,Parking Reform,2019-09-01,0.38
+0201463,Anchorage city,02,Alaska,Parking Minimum Elimination,Parking Reform,2022-10-01,0.47
+2101516,Lexington city,21,Kentucky,Parking Minimum Elimination,Parking Reform,2022-11-01,0.68
+2501091,Cambridge city,25,Massachusetts,Parking Minimum Elimination,Parking Reform,2021-09-01,1.58
+1701427,Champaign city,17,Illinois,Parking Minimum Elimination,Parking Reform,2019-12-01,0.89
+2601836,Ann Arbor city,26,Michigan,Parking Minimum Elimination,Parking Reform,2022-01-01,0.61
+4501548,Greenville city,45,South Carolina,Parking Minimum Elimination,Parking Reform,2020-08-01,0.78
+3701838,Durham city,37,North Carolina,Parking Minimum Elimination,Parking Reform,2019-06-01,0.54
+5101889,Tysons city,51,Virginia,Parking Minimum Elimination,Parking Reform,2020-04-01,0.6
+1801609,South Bend city,18,Indiana,Parking Minimum Elimination,Parking Reform,2021-02-01,0.55
+1601118,Sandpoint city,16,Idaho,Parking Minimum Elimination,Parking Reform,2019-08-01,0.06
+3602144,New York City city,36,New York,City of Yes,Comprehensive Reform,2024-12-01,2.08
+5501416,Milwaukee city,55,Wisconsin,Growing MKE,Comprehensive Reform,2023-11-01,0.92
+3901685,Columbus city,39,Ohio,Code Update,Comprehensive Reform,2023-06-01,0.85
+1802078,Indianapolis city,18,Indiana,Indy Rezone,Comprehensive Reform,2022-09-01,0.72
+2602025,Detroit city,26,Michigan,ADU Ordinance,ADU/Lot Split,2021-10-01,0.88
+4201576,Pittsburgh city,42,Pennsylvania,ADU Legalization,ADU/Lot Split,2022-03-01,1.05
+2401680,Baltimore city,24,Maryland,Transform Baltimore,Comprehensive Reform,2017-01-01,1.12
+4202344,Philadelphia city,42,Pennsylvania,Zoning Code Update,Comprehensive Reform,2012-08-01,1.18
+1101803,Washington city,11,District of Columbia,ADU Expansion,ADU/Lot Split,2021-07-01,1.42
+5350722,Walla Walla city,53,Washington,ADU Reform,ADU/Lot Split,2021-04-01,0.65
+4401598,Providence city,44,Rhode Island,Comprehensive Update,Comprehensive Reform,2022-12-01,1.15
+2102145,Louisville city,21,Kentucky,Land Development Code,Comprehensive Reform,2019-03-01,0.78
+2901622,Kansas City city,29,Missouri,KC Housing Trust,Zoning Upzones,2022-04-01,0.68
+2902871,St. Louis city,29,Missouri,Form-Based Code,Comprehensive Reform,2020-11-01,0.82
+3101665,Omaha city,31,Nebraska,Zoning Update,Comprehensive Reform,2023-09-01,0.62
+5102017,Virginia Beach city,51,Virginia,Strategic Growth,Zoning Upzones,2022-07-01,0.92
+3401821,Newark city,34,New Jersey,Land Use Update,Comprehensive Reform,2021-06-01,1.35
+3402945,Jersey City city,34,New Jersey,Transit Village,Zoning Upzones,2020-09-01,1.28
+2502605,Somerville city,25,Massachusetts,Union Square,Zoning Upzones,2019-05-01,1.55
+5103580,Arlington city,51,Virginia,Missing Middle,Comprehensive Reform,2023-03-01,1.22
+5104816,Alexandria city,51,Virginia,Zoning for Housing,Comprehensive Reform,2023-07-01,1.18
+5105144,Richmond city,51,Virginia,RVA Green,Comprehensive Reform,2022-01-01,0.88
+5106289,Norfolk city,51,Virginia,plaNorfolk,Comprehensive Reform,2021-09-01,0.75
+5107088,Charlottesville city,51,Virginia,Comp Plan Update,Comprehensive Reform,2021-08-01,1.02
+5001118,Burlington city,50,Vermont,ADU Ordinance,ADU/Lot Split,2020-03-01,1.12
+2301956,Portland city,23,Maine,Recode Portland,Comprehensive Reform,2022-02-01,1.08
+3301516,Manchester city,33,New Hampshire,Master Plan Update,Comprehensive Reform,2020-10-01,0.95
+0902570,New Haven city,09,Connecticut,Plan of Conservation,Comprehensive Reform,2023-05-01,1.28
+0903864,Stamford city,09,Connecticut,TOD Overlay,Zoning Upzones,2021-11-01,1.35
