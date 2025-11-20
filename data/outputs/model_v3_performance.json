@@ -1,0 +1,24 @@
+{
+  "model_version": "3.0",
+  "training_samples": 502,
+  "features": [
+    "reform_type_encoded",
+    "baseline_wrluri",
+    "reform_year"
+  ],
+  "performance": {
+    "train_r2": 0.6559603238787308,
+    "cv_r2_mean": 0.055531900827891986,
+    "cv_r2_std": 0.19617191365104614
+  },
+  "feature_importance": {
+    "reform_type": 0.15930684211603552,
+    "wrluri": 0.7477036783852158,
+    "reform_year": 0.09298947949874875
+  },
+  "improvement_from_v2": {
+    "v2_r2": -10.98,
+    "v3_r2": 0.055531900827891986,
+    "improvement": 11.035531900827893
+  }
+}
