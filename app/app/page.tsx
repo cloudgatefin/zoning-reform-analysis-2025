@@ -2,11 +2,21 @@
 
 import { useState, useMemo } from "react";
 import { DashboardHeader, FilterControls, SummaryCards, PercentChangeChart, ReformsTable } from "@/components/dashboard";
-import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison } from "@/components/visualizations";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
+import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison, PlaceDetailPanel } from "@/components/visualizations";
+import { Card, CardHeader, CardTitle, CardContent, PlaceSearch } from "@/components/ui";
+import { Search, MapPin } from 'lucide-react';
 import { useReformMetrics } from "@/lib/hooks/useReformMetrics";
 import { computeSummary, getUniqueJurisdictions, getUniqueReformTypes } from "@/lib/data-transforms";
 import { ReformMetric } from "@/lib/types";
+
+interface SelectedPlace {
+  place_fips: string
+  place_name: string
+  state_fips: string
+  recent_units_2024: number
+  growth_rate_5yr: number
+  mf_share_recent: number
+}
 
 export default function DashboardPage() {
   const { metrics, isLoading, isError } = useReformMetrics();
@@ -15,6 +25,7 @@ export default function DashboardPage() {
   const [selectedState, setSelectedState] = useState<ReformMetric | null>(null);
   const [selectedCity, setSelectedCity] = useState<{ fips: string; name: string } | null>(null);
   const [countyDrillDown, setCountyDrillDown] = useState<{ stateFips: string; stateName: string } | null>(null);
+  const [selectedPlace, setSelectedPlace] = useState<SelectedPlace | null>(null);
 
   // Get unique values for filters
   const jurisdictions = useMemo(() => getUniqueJurisdictions(metrics), [metrics]);
@@ -86,6 +97,35 @@ export default function DashboardPage() {
       />
 
       <SummaryCards stats={summary} />
+
+      {/* Place Search Section - Phase 1.2 MVP */}
+      <Card className="mb-5">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Search className="h-5 w-5" />
+            Place Explorer (Phase 1.2 MVP)
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <PlaceSearch
+            onPlaceSelect={(place) => setSelectedPlace(place)}
+            placeholder="Search 40+ places... (e.g., Austin, Minneapolis, Portland)"
+          />
+          <p className="text-xs text-gray-500 mt-3">
+            Search for cities with documented permit data and zoning reforms
+          </p>
+        </CardContent>
+      </Card>
+
+      {/* Place Detail Panel */}
+      {selectedPlace && (
+        <div className="mb-5">
+          <PlaceDetailPanel
+            placeFips={selectedPlace.place_fips}
+            onClose={() => setSelectedPlace(null)}
+          />
+        </div>
+      )}
 
       {/* Interactive Choropleth Map */}
       <Card className="mb-5">

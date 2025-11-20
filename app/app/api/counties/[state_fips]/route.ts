@@ -5,10 +5,10 @@ import { parse } from "csv-parse/sync";
 
 export async function GET(
   request: Request,
-  { params }: { params: { state_fips: string } }
+  { params }: { params: Promise<{ state_fips: string }> }
 ) {
   try {
-    const { state_fips } = params;
+    const { state_fips } = await params;
 
     const csvPath = path.join(
       process.cwd(),

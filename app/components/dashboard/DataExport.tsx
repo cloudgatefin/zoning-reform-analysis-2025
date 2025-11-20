@@ -58,7 +58,7 @@ export function DataExport({ data }: DataExportProps) {
         type: "Feature",
         geometry: {
           type: "Point",
-          coordinates: STATE_CENTROIDS[d.state_fips] || [0, 0]
+          coordinates: (d.state_fips && STATE_CENTROIDS[d.state_fips]) || [0, 0]
         },
         properties: {
           jurisdiction: d.jurisdiction,

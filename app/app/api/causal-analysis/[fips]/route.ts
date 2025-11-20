@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import csv from 'csv-parse/sync';
+import { parse } from 'csv-parse/sync';
 
 export async function GET(
   request: Request,
-  { params }: { params: { fips: string } }
+  { params }: { params: Promise<{ fips: string }> }
 ) {
   try {
-    const fips = params.fips;
+    const { fips } = await params;
     const paddedFips = fips.padStart(7, '0');
 
     // Load DiD results
@@ -20,7 +20,7 @@ export async function GET(
       'did_analysis_results.csv'
     );
     const didContent = fs.readFileSync(didPath, 'utf-8');
-    const didRecords = csv.parse(didContent, {
+    const didRecords = parse(didContent, {
       columns: true,
       skip_empty_lines: true,
     }) as any[];
@@ -34,7 +34,7 @@ export async function GET(
       'scm_analysis_results.csv'
     );
     const scmContent = fs.readFileSync(scmPath, 'utf-8');
-    const scmRecords = csv.parse(scmContent, {
+    const scmRecords = parse(scmContent, {
       columns: true,
       skip_empty_lines: true,
     }) as any[];
@@ -48,7 +48,7 @@ export async function GET(
       'causal_methods_comparison.csv'
     );
     const comparisonContent = fs.readFileSync(comparisonPath, 'utf-8');
-    const comparisonRecords = csv.parse(comparisonContent, {
+    const comparisonRecords = parse(comparisonContent, {
       columns: true,
       skip_empty_lines: true,
     }) as any[];
