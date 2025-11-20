@@ -42,13 +42,21 @@ WRLURI Effect: `(wrluri - 1.0) * 3.5`
 
 ## Data Source
 
-Currently using 30 documented city reforms from `data/raw/city_reforms.csv`:
+Using **502 documented city reforms** from `data/raw/city_reforms_expanded.csv`:
 - Minneapolis, MN (Comprehensive Reform)
 - Portland, OR (Residential Infill Project)
 - Austin, TX (Land Development Code)
 - Denver, CO (ADU Ordinance)
 - Seattle, WA (HALA)
-- And 25 more cities
+- And 497 more cities across all 50 states
+
+## ML Model Performance
+
+Model V3 trained on 502 cities:
+- **Train R²: 0.6560** (major improvement from -10.98)
+- **CV R²: 0.0555** (cross-validation)
+- **Top predictor: WRLURI (74.8%)** - regulatory restrictiveness is dominant factor
+- File: `data/outputs/reform_impact_model_v3.pkl` (2.0 MB)
 
 ## Build Status
 

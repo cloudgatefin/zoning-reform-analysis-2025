@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
   try {
     const filePath = path.join(
       process.cwd(),
-      'data/raw/city_reforms.csv'
+      'data/raw/city_reforms_expanded.csv'
     )
 
     if (!fs.existsSync(filePath)) {

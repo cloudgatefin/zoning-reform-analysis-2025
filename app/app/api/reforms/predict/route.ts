@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
     // Find comparable cities
     const comparable_cities: string[] = []
     try {
-      const filePath = path.join(process.cwd(), 'data/raw/city_reforms.csv')
+      const filePath = path.join(process.cwd(), 'data/raw/city_reforms_expanded.csv')
       if (fs.existsSync(filePath)) {
         const content = fs.readFileSync(filePath, 'utf-8')
         const lines = content.split('\n').slice(1)
