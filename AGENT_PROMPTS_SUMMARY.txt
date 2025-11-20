@@ -1,0 +1,389 @@
+================================================================================
+                    PHASE 1.2 AGENT PROMPTS - READY TO USE
+================================================================================
+
+CREATED: 2025-11-20
+STATUS: All 4 agent prompts ready for copy/paste into Claude Code Web
+EXECUTION: 3 parallel agents + 1 integration agent
+TOTAL TIME: 3-4 hours parallel execution
+
+================================================================================
+                              QUICK START
+================================================================================
+
+STEP 1: Open 3 Claude Code Web sessions simultaneously
+
+Session A (Agent 1 - 30 min):
+→ Copy entire content of: AGENT_1_PLACE_SEARCH_PROMPT.md
+→ Paste into Claude Code Web
+→ Follow instructions
+
+Session B (Agent 2 - 50 min):
+→ Copy entire content of: AGENT_2_PLACE_DETAIL_PROMPT.md
+→ Paste into Claude Code Web
+→ Follow instructions
+
+Session C (Agent 3 - 2-3 hours):
+→ Copy entire content of: AGENT_3_EXPAND_REFORMS_PROMPT.md
+→ Paste into Claude Code Web
+→ Follow instructions
+
+STEP 2: After all 3 agents complete (~3 hours), run Agent 4
+
+Session D (Agent 4 - 80 min):
+→ Copy entire content of: AGENT_4_INTEGRATION_PROMPT.md
+→ Paste into Claude Code Web
+→ Follow integration steps
+
+RESULT: Complete Phase 1.2 MVP deployed to Vercel
+→ 24,535 searchable places
+→ Detail panels with metrics & charts
+→ 100+ cities with zoning reforms
+
+================================================================================
+                         PROMPT FILES CREATED
+================================================================================
+
+4 Agent Prompts (self-contained, copy/paste ready):
+
+1. AGENT_1_PLACE_SEARCH_PROMPT.md
+   ├─ Build PlaceSearch.tsx with Fuse.js
+   ├─ Create search API route
+   ├─ Convert place metrics to JSON search index
+   ├─ Integrate into dashboard
+   └─ Time: 30 minutes
+
+2. AGENT_2_PLACE_DETAIL_PROMPT.md
+   ├─ Build PlaceDetailPanel.tsx with metrics
+   ├─ Create API routes (metrics, permits)
+   ├─ Display growth, MF share, rankings
+   ├─ Show 10-year permit history chart
+   └─ Time: 50 minutes
+
+3. AGENT_3_EXPAND_REFORMS_PROMPT.md
+   ├─ Research 70+ additional cities
+   ├─ Expand reforms CSV from 30→100+ cities
+   ├─ Create API route for linked reforms
+   ├─ Document all sources
+   └─ Time: 2-3 hours
+
+4. AGENT_4_INTEGRATION_PROMPT.md
+   ├─ Integrate outputs from Agents 1-3
+   ├─ Run comprehensive test suite
+   ├─ Deploy to Vercel
+   ├─ Create documentation
+   └─ Time: 80 minutes (run AFTER agents 1-3)
+
+Master Documentation:
+→ PHASE_1_2_AGENT_PROMPTS_README.md (complete guide)
+→ PHASE_1_2_AGENT_PROMPTS_SUMMARY.txt (this file)
+
+================================================================================
+                        PARALLEL EXECUTION STRATEGY
+================================================================================
+
+Timeline (3-4 hours total):
+
+Time    Agent 1 (30m)         Agent 2 (50m)        Agent 3 (2-3h)
+────────────────────────────────────────────────────────────────
+0:00    START                 START                START
+        PlaceSearch.tsx       DetailPanel.tsx      Expand reforms
+
+0:30    ✓ Agent 1 DONE        (in progress)        (in progress)
+
+0:50    Waiting...            ✓ Agent 2 DONE       (in progress)
+
+3:00    Ready for Agent 4     Ready for Agent 4    ✓ Agent 3 DONE
+        (but wait for 3)      (but wait for 3)
+
+3:00    ✓ ALL AGENTS DONE → START AGENT 4 INTEGRATION (80 min)
+
+4:20    ✓ PHASE 1.2 MVP COMPLETE & DEPLOYED
+
+NO FILE CONFLICTS - Each agent works on distinct files:
+- Agent 1: app/components/ui/PlaceSearch.tsx
+- Agent 2: app/components/visualizations/PlaceDetailPanel.tsx
+- Agent 3: data/raw/city_reforms_expanded.csv
+- Agent 4: Integration only (modifies app/app/page.tsx)
+
+================================================================================
+                          WHAT EACH AGENT CREATES
+================================================================================
+
+AGENT 1 (PlaceSearch) Output:
+├─ app/components/ui/PlaceSearch.tsx (250 lines)
+├─ app/app/api/places/search/route.ts (50 lines)
+├─ public/data/places.json (~8 MB)
+└─ convert_places_to_json.py (script)
+
+AGENT 2 (PlaceDetailPanel) Output:
+├─ app/components/visualizations/PlaceDetailPanel.tsx (350 lines)
+├─ app/app/api/places/[fips]/route.ts (60 lines)
+├─ app/app/api/places/[fips]/permits/route.ts (70 lines)
+└─ Displays: 2024 permits, growth rate, MF share, permit history
+
+AGENT 3 (Expand Reforms) Output:
+├─ data/raw/city_reforms_expanded.csv (100+ cities)
+├─ scripts/24_expand_city_reforms.py (50 lines)
+├─ app/app/api/places/[fips]/reforms/route.ts (60 lines)
+└─ Reforms: ADU, Upzoning, Mixed-use, Density bonus, etc.
+
+AGENT 4 (Integration) Output:
+├─ Complete integrated dashboard (app/app/page.tsx)
+├─ scripts/25_test_phase_1_2.py (testing suite)
+├─ docs/PHASE_1_2_MVP_FEATURES.md (documentation)
+├─ DEPLOYMENT_REPORT_PHASE_1_2.md (deployment info)
+└─ Deployed to Vercel with production URL
+
+================================================================================
+                         DATA COVERAGE & SPECS
+================================================================================
+
+Places:
+- Total: 24,535 unique US places
+- Coverage: All 50 states + DC
+- Source: Census Building Permits Survey
+
+Metrics (per place):
+- 2024 permits (units)
+- 2023 permits (prior year)
+- Growth rates (2yr, 5yr, 10yr CAGR)
+- Multi-family share (%)
+- National & state rankings
+
+Permit History:
+- Annual records: 812,961
+- Years: 1980-2024
+- Granularity: By building type (SF, 2-unit, 3-4 unit, 5+ unit)
+
+Zoning Reforms:
+- Cities: 100+ (expanded from 30)
+- Reforms: 150+ documented
+- Types: ADU, Upzoning, Mixed-use, Height/parking reduction, etc.
+- Years: 2000-2024
+- Sources: YIMBY Atlas, city planning websites, research papers
+
+================================================================================
+                            PERFORMANCE TARGETS
+================================================================================
+
+Search:
+- Response time: <50ms (client-side Fuse.js)
+- Latency: ~200ms network round-trip
+- Accuracy: Fuzzy matching with ~30% tolerance
+
+Detail Panel:
+- Load time: ~500ms (fetch metrics + permits)
+- API response: ~100-200ms per request
+- Chart render: <100ms (10-year history)
+
+Dashboard:
+- First paint: ~1.2s
+- Interactive: ~1.8s
+- Bundle size: ~850KB (gzip)
+- Lighthouse score: 92/100 target
+
+Mobile:
+- Fully responsive
+- Touch-optimized
+- Fast on 4G networks
+
+================================================================================
+                           FILE DEPENDENCIES
+================================================================================
+
+Existing Files (From Phase 1.1):
+✓ data/outputs/place_metrics_comprehensive.csv (24,535 places)
+✓ data/raw/census_bps_place_annual_permits.csv (812K rows)
+✓ data/raw/city_reforms.csv (30 cities - to be expanded)
+
+Agent 1 Depends On:
+→ data/outputs/place_metrics_comprehensive.csv
+
+Agent 2 Depends On:
+→ data/raw/census_bps_place_annual_permits.csv
+→ data/outputs/place_metrics_comprehensive.csv
+
+Agent 3 Depends On:
+→ data/raw/city_reforms.csv (existing, to expand)
+
+Agent 4 Depends On:
+→ All files from Agents 1, 2, 3
+
+NO CONFLICTS - Safe to run in parallel
+
+================================================================================
+                          COST BREAKDOWN (ZERO)
+================================================================================
+
+Component              | Cost | Alternative | Savings/Year
+────────────────────────────────────────────────────────────
+Fuse.js search         | $0   | Meilisearch | $600-6,000
+CSV storage            | $0   | PostgreSQL  | $1,200-2,400
+API routes             | $0   | Custom API  | $500-1,000
+Vercel hosting         | $0   | AWS/GCP     | $50-500
+Maps (future)          | $0   | Mapbox      | $600-1,200
+────────────────────────────────────────────────────────────
+TOTAL YEAR 1           | $0   | Traditional | $2,000-4,000+
+
+Bootstrap approach: Completely free infrastructure
+
+================================================================================
+                           EXECUTION CHECKLIST
+================================================================================
+
+BEFORE STARTING:
+[ ] Phase 1.1 scripts completed (Scripts 20-22)
+[ ] Data files exist:
+    [ ] data/outputs/place_metrics_comprehensive.csv
+    [ ] data/raw/census_bps_place_annual_permits.csv
+    [ ] data/raw/city_reforms.csv
+[ ] Have 3 Claude Code Web sessions ready
+[ ] Vercel account created (for Agent 4)
+[ ] Git repo clean (no uncommitted changes)
+
+AGENT 1 EXECUTION:
+[ ] Copy AGENT_1_PLACE_SEARCH_PROMPT.md
+[ ] Paste into Claude Code Web session
+[ ] Follow all instructions
+[ ] Verify: PlaceSearch.tsx created
+[ ] Verify: public/data/places.json created
+[ ] Mark complete before moving to integration
+
+AGENT 2 EXECUTION:
+[ ] Copy AGENT_2_PLACE_DETAIL_PROMPT.md
+[ ] Paste into separate Claude Code Web session
+[ ] Follow all instructions
+[ ] Verify: PlaceDetailPanel.tsx created
+[ ] Verify: API routes created
+[ ] Mark complete before moving to integration
+
+AGENT 3 EXECUTION:
+[ ] Copy AGENT_3_EXPAND_REFORMS_PROMPT.md
+[ ] Paste into separate Claude Code Web session
+[ ] Follow all instructions
+[ ] Research 70+ cities (takes 2-3 hours)
+[ ] Verify: city_reforms_expanded.csv created
+[ ] Verify: 100+ cities in database
+[ ] Mark complete before moving to integration
+
+AGENT 4 EXECUTION (After 1-3 complete):
+[ ] Copy AGENT_4_INTEGRATION_PROMPT.md
+[ ] Paste into Claude Code Web session
+[ ] Verify all Agent 1-3 outputs exist
+[ ] Run test suite
+[ ] Deploy to Vercel
+[ ] Test production URL
+[ ] Create documentation
+[ ] Mark complete - MVP DEPLOYED
+
+================================================================================
+                           SUCCESS METRICS
+================================================================================
+
+After all agents complete, you should have:
+
+✓ 24,535 searchable places
+✓ <50ms search response
+✓ Detail panel with metrics
+✓ 10-year permit history charts
+✓ 100+ cities with reforms
+✓ Fully responsive design
+✓ Zero console errors
+✓ Deployed to Vercel
+✓ Production URL working
+✓ All tests passing
+
+Phase 1.2 MVP Status: COMPLETE & LIVE
+
+================================================================================
+                         TIMELINE SUMMARY
+================================================================================
+
+Total execution time (parallel): 3-4 hours + 80 min integration
+= ~4.5 hours start to finish
+
+Breakdown:
+- Agent 1 (PlaceSearch): 30 minutes
+- Agent 2 (DetailPanel): 50 minutes (parallel)
+- Agent 3 (Reforms): 2-3 hours (parallel)
+- Setup/testing: 30 minutes (parallel overlap)
+- Agent 4 (Integration): 80 minutes (sequential)
+- Total: ~4.5 hours
+
+This beats sequential approach (would be ~6-7 hours) by running in parallel.
+
+================================================================================
+                             NEXT STEPS
+================================================================================
+
+IMMEDIATE:
+1. Read: PHASE_1_2_AGENT_PROMPTS_README.md
+2. Open 3 Claude Code Web sessions
+3. Copy Agent 1 prompt → Session 1
+4. Copy Agent 2 prompt → Session 2
+5. Copy Agent 3 prompt → Session 3
+6. Run all 3 in parallel
+
+AFTER AGENTS 1-3 COMPLETE:
+7. Copy Agent 4 prompt → Session 4
+8. Run integration and deployment
+
+AFTER AGENT 4 COMPLETE:
+9. Phase 1.2 MVP is LIVE on Vercel
+10. Ready for Phase 2 (mapping, comparative analysis)
+
+================================================================================
+                        PHASE 1.2 MVP FEATURES
+================================================================================
+
+Search:
+- Find any of 24,535+ US places
+- Fuzzy matching (try "los ang" → "Los Angeles")
+- Show permits and growth in results
+- Keyboard navigation (arrows, enter, escape)
+- Click result to view details
+
+Details:
+- 2024 permit count
+- 5-year growth rate (CAGR)
+- Multi-family housing share
+- National ranking percentile
+- 10-year permit history with stacked bar chart
+- Single-family vs multi-family breakdown
+
+Reforms:
+- See if place has documented zoning reforms
+- Reform type, year, description
+- Source citations
+- Linked from detail panel
+
+Dashboard:
+- Integrated search + details + reforms
+- Responsive mobile/tablet/desktop
+- Modern UI with Tailwind CSS
+- Clean, intuitive design
+
+================================================================================
+                             FINAL NOTE
+================================================================================
+
+All 4 prompts are completely self-contained:
+- No context needed from this session
+- Can be used in separate Claude Code Web instances
+- Include all file paths, data schemas, and examples
+- Ready to copy and paste
+
+Cost: $0 (free tools only)
+Infrastructure: Vercel free tier
+Data: Phase 1.1 outputs
+Timeline: 4.5 hours (3 parallel + 1 integration)
+Result: Complete Phase 1.2 MVP with 24,535 searchable places
+
+Questions? See PHASE_1_2_AGENT_PROMPTS_README.md for detailed info.
+
+Ready to start? Copy AGENT_1_PLACE_SEARCH_PROMPT.md and paste into Claude Code Web.
+
+Let's go! 🚀
+
+================================================================================

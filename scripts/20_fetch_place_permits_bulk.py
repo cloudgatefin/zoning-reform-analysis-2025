@@ -189,43 +189,55 @@ def validate_csv(csv_path: Path) -> dict:
     }
 
     try:
-        with open(csv_path, 'r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
+        # Try multiple encodings
+        encodings = ['utf-8', 'latin-1', 'iso-8859-1', 'cp1252']
 
-            if reader.fieldnames:
-                results['column_count'] = len(reader.fieldnames)
-                results['columns'] = reader.fieldnames[:10]  # First 10 columns
-                print(f"[OK] {results['column_count']} columns found")
-                print(f"  Sample columns: {', '.join(results['columns'])}")
+        for encoding in encodings:
+            try:
+                with open(csv_path, 'r', encoding=encoding) as f:
+                    reader = csv.DictReader(f)
 
-            # Count rows and collect stats
-            places = set()
-            years = set()
-            row_count = 0
+                    if reader.fieldnames:
+                        results['column_count'] = len(reader.fieldnames)
+                        results['columns'] = reader.fieldnames[:10]  # First 10 columns
+                        print(f"[OK] {results['column_count']} columns found (encoding: {encoding})")
+                        print(f"  Sample columns: {', '.join(results['columns'])}")
 
-            for row in reader:
-                row_count += 1
-                if 'PLACE_NAME' in row and row['PLACE_NAME']:
-                    places.add(row['PLACE_NAME'])
-                if 'YEAR' in row and row['YEAR']:
-                    try:
-                        years.add(int(row['YEAR']))
-                    except ValueError:
-                        pass
+                    # Count rows and collect stats
+                    places = set()
+                    years = set()
+                    row_count = 0
 
-            results['row_count'] = row_count
-            results['place_count'] = len(places)
-            if years:
-                results['year_range'] = (min(years), max(years))
+                    for row in reader:
+                        row_count += 1
+                        if 'PLACE_NAME' in row and row['PLACE_NAME']:
+                            places.add(row['PLACE_NAME'])
+                        if 'YEAR' in row and row['YEAR']:
+                            try:
+                                years.add(int(row['YEAR']))
+                            except ValueError:
+                                pass
 
-            print(f"[OK] {format_bytes(results['file_size'])} file")
-            print(f"[OK] {row_count:,} data rows")
-            print(f"[OK] {len(places):,} unique places")
-            if results['year_range']:
-                print(f"[OK] Years: {results['year_range'][0]}-{results['year_range'][1]}")
+                    results['row_count'] = row_count
+                    results['place_count'] = len(places)
+                    if years:
+                        results['year_range'] = (min(years), max(years))
 
-            results['valid'] = results['row_count'] > 0
-            return results
+                    print(f"[OK] {format_bytes(results['file_size'])} file")
+                    print(f"[OK] {row_count:,} data rows")
+                    print(f"[OK] {len(places):,} unique places")
+                    if results['year_range']:
+                        print(f"[OK] Years: {results['year_range'][0]}-{results['year_range'][1]}")
+
+                    results['valid'] = results['row_count'] > 0
+                    return results
+
+            except UnicodeDecodeError:
+                continue  # Try next encoding
+
+        # If all encodings fail
+        print(f"[FAIL] Could not decode CSV with any encoding (tried: {', '.join(encodings)})")
+        return results
 
     except Exception as e:
         print(f"[FAIL] Validation failed: {e}")

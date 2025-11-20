@@ -41,9 +41,21 @@ def load_census_data() -> pd.DataFrame:
         print(f"[INFO] First run: python scripts/20_fetch_place_permits_bulk.py")
         sys.exit(1)
 
-    df = pd.read_csv(INPUT_FILE, low_memory=False)
-    print(f"[OK] Loaded {len(df):,} rows, {len(df.columns)} columns")
-    return df
+    # Try multiple encodings for Census data
+    encodings = ['utf-8', 'latin-1', 'iso-8859-1', 'cp1252']
+
+    for encoding in encodings:
+        try:
+            print(f"[INFO] Attempting to load with encoding: {encoding}")
+            df = pd.read_csv(INPUT_FILE, low_memory=False, encoding=encoding)
+            print(f"[OK] Loaded {len(df):,} rows, {len(df.columns)} columns (encoding: {encoding})")
+            return df
+        except UnicodeDecodeError:
+            continue
+
+    # If all fail
+    print(f"[FAIL] Could not load CSV with any encoding (tried: {', '.join(encodings)})")
+    sys.exit(1)
 
 
 def extract_places_directory(df: pd.DataFrame) -> pd.DataFrame:
