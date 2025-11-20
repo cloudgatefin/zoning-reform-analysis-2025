@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { DashboardHeader, FilterControls, SummaryCards, PercentChangeChart, ReformsTable } from "@/components/dashboard";
-import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison, PlaceDetailPanel } from "@/components/visualizations";
+import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison, PlaceDetailPanel, ReformImpactCalculator } from "@/components/visualizations";
 import { Card, CardHeader, CardTitle, CardContent, PlaceSearch } from "@/components/ui";
 import { Search, MapPin } from 'lucide-react';
 import { useReformMetrics } from "@/lib/hooks/useReformMetrics";
@@ -97,6 +97,21 @@ export default function DashboardPage() {
       />
 
       <SummaryCards stats={summary} />
+
+      {/* Phase 2: Reform Impact Calculator */}
+      <Card className="mb-5 border-l-4 border-l-purple-500">
+        <CardHeader>
+          <CardTitle className="text-lg">
+            🎯 Reform Impact Calculator (Phase 2)
+          </CardTitle>
+          <p className="text-sm text-gray-600 mt-2">
+            Predict how a zoning reform will affect building permits in your jurisdiction
+          </p>
+        </CardHeader>
+        <CardContent>
+          <ReformImpactCalculator />
+        </CardContent>
+      </Card>
 
       {/* Place Search Section - Phase 1.2 MVP */}
       <Card className="mb-5">
