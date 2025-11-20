@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { DashboardHeader, FilterControls, SummaryCards, PercentChangeChart, ReformsTable } from "@/components/dashboard";
-import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison } from "@/components/visualizations";
+import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison, PlaceDetailPanel } from "@/components/visualizations";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
 import { useReformMetrics } from "@/lib/hooks/useReformMetrics";
 import { computeSummary, getUniqueJurisdictions, getUniqueReformTypes } from "@/lib/data-transforms";
@@ -15,6 +15,7 @@ export default function DashboardPage() {
   const [selectedState, setSelectedState] = useState<ReformMetric | null>(null);
   const [selectedCity, setSelectedCity] = useState<{ fips: string; name: string } | null>(null);
   const [countyDrillDown, setCountyDrillDown] = useState<{ stateFips: string; stateName: string } | null>(null);
+  const [selectedPlace, setSelectedPlace] = useState<{ place_fips: string; place_name: string } | null>(null);
 
   // Get unique values for filters
   const jurisdictions = useMemo(() => getUniqueJurisdictions(metrics), [metrics]);
@@ -86,6 +87,16 @@ export default function DashboardPage() {
       />
 
       <SummaryCards stats={summary} />
+
+      {/* Place Detail Panel - shows when place is selected via PlaceSearch (Agent 1) */}
+      {selectedPlace && (
+        <div className="mb-5">
+          <PlaceDetailPanel
+            placeFips={selectedPlace.place_fips}
+            onClose={() => setSelectedPlace(null)}
+          />
+        </div>
+      )}
 
       {/* Interactive Choropleth Map */}
       <Card className="mb-5">

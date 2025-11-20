@@ -8,3 +8,4 @@ export { CountyDrillDown } from "./CountyDrillDown";
 export { ReformPredictions } from "./ReformPredictions";
 export { EconomicContextPanel } from "./EconomicContextPanel";
 export { CausalMethodsComparison } from "./CausalMethodsComparison";
+export { PlaceDetailPanel } from "./PlaceDetailPanel";
