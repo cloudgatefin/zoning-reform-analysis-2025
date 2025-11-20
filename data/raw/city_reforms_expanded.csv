@@ -1,0 +1,138 @@
+state_fips,state_name,place_name,place_fips,reform_type,reform_year,reform_name,description,source,research_notes
+04,Arizona,Flagstaff,0423620,ADU,2019,ADU Program,Expanded ADU allowances in mountain community,Flagstaff Planning,High-cost mountain town
+04,Arizona,Mesa,0446000,ADU,2020,ADU Ordinance,Legalized accessory dwelling units,Mesa Planning,East Valley housing
+04,Arizona,Phoenix,0455000,ADU,2020,ADU Ordinance,Legalized ADUs in all residential zones,Phoenix Planning,First major AZ city
+04,Arizona,Phoenix,0455000,Upzoning,2022,Infill Housing Incentive District,Increased density allowances in central Phoenix,Phoenix Planning,Light rail corridor focus
+04,Arizona,Scottsdale,0465000,ADU,2021,Casita Ordinance,Allowed guest houses as rental units,Scottsdale Planning,Upscale ADU program
+04,Arizona,Tempe,0473000,Mixed_Use,2019,Downtown Infill District,Mixed-use high-density zoning downtown,Tempe Planning,ASU area development
+04,Arizona,Tucson,0477000,ADU,2020,ADU Legalization,Permitted ADUs citywide with streamlined approval,Tucson Planning,Southern AZ housing
+06,California,Anaheim,0602000,Mixed_Use,2021,Beach Boulevard Specific Plan,Mixed-use corridor redevelopment,Anaheim Planning,Transit-oriented development
+06,California,Berkeley,0606000,ADU,2018,ADU Expansion Program,Removed owner-occupancy requirement and parking minimums,Berkeley Planning,Progressive ADU policy
+06,California,Berkeley,0606000,Upzoning,2021,SB 9 Duplex Ordinance,Enabled lot splits and duplexes citywide,Berkeley Planning - SB 9 Implementation,Historic zoning change
+06,California,Cupertino,0617610,Mixed_Use,2019,Vallco Specific Plan,Mixed-use redevelopment of shopping center,Cupertino Planning,SB 35 streamlining used
+06,California,Fresno,0627000,ADU,2020,ADU Ordinance Update,Reduced setbacks and streamlined approval,Fresno Planning,Central Valley ADU leader
+06,California,Long Beach,0643000,ADU,2019,ADU Acceleration Program,Fee waivers and expedited permitting for ADUs,Long Beach Development Services,Focus on affordable ADUs
+06,California,Los Angeles,0644000,ADU,2017,ADU Ordinance Reform,Streamlined ADU permitting and reduced fees citywide,LA Planning Department,State ADU laws enabled local implementation
+06,California,Los Angeles,0644000,Upzoning,2021,Transit Oriented Communities,Density bonuses near transit stations for affordable housing,LA Planning - TOC Guidelines,Measure JJJ implementation
+06,California,Mountain View,0649670,Upzoning,2018,North Bayshore Precise Plan,"Allowed 9,850 new housing units near Google campus",Mountain View Planning,Jobs-housing balance effort
+06,California,Oakland,0653000,ADU,2016,ADU Ordinance,Streamlined ADU approval with reduced setbacks,Oakland Planning,Pre-dated state ADU reforms
+06,California,Oakland,0653000,Upzoning,2021,Missing Middle Housing Ordinance,Allowed duplexes and triplexes in single-family zones,Oakland Housing Department,SB 9 local implementation
+06,California,Palo Alto,0655282,ADU,2020,ADU Ordinance Reform,Expanded ADU allowances in residential zones,Palo Alto Planning,High-cost area ADU expansion
+06,California,Pasadena,0656000,Mixed_Use,2019,Specific Plan Updates,Mixed-use zoning in commercial corridors,Pasadena Planning,Focus on walkable neighborhoods
+06,California,Riverside,0662000,ADU,2019,ADU Ordinance,Streamlined ADU permitting with fee waivers,Riverside Community Development,Inland Empire ADU leader
+06,California,Sacramento,0664000,ADU,2016,ADU Ordinance,Early adopter of ADU-friendly policies,Sacramento Planning,Model for other CA cities
+06,California,Sacramento,0664000,Height/Parking_Reduction,2022,Parking Reform,Eliminated parking minimums citywide,Sacramento Planning Commission,First major CA city to eliminate parking minimums
+06,California,San Diego,0666000,ADU,2018,ADU Bonus Program,Expedited permitting and fee waivers for ADUs,SD Development Services,Leading ADU production in CA
+06,California,San Diego,0666000,Upzoning,2020,Complete Communities Plan,Increased density along transit corridors,SD Planning Department,Part of Climate Action Plan
+06,California,San Francisco,0667000,ADU,2014,ADU Legalization,Legalized accessory dwelling units citywide,SF Planning Department,Initial ADU program before state mandates
+06,California,San Francisco,0667000,Height/Parking_Reduction,2018,Parking Requirement Elimination,Eliminated parking minimums in transit-rich areas,SF Planning - Parking Requirements,Significant reduction in parking mandates
+06,California,San Jose,0668000,ADU,2018,ADU Permit Streamlining,Reduced ADU permit processing to 60 days,San Jose Planning,Fast-track permitting
+06,California,San Jose,0668000,Density_Bonus,2020,Opportunity Housing,Density bonus for affordable housing near transit,San Jose Housing,Includes teacher housing provisions
+06,California,Santa Ana,0669000,ADU,2020,ADU Program,Free pre-approved ADU plans for residents,Santa Ana Planning,Equity-focused ADU program
+06,California,Santa Monica,0670000,Affordability_Mandate,2017,Affordable Housing Production Program,Inclusionary zoning with density bonuses,Santa Monica Housing,Strong affordability requirements
+06,California,Stockton,0675000,ADU,2020,ADU Program,Pre-approved ADU plans and fee deferrals,Stockton Planning,Central Valley housing production
+08,Colorado,Boulder,0807850,Upzoning,2021,Occupancy Limit Reform,Increased allowable unrelated occupants per unit,Boulder Planning,Long-standing local controversy
+08,Colorado,Colorado Springs,0816000,ADU,2020,ADU Code Update,Streamlined ADU approval in established neighborhoods,Colorado Springs Planning,Military community housing
+08,Colorado,Denver,0820000,ADU,2020,ADU Expansion,Expanded ADU allowances in all residential zones,Denver CPD,Removed many restrictions
+08,Colorado,Denver,0820000,Upzoning,2021,Group Living Amendment,Allowed more unrelated adults to live together,Denver CPD,Reformed outdated occupancy limits
+08,Colorado,Fort Collins,0827425,ADU,2021,ADU Ordinance,Legalized ADUs in residential neighborhoods,Fort Collins Planning,Northern Colorado housing
+09,Connecticut,Hartford,0937000,Mixed_Use,2020,iQuilt Plan,Mixed-use zoning for downtown revitalization,Hartford Planning,State capital housing
+09,Connecticut,New Haven,0952000,Upzoning,2021,NHV Plan Downtown,Increased density in downtown and transit areas,New Haven Planning,Yale area housing
+11,District of Columbia,Washington,1150000,ADU,2016,ADU Expansion,Expanded ADU allowances with reduced barriers,DC Office of Planning,Federal capital housing
+11,District of Columbia,Washington,1150000,Upzoning,2020,Inclusionary Zoning Updates,Strengthened affordability requirements with upzoning,DC Office of Planning,DC housing production
+12,Florida,Jacksonville,1235000,ADU,2020,ADU Ordinance,Legalized ADUs in residential zones,Jacksonville Planning,Largest FL city by area
+12,Florida,Miami,1245000,Upzoning,2019,Miami 21 Updates,Form-based code updates for increased density,Miami Planning,Continuous code updates
+12,Florida,Orlando,1253000,Mixed_Use,2021,Code Modernization,Updated zoning for mixed-use development,Orlando Planning,Central FL housing
+12,Florida,St. Petersburg,1263000,ADU,2019,ADU Program,Expanded ADU allowances citywide,St. Petersburg Planning,Tampa Bay housing
+12,Florida,Tampa,1271000,Mixed_Use,2020,Downtown Code Update,Mixed-use zoning in urban core,Tampa Planning,Bay area development
+13,Georgia,Atlanta,1304000,ADU,2019,ADU Ordinance,Legalized ADUs in residential zones,Atlanta Planning,First major Southeast city
+13,Georgia,Atlanta,1304000,Height/Parking_Reduction,2021,Parking Reduction,Reduced parking minimums near BeltLine,Atlanta DCP,BeltLine corridor focus
+13,Georgia,Savannah,1369000,ADU,2020,ADU Ordinance,Allowed ADUs in historic districts,Savannah MPC,Historic city housing
+17,Illinois,Chicago,1714000,Height/Parking_Reduction,2019,Connected Communities Ordinance,Reduced parking near transit,Chicago DPD,TOD parking reform
+17,Illinois,Chicago,1714000,ADU,2020,ADU Pilot Program,Pilot program for ADUs in select wards,Chicago DPD,Limited initial scope
+17,Illinois,Evanston,1724582,ADU,2020,ADU Ordinance,Legalized coach houses and ADUs,Evanston Planning,Northwestern area housing
+18,Indiana,Indianapolis,1836003,ADU,2019,ADU Ordinance,Legalized accessory dwelling units citywide,Indianapolis DMD,Midwest housing reform
+18,Indiana,Indianapolis,1836003,Height/Parking_Reduction,2020,Parking Reform,Reduced parking requirements near transit,Indianapolis DMD,Red Line BRT support
+19,Iowa,Des Moines,1921000,ADU,2020,ADU Ordinance,Legalized accessory dwelling units,Des Moines Planning,Midwest housing reform
+20,Kansas,Kansas City,2036000,ADU,2021,ADU Ordinance,Legalized accessory dwelling units,Kansas City KS Planning,KC metro housing
+22,Louisiana,New Orleans,2255000,Upzoning,2015,CZO Adoption,New comprehensive zoning ordinance,New Orleans CPC,Post-Katrina reform
+22,Louisiana,New Orleans,2255000,ADU,2019,ADU Expansion,Expanded ADU allowances in historic districts,New Orleans CPC,Affordable housing focus
+24,Maryland,Baltimore,2404000,ADU,2020,ADU Pilot Program,Pilot program for ADUs in select neighborhoods,Baltimore Planning,Historic city housing
+25,Massachusetts,Boston,2507000,ADU,2021,ADU Program,City-supported ADU pilot with technical assistance,Boston Planning,Limited rollout initially
+25,Massachusetts,Cambridge,2511000,Upzoning,2020,Affordable Housing Overlay,Allowed 100% affordable projects as-of-right,Cambridge CDD,Innovative zoning approach
+25,Massachusetts,Somerville,2562535,Upzoning,2019,Zoning Overhaul,Comprehensive rezoning with increased density,Somerville Planning,Green Line extension area
+25,Massachusetts,Worcester,2582000,Mixed_Use,2018,Downtown Zoning,Mixed-use zoning for downtown revitalization,Worcester Planning,Second largest MA city
+26,Michigan,Ann Arbor,2603000,Upzoning,2020,TC-1 Premium Zoning,Increased density in town center zones,Ann Arbor Planning,University town housing
+26,Michigan,Detroit,2622000,Mixed_Use,2019,Zoning Ordinance Update,Mixed-use districts in revitalizing areas,Detroit Planning,Rust Belt revitalization
+26,Michigan,Grand Rapids,2634000,ADU,2018,ADU Ordinance,Legalized accessory dwelling units,Grand Rapids Planning,West MI housing leader
+27,Minnesota,Minneapolis,2743000,Upzoning,2019,Minneapolis 2040,Eliminated single-family zoning citywide,Minneapolis Planning,Landmark national reform
+27,Minnesota,Minneapolis,2743000,Height/Parking_Reduction,2021,Parking Minimum Elimination,Removed all parking minimums citywide,Minneapolis Planning,Second major parking reform
+27,Minnesota,Rochester,2754880,Mixed_Use,2020,Downtown Master Plan,Mixed-use zoning for Mayo Clinic area development,Rochester Planning,DMC development framework
+27,Minnesota,Saint Paul,2758000,ADU,2019,ADU Ordinance,Legalized ADUs in residential zones,Saint Paul Planning,Twin Cities coordination
+27,Minnesota,Saint Paul,2758000,Height/Parking_Reduction,2021,Parking Reform,Reduced parking requirements near transit,Saint Paul Planning,Following Minneapolis lead
+29,Missouri,Kansas City,2938000,ADU,2020,ADU Ordinance,Legalized accessory dwelling units,Kansas City MO Planning,KC metro housing
+29,Missouri,St. Louis,2965000,Mixed_Use,2019,Form-Based Districts,Form-based code for mixed-use areas,St. Louis Planning,Urban revitalization
+30,Montana,Bozeman,3008950,ADU,2017,ADU Ordinance,Legalized ADUs in residential zones,Bozeman Planning,High-growth mountain town
+30,Montana,Missoula,3050200,ADU,2019,ADU Program,Expanded ADU allowances with reduced barriers,Missoula Planning,University town housing
+31,Nebraska,Lincoln,3128000,ADU,2019,ADU Program,Expanded ADU allowances,Lincoln Planning,State capital housing
+31,Nebraska,Omaha,3137000,ADU,2020,ADU Ordinance,Legalized accessory dwelling units,Omaha Planning,Midwest housing
+32,Nevada,Las Vegas,3240000,ADU,2021,ADU Ordinance,Legalized accessory dwelling units,Las Vegas Planning,Clark County coordination
+32,Nevada,Reno,3260600,ADU,2019,ADU Program,Streamlined ADU permitting,Reno Planning,Northern NV housing
+34,New Jersey,Jersey City,3436000,Upzoning,2018,Waterfront Rezoning,High-density mixed-use zoning along waterfront,Jersey City Planning,NYC suburb development
+34,New Jersey,Newark,3451000,Mixed_Use,2019,Live Newark Master Plan,Mixed-use development strategy,Newark Planning,Urban revitalization
+35,New Mexico,Albuquerque,3502000,Upzoning,2018,IDO Implementation,Comprehensive zoning code with increased density,Albuquerque Planning,Major code rewrite
+35,New Mexico,Santa Fe,3570500,ADU,2019,ADU Ordinance,Legalized ADUs in residential zones,Santa Fe Planning,Historic city housing
+36,New York,Albany,3601000,Height/Parking_Reduction,2020,Parking Reform,Eliminated parking minimums in core areas,Albany Planning,State capital reform
+36,New York,Buffalo,3611000,Upzoning,2017,Green Code Unified Development Ordinance,Comprehensive zoning reform with form-based codes,Buffalo Planning,Model for Rust Belt cities
+36,New York,New York city,3651000,Affordability_Mandate,2016,Mandatory Inclusionary Housing,Required affordable units in rezoned areas,NYC DCP,De Blasio housing policy
+36,New York,New York city,3651000,Upzoning,2021,City of Yes,Citywide zoning modernization for housing production,NYC DCP,Ongoing major initiative
+36,New York,Rochester,3663000,Upzoning,2019,Zoning Modernization,Updated zoning for housing production,Rochester Planning,Upstate NY reform
+37,North Carolina,Asheville,3702140,ADU,2018,ADU Program,Expanded ADU allowances in mountain city,Asheville Planning,High-cost tourist city
+37,North Carolina,Charlotte,3712000,ADU,2019,ADU Ordinance,Legalized ADUs in single-family neighborhoods,Charlotte Planning,Text amendment approval
+37,North Carolina,Charlotte,3712000,Upzoning,2021,UDO Update,Comprehensive zoning update with density increases,Charlotte Planning,Major code rewrite
+37,North Carolina,Durham,3719000,ADU,2019,Expanded Housing Choices,Legalized ADUs and reduced barriers,Durham Planning,Progressive NC city
+37,North Carolina,Raleigh,3755000,Upzoning,2020,UDO Update,Unified Development Ordinance with increased density,Raleigh Planning,Research Triangle housing
+37,North Carolina,Raleigh,3755000,Height/Parking_Reduction,2021,Parking Reduction,Reduced parking minimums in transit areas,Raleigh Planning,BRT corridor support
+39,Ohio,Cincinnati,3915000,ADU,2019,ADU Ordinance,Legalized accessory dwelling units,Cincinnati Planning,Historic city housing
+39,Ohio,Cleveland,3916000,Mixed_Use,2020,Zoning Code Update,Modernized zoning with mixed-use options,Cleveland Planning,Rust Belt housing
+39,Ohio,Columbus,3918000,ADU,2018,ADU Ordinance,Legalized ADUs in residential neighborhoods,Columbus Planning,State capital housing
+39,Ohio,Columbus,3918000,Height/Parking_Reduction,2022,Parking Minimum Elimination,Eliminated parking minimums citywide,Columbus Planning,Major Midwest reform
+41,Oregon,Bend,4105800,ADU,2016,ADU Code Update,Removed barriers to ADU construction,Bend Planning,Early Oregon ADU adopter
+41,Oregon,Corvallis,4115800,ADU,2019,ADU Ordinance,Streamlined ADU approval process,Corvallis Planning,University town housing
+41,Oregon,Eugene,4123850,Upzoning,2022,Middle Housing Code,Allowed fourplexes in all residential zones,Eugene Planning - HB 2001,State HB 2001 implementation
+41,Oregon,Portland,4159000,Height/Parking_Reduction,2017,Parking Requirements Update,Reduced parking minimums near frequent transit,Portland BPS,Part of comprehensive plan
+41,Oregon,Portland,4159000,Upzoning,2020,Residential Infill Project,Allowed duplexes in all single-family zones,Portland BPS,Landmark zoning reform
+41,Oregon,Salem,4164900,Upzoning,2022,Middle Housing Code,Implemented state middle housing requirements,Salem Planning,HB 2001 compliance
+42,Pennsylvania,Philadelphia,4260000,Upzoning,2019,Zoning Code Updates,Increased density in transit corridors,Philadelphia Planning,Ongoing code modernization
+42,Pennsylvania,Pittsburgh,4261000,ADU,2020,ADU Ordinance,Legalized ADUs in residential neighborhoods,Pittsburgh Planning,Steel City housing
+44,Rhode Island,Providence,4459000,ADU,2020,ADU Ordinance,Legalized accessory dwelling units,Providence Planning,State capital housing
+45,South Carolina,Charleston,4513330,ADU,2019,ADU Ordinance,Legalized ADUs in residential zones,Charleston Planning,Historic city housing
+45,South Carolina,Columbia,4516000,ADU,2020,ADU Program,Expanded ADU allowances,Columbia Planning,State capital housing
+47,Tennessee,Chattanooga,4714000,ADU,2019,ADU Program,Expanded ADU options in urban areas,Chattanooga Planning,Growing tech hub
+47,Tennessee,Memphis,4748000,ADU,2021,ADU Ordinance,Legalized accessory dwelling units,Memphis Planning,Largest TN city
+47,Tennessee,Nashville,4752006,ADU,2018,ADU Expansion,Expanded ADU allowances in urban areas,Nashville Planning,Rapid growth city
+47,Tennessee,Nashville,4752006,Height/Parking_Reduction,2020,Parking Reform,Reduced parking requirements downtown,Nashville Planning,Music City development
+48,Texas,Arlington,4804000,Upzoning,2022,Missing Middle Housing,Allowed duplexes and small multiplexes,Arlington TX Planning,Major suburban reform
+48,Texas,Austin,4805000,ADU,2015,ADU Ordinance,Legalized ADUs with streamlined permitting,Austin Development Services,Early Texas ADU adopter
+48,Texas,Austin,4805000,Upzoning,2023,HOME Initiative,Allowed up to three units on residential lots,Austin Planning,Major zoning overhaul
+48,Texas,Dallas,4819000,Mixed_Use,2020,Mixed-Use Districts Expansion,Expanded mixed-use zoning in urban neighborhoods,Dallas Planning,ForwardDallas 2.0
+48,Texas,Fort Worth,4827000,ADU,2020,ADU Ordinance,Expanded ADU allowances in residential areas,Fort Worth Planning,DFW metro coordination
+48,Texas,Houston,4835000,Height/Parking_Reduction,2019,Parking Minimum Reform,Reduced parking requirements in core neighborhoods,Houston Planning,No zoning but still parking reform
+48,Texas,San Antonio,4865000,ADU,2019,ADU Ordinance,Legalized ADUs in single-family zones,San Antonio Planning,Growing Texas city
+49,Utah,Salt Lake City,4967000,ADU,2018,ADU Ordinance,Expanded ADU allowances citywide,SLC Planning,State housing shortage
+49,Utah,Salt Lake City,4967000,Upzoning,2020,Affordable Housing Incentives,Density bonuses for affordable housing,SLC Planning,Growing Western city
+51,Virginia,Alexandria,5101000,Upzoning,2023,Zoning for Housing,Eliminated single-family-only zoning citywide,Alexandria Planning,Major DC suburb reform
+51,Virginia,Arlington,5103000,ADU,2020,Expanded Housing Option,Legalized ADUs in residential zones,Arlington County,DC suburb innovation
+51,Virginia,Arlington,5103000,Upzoning,2023,Missing Middle Housing Study,Allowed multiplexes in single-family zones,Arlington County Planning,DC metro reform leader
+51,Virginia,Norfolk,5157000,ADU,2020,ADU Ordinance,Allowed ADUs in residential areas,Norfolk Planning,Hampton Roads housing
+51,Virginia,Richmond,5167000,Height/Parking_Reduction,2020,Parking Reform,Reduced parking minimums citywide,Richmond Planning,State capital reform
+51,Virginia,Richmond,5167000,ADU,2021,ADU Ordinance,Legalized accessory dwelling units,Richmond Planning,Historic city housing
+53,Washington,Bellingham,5305280,ADU,2020,Infill Toolkit Update,Expanded ADU and cottage housing allowances,Bellingham Planning,University town housing
+53,Washington,Olympia,5351300,ADU,2018,Missing Middle Housing,"Allowed duplexes, triplexes, and ADUs in all residential zones",Olympia Planning,Early adopter of middle housing
+53,Washington,Seattle,5363000,Upzoning,2019,Mandatory Housing Affordability,Upzoned 27 urban villages with affordability requirements,Seattle Office of Planning,Part of HALA Grand Bargain
+53,Washington,Seattle,5363000,ADU,2019,ADU/DADU Expansion,Allowed two ADUs per lot in single-family zones,Seattle OPCD,Removed owner-occupancy requirement
+53,Washington,Spokane,5367000,ADU,2021,Infill Housing Toolkit,Legalized ADUs and cottage housing citywide,Spokane Planning,Eastern WA housing reform
+53,Washington,Tacoma,5370000,ADU,2019,Home in Tacoma,Expanded ADU and middle housing options,Tacoma Planning,Comprehensive housing strategy
+53,Washington,Vancouver,5374060,ADU,2019,ADU Program,Streamlined ADU permitting process,Vancouver WA Planning,Portland metro coordination
+55,Wisconsin,Madison,5548000,Upzoning,2020,Transit Oriented Development,Increased density along transit corridors,Madison Planning,State capital housing
+55,Wisconsin,Milwaukee,5553000,ADU,2019,ADU Ordinance,Legalized ADUs in residential zones,Milwaukee DCD,Largest WI city
