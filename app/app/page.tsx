@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { DashboardHeader, FilterControls, SummaryCards, PercentChangeChart, ReformsTable } from "@/components/dashboard";
 import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison } from "@/components/visualizations";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
+import { Card, CardHeader, CardTitle, CardContent, PlaceSearch } from "@/components/ui";
 import { useReformMetrics } from "@/lib/hooks/useReformMetrics";
 import { computeSummary, getUniqueJurisdictions, getUniqueReformTypes } from "@/lib/data-transforms";
 import { ReformMetric } from "@/lib/types";
@@ -15,6 +15,7 @@ export default function DashboardPage() {
   const [selectedState, setSelectedState] = useState<ReformMetric | null>(null);
   const [selectedCity, setSelectedCity] = useState<{ fips: string; name: string } | null>(null);
   const [countyDrillDown, setCountyDrillDown] = useState<{ stateFips: string; stateName: string } | null>(null);
+  const [searchedPlace, setSearchedPlace] = useState<any>(null);
 
   // Get unique values for filters
   const jurisdictions = useMemo(() => getUniqueJurisdictions(metrics), [metrics]);
@@ -74,6 +75,49 @@ export default function DashboardPage() {
   return (
     <div className="container mx-auto max-w-7xl px-5 py-5">
       <DashboardHeader data={filteredData} />
+
+      {/* Place Search */}
+      <Card className="mb-5">
+        <CardContent className="py-4">
+          <h2 className="text-sm font-semibold text-gray-700 mb-3">
+            Find Any US Place
+          </h2>
+          <PlaceSearch
+            onPlaceSelect={(place) => {
+              setSearchedPlace(place);
+              // Also set as selected city for detailed analysis
+              setSelectedCity({ fips: place.place_fips, name: place.place_name });
+            }}
+          />
+        </CardContent>
+      </Card>
+
+      {/* Selected Place Quick View */}
+      {searchedPlace && (
+        <Card className="mb-5 bg-blue-50 border-blue-200">
+          <CardContent className="py-4">
+            <div className="flex justify-between items-center">
+              <div>
+                <h3 className="font-semibold text-gray-900">{searchedPlace.place_name}</h3>
+                <div className="text-sm text-gray-600 mt-1">
+                  <span className="mr-4">{searchedPlace.recent_units_2024.toLocaleString()} permits (2024)</span>
+                  <span className={searchedPlace.growth_rate_5yr > 0 ? 'text-green-600' : 'text-red-600'}>
+                    {searchedPlace.growth_rate_5yr > 0 ? '+' : ''}{searchedPlace.growth_rate_5yr.toFixed(1)}% 5-year growth
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => setSearchedPlace(null)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <FilterControls
         jurisdictions={jurisdictions}
