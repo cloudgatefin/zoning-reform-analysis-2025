@@ -6,5 +6,6 @@ export { StateComparison } from "./StateComparison";
 export { ReformTimeline } from "./ReformTimeline";
 export { CountyDrillDown } from "./CountyDrillDown";
 export { ReformPredictions } from "./ReformPredictions";
-export { EconomicContextPanel } from "./EconomicContextPanel";
-export { CausalMethodsComparison } from "./CausalMethodsComparison";
+export { default as EconomicContextPanel } from "./EconomicContextPanel";
+export { default as CausalMethodsComparison } from "./CausalMethodsComparison";
+export { PlaceDetailPanel } from "./PlaceDetailPanel";

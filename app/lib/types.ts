@@ -5,6 +5,7 @@
 export interface ReformMetric {
   jurisdiction: string;
   place_fips?: string;
+  state_fips?: string;
   reform_name: string;
   reform_type: string;
   effective_date: string;
@@ -12,6 +13,12 @@ export interface ReformMetric {
   post_mean_permits: number | null;
   percent_change: number | null;
   status: string;
+  // Additional properties for export
+  baseline_wrluri?: number;
+  pre_mean_total?: number;
+  post_mean_total?: number;
+  pct_change?: number;
+  mf_share_change?: number;
 }
 
 export interface TimeseriesData {

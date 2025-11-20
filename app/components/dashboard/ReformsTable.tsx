@@ -41,7 +41,7 @@ export function ReformsTable({ data, onCityClick }: ReformsTableProps) {
                 <TableCell>
                   {onCityClick && row.jurisdiction && row.place_fips ? (
                     <button
-                      onClick={() => onCityClick(row.place_fips, row.jurisdiction)}
+                      onClick={() => onCityClick(row.place_fips!, row.jurisdiction)}
                       className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
                     >
                       {row.jurisdiction}

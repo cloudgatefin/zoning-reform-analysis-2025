@@ -69,6 +69,7 @@ export function ChoroplethMap({ data, width = 960, height = 600, onStateClick }:
 
           // Overlay reform states (they override baseline data)
           data.forEach(reform => {
+            if (!reform.state_fips) return;
             stateMap.set(reform.state_fips, {
               state_fips: reform.state_fips,
               state_name: reform.jurisdiction,
@@ -125,7 +126,7 @@ export function ChoroplethMap({ data, width = 960, height = 600, onStateClick }:
           .selectAll("path")
           .data(states.features)
           .join("path")
-          .attr("d", path)
+          .attr("d", path as any)
           .attr("fill", (d: any) => {
             const stateData = allStatesData.get(d.id.toString().padStart(2, '0'));
             if (!stateData) return "#e5e7eb"; // Gray for no data

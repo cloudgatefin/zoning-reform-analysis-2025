@@ -97,7 +97,7 @@ export function WRLURIScatterPlot({
     g.selectAll("circle")
       .data(data)
       .join("circle")
-      .attr("cx", d => xScale(d.baseline_wrluri))
+      .attr("cx", d => xScale(d.baseline_wrluri ?? 0))
       .attr("cy", d => yScale(parseFloat(d.pct_change as any)))
       .attr("r", 8)
       .attr("fill", d => colorScale(d.reform_type))
@@ -120,7 +120,7 @@ export function WRLURIScatterPlot({
                 <div class="text-sm">
                   <div class="flex justify-between gap-3 mb-1">
                     <span class="text-[var(--text-muted)]">WRLURI:</span>
-                    <span class="text-[var(--text-primary)]">${d.baseline_wrluri.toFixed(2)}</span>
+                    <span class="text-[var(--text-primary)]">${(d.baseline_wrluri ?? 0).toFixed(2)}</span>
                   </div>
                   <div class="flex justify-between gap-3">
                     <span class="text-[var(--text-muted)]">Change:</span>

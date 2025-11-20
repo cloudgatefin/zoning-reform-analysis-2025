@@ -14,7 +14,7 @@ interface TimelineEvent {
   reform_name: string;
   reform_type: string;
   pct_change: number;
-  state_fips: string;
+  state_fips?: string;
 }
 
 export function ReformTimeline({ data }: ReformTimelineProps) {
@@ -182,7 +182,7 @@ export function ReformTimeline({ data }: ReformTimelineProps) {
         tooltip.attr("transform", `translate(${x + 15}, ${y - bbox.height / 2})`);
       })
       .on("mouseleave", function() {
-        if (!currentYear || d3.select(this).datum().date.getFullYear() <= currentYear) {
+        if (!currentYear || (d3.select(this).datum() as TimelineEvent).date.getFullYear() <= currentYear) {
           d3.select(this).attr("r", 6);
         } else {
           d3.select(this).attr("r", 0);

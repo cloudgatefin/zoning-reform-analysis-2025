@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import csv from 'csv-parse/sync';
+import { parse } from 'csv-parse/sync';
 
 export async function GET(
   request: Request,
-  { params }: { params: { fips: string } }
+  { params }: { params: Promise<{ fips: string }> }
 ) {
   try {
-    const fips = params.fips;
+    const { fips } = await params;
 
     // Load economic features data
     const featuresPath = path.join(
@@ -20,7 +20,7 @@ export async function GET(
     );
 
     const fileContent = fs.readFileSync(featuresPath, 'utf-8');
-    const records = csv.parse(fileContent, {
+    const records = parse(fileContent, {
       columns: true,
       skip_empty_lines: true,
     }) as any[];
