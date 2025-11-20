@@ -9,3 +9,4 @@ export { ReformPredictions } from "./ReformPredictions";
 export { default as EconomicContextPanel } from "./EconomicContextPanel";
 export { default as CausalMethodsComparison } from "./CausalMethodsComparison";
 export { PlaceDetailPanel } from "./PlaceDetailPanel";
+export { PlaceMarkersLayer } from "./PlaceMarkersLayer";

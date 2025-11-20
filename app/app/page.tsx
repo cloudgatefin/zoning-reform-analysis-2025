@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { DashboardHeader, FilterControls, SummaryCards, PercentChangeChart, ReformsTable } from "@/components/dashboard";
-import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison, PlaceDetailPanel } from "@/components/visualizations";
+import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison, PlaceDetailPanel, PlaceMarkersLayer } from "@/components/visualizations";
 import { Card, CardHeader, CardTitle, CardContent, PlaceSearch } from "@/components/ui";
 import { Search, MapPin } from 'lucide-react';
 import { useReformMetrics } from "@/lib/hooks/useReformMetrics";
@@ -140,6 +140,31 @@ export default function DashboardPage() {
           <p className="text-xs text-[var(--text-muted)] mt-2 text-center">
             💡 Click any state to view county-level breakdown
           </p>
+        </CardContent>
+      </Card>
+
+      {/* Place-Level Map Visualization - Phase 1.3 */}
+      <Card className="mb-5">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <MapPin className="h-5 w-5" />
+            Explore 24,535+ U.S. Places (Phase 1.3)
+          </CardTitle>
+          <p className="text-sm text-gray-600 mt-2">
+            Interactive map showing building permits across all geocoded U.S. places. Click on any place to view details.
+          </p>
+        </CardHeader>
+        <CardContent>
+          <PlaceMarkersLayer
+            onPlaceClick={(place) => setSelectedPlace({
+              place_fips: place.place_fips,
+              place_name: place.place_name,
+              state_fips: place.state_fips,
+              recent_units_2024: place.recent_units_2024,
+              growth_rate_5yr: place.growth_rate_5yr,
+              mf_share_recent: place.mf_share_recent,
+            })}
+          />
         </CardContent>
       </Card>
 

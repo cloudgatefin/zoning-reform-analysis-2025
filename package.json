@@ -3,12 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "http-server -p 8000 -c-1 .",
-    "build": "echo \"(no build step yet)\""
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.21",
+    "@types/leaflet.markercluster": "^1.5.6",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
     "html2canvas": "^1.4.1",
     "http-server": "^14.1.1",
-    "jspdf": "^3.0.3"
+    "jspdf": "^3.0.3",
+    "next": "^14.0.0",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "leaflet.markercluster": "^1.5.3",
+    "react": "^18",
+    "react-dom": "^18"
   }
 }
