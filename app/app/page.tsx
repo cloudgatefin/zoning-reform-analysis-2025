@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { DashboardHeader, FilterControls, SummaryCards, PercentChangeChart, ReformsTable } from "@/components/dashboard";
-import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison, PlaceDetailPanel } from "@/components/visualizations";
+import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison, PlaceDetailPanel, ReformImpactCalculator } from "@/components/visualizations";
 import { Card, CardHeader, CardTitle, CardContent, PlaceSearch } from "@/components/ui";
 import { Search, MapPin } from 'lucide-react';
 import { useReformMetrics } from "@/lib/hooks/useReformMetrics";
@@ -156,6 +156,11 @@ export default function DashboardPage() {
       {/* Predictive Modeling */}
       <div className="mb-5">
         <ReformPredictions />
+      </div>
+
+      {/* Reform Impact Calculator */}
+      <div className="mb-5">
+        <ReformImpactCalculator />
       </div>
 
       {/* City-Level Analysis Section */}
