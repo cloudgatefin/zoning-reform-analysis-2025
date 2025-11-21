@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight, MapPin, TrendingUp, BarChart2 } from 'lucide-react';
+import { Button, Container, Card, CardContent } from '@/components/ui';
 
 export default function HeroSection() {
   const stats = [
@@ -9,55 +10,52 @@ export default function HeroSection() {
   ];
 
   return (
-    <section className="pt-24 pb-16 bg-gradient-to-b from-blue-50 to-white">
-      <div className="container mx-auto max-w-7xl px-5">
+    <section className="pt-20 pb-16 bg-gradient-to-b from-blue-50 via-blue-25 to-white">
+      <Container maxWidth="lg">
         <div className="text-center max-w-4xl mx-auto">
           {/* Headline */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight tracking-tight">
             The Definitive Zoning Reform Intelligence Platform
           </h1>
 
           {/* Subheading */}
-          <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-600 mb-10 leading-relaxed max-w-3xl mx-auto">
             Analyze 24,535+ U.S. places. Track 502 cities with zoning reforms.
             Predict policy impact with research-grade causal inference.
             Make evidence-based housing policy decisions.
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-colors"
-            >
-              Search Your City
-              <ArrowRight className="h-5 w-5" />
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <Link href="/dashboard">
+              <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                Search Your City
+                <ArrowRight className="h-5 w-5 ml-2" />
+              </Button>
             </Link>
-            <a
-              href="#how-it-works"
-              className="inline-flex items-center justify-center gap-2 border-2 border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg transition-colors"
-            >
-              Learn How It Works
+            <a href="#how-it-works">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                Learn How It Works
+              </Button>
             </a>
           </div>
 
           {/* Key Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="bg-white rounded-xl p-6 shadow-lg border border-gray-100"
-              >
-                <stat.icon className="h-8 w-8 text-blue-600 mx-auto mb-3" />
-                <div className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-gray-600">{stat.label}</div>
-              </div>
+              <Card key={stat.label} variant="elevated">
+                <CardContent className="pt-6">
+                  <stat.icon className="h-10 w-10 text-blue-600 mx-auto mb-4" />
+                  <div className="text-4xl font-bold text-gray-900 mb-2">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
