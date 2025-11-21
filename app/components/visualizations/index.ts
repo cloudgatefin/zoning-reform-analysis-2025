@@ -10,3 +10,4 @@ export { default as EconomicContextPanel } from "./EconomicContextPanel";
 export { default as CausalMethodsComparison } from "./CausalMethodsComparison";
 export { PlaceDetailPanel } from "./PlaceDetailPanel";
 export { ReformImpactCalculator } from "./ReformImpactCalculator";
+export { ReformAdoptionTimeline } from "./ReformAdoptionTimeline";
