@@ -5,21 +5,21 @@ export default function Footer() {
   const footerLinks = {
     Product: [
       { label: 'Dashboard', href: '/dashboard' },
-      { label: 'Search Places', href: '/dashboard' },
-      { label: 'Reform Calculator', href: '/dashboard' },
-      { label: 'Interactive Map', href: '/dashboard' },
+      { label: 'Scenario Builder', href: '/scenario' },
+      { label: 'Timeline', href: '/timeline' },
+      { label: 'Site Map', href: '/sitemap' },
     ],
     Learn: [
       { label: 'How It Works', href: '#how-it-works' },
       { label: 'Methodology', href: '/about/methodology' },
-      { label: 'Data Sources', href: '#data-quality' },
-      { label: 'Research Papers', href: '/about/research' },
+      { label: 'Data Sources', href: '/about/data-sources' },
+      { label: 'FAQ', href: '/about/faq' },
     ],
     Resources: [
       { label: 'API Documentation', href: '/docs/api' },
       { label: 'Data Download', href: '/data/download' },
       { label: 'Case Studies', href: '/resources/case-studies' },
-      { label: 'Blog', href: '/blog' },
+      { label: 'Limitations', href: '/about/limitations' },
     ],
     Connect: [
       { label: 'Contact Us', href: '/contact' },
