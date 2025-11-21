@@ -6,22 +6,32 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        // Design system tokens from prototype
-        'bg-primary': '#020617',
-        'bg-card': '#020617',
-        'border-default': '#1f2937',
-        'border-hover': '#374151',
-        'text-primary': '#e5e7eb',
-        'text-muted': '#9ca3af',
-        'accent-blue': '#2563eb',
-        'positive-green': '#22c55e',
-        'negative-red': '#ef4444',
-        'warning-orange': '#f97316',
+        // Light theme tokens
+        'bg-primary': 'var(--bg-primary)',
+        'bg-card': 'var(--bg-card)',
+        'bg-secondary': 'var(--bg-secondary)',
+        'border-default': 'var(--border-default)',
+        'border-hover': 'var(--border-hover)',
+        'text-primary': 'var(--text-primary)',
+        'text-muted': 'var(--text-muted)',
+        // Accent colors (use CSS variables for theme support)
+        'accent-blue': 'var(--accent-blue)',
+        'accent-green': 'var(--accent-green)',
+        'accent-purple': 'var(--accent-purple)',
+        'accent-orange': 'var(--accent-orange)',
+        'accent-red': 'var(--accent-red)',
+        'accent-indigo': 'var(--accent-indigo)',
+        'accent-current': 'var(--accent-current)',
+        // Status colors
+        'positive-green': 'var(--positive-green)',
+        'negative-red': 'var(--negative-red)',
+        'warning-orange': 'var(--warning-orange)',
       },
       fontSize: {
         'xs': '11px',
@@ -41,6 +51,9 @@ const config: Config = {
         'sm': '8px',
         'md': '10px',
         'lg': '14px',
+      },
+      transitionDuration: {
+        'theme': '300ms',
       },
     },
   },

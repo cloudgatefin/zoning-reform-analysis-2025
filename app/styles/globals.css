@@ -2,22 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Light Theme (Default) ===== */
 :root {
   /* Backgrounds */
-  --bg-primary: #020617;
-  --bg-card: #020617;
-  --bg-card-soft: #020617;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-soft: #f1f5f9;
 
   /* Borders */
-  --border-default: #1f2937;
-  --border-hover: #374151;
+  --border-default: #e2e8f0;
+  --border-hover: #cbd5e1;
 
   /* Text */
-  --text-primary: #e5e7eb;
-  --text-muted: #9ca3af;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
 
   /* Accent Colors */
   --accent-blue: #2563eb;
+  --accent-green: #16a34a;
+  --accent-purple: #9333ea;
+  --accent-orange: #ea580c;
+  --accent-red: #dc2626;
+  --accent-indigo: #4f46e5;
+  --accent-current: var(--accent-blue);
+
+  /* Status Colors */
   --positive-green: #22c55e;
   --negative-red: #ef4444;
   --warning-orange: #f97316;
@@ -37,20 +48,140 @@
   --radius-md: 10px;
   --radius-lg: 14px;
 
-  --background: #020617;
-  --foreground: #e5e7eb;
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+  --background: #ffffff;
+  --foreground: #1e293b;
 }
 
+/* ===== Dark Theme ===== */
+.dark {
+  /* Dark backgrounds */
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #242424;
+  --bg-card: #242424;
+  --bg-card-soft: #2d2d2d;
+
+  /* Dark borders */
+  --border-default: #3d3d3d;
+  --border-hover: #4d4d4d;
+
+  /* Dark text */
+  --text-primary: #f0f0f0;
+  --text-secondary: #e0e0e0;
+  --text-muted: #a0a0a0;
+
+  /* Brighter accents for dark mode */
+  --accent-blue: #4a9eff;
+  --accent-green: #4ade80;
+  --accent-purple: #a78bfa;
+  --accent-orange: #fb923c;
+  --accent-red: #f87171;
+  --accent-indigo: #818cf8;
+
+  /* Brighter status colors */
+  --positive-green: #4ade80;
+  --negative-red: #f87171;
+  --warning-orange: #facc15;
+
+  /* Dark shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+
+  --background: #1a1a1a;
+  --foreground: #f0f0f0;
+}
+
+/* ===== High Contrast Mode ===== */
+.high-contrast {
+  --bg-primary: #ffffff;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-soft: #f0f0f0;
+  --border-default: #000000;
+  --border-hover: #000000;
+  --text-primary: #000000;
+  --text-secondary: #000000;
+  --text-muted: #333333;
+  --accent-blue: #0000ee;
+  --positive-green: #006600;
+  --negative-red: #cc0000;
+  --warning-orange: #cc6600;
+  --background: #ffffff;
+  --foreground: #000000;
+}
+
+.high-contrast.dark {
+  --bg-primary: #000000;
+  --bg-secondary: #000000;
+  --bg-card: #000000;
+  --bg-card-soft: #1a1a1a;
+  --border-default: #ffffff;
+  --border-hover: #ffffff;
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff;
+  --text-muted: #cccccc;
+  --accent-blue: #00ffff;
+  --positive-green: #00ff00;
+  --negative-red: #ff0000;
+  --warning-orange: #ffff00;
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+/* ===== Accent Color Variants ===== */
+[data-accent="blue"] { --accent-current: var(--accent-blue); }
+[data-accent="green"] { --accent-current: var(--accent-green); }
+[data-accent="purple"] { --accent-current: var(--accent-purple); }
+[data-accent="orange"] { --accent-current: var(--accent-orange); }
+[data-accent="red"] { --accent-current: var(--accent-red); }
+[data-accent="indigo"] { --accent-current: var(--accent-indigo); }
+
+/* ===== Base Styles ===== */
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-family);
   margin: 0;
   padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Theme transition for all elements */
+*,
+*::before,
+*::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Disable transitions on page load to prevent flash */
+.no-transitions *,
+.no-transitions *::before,
+.no-transitions *::after {
+  transition: none !important;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* ===== High Contrast Utilities ===== */
+.high-contrast button,
+.high-contrast a,
+.high-contrast input,
+.high-contrast select,
+.high-contrast textarea {
+  border-width: 2px;
+  font-weight: 600;
+}
+
+.high-contrast *:focus {
+  outline: 3px solid var(--accent-current);
+  outline-offset: 2px;
 }
