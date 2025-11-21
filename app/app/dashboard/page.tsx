@@ -4,7 +4,8 @@ import { useState, useMemo } from "react";
 import { DashboardHeader, FilterControls, SummaryCards, PercentChangeChart, ReformsTable } from "@/components/dashboard";
 import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison, PlaceDetailPanel, ReformImpactCalculator, DiDAnalysisPanel } from "@/components/visualizations";
 import { Card, CardHeader, CardTitle, CardContent, PlaceSearch } from "@/components/ui";
-import { Search, MapPin } from 'lucide-react';
+import { Search, MapPin, ArrowRight, Calculator } from 'lucide-react';
+import Link from 'next/link';
 import { useReformMetrics } from "@/lib/hooks/useReformMetrics";
 import { computeSummary, getUniqueJurisdictions, getUniqueReformTypes } from "@/lib/data-transforms";
 import { ReformMetric } from "@/lib/types";
@@ -97,6 +98,34 @@ export default function DashboardPage() {
       />
 
       <SummaryCards stats={summary} />
+
+      {/* Scenario Builder CTA */}
+      <Card className="mb-5 bg-gradient-to-r from-[var(--accent-blue)]/10 to-[var(--accent-blue)]/5 border-[var(--accent-blue)]/30">
+        <CardContent className="py-6">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="flex items-start gap-4">
+              <div className="p-3 bg-[var(--accent-blue)]/20 rounded-lg">
+                <Calculator className="w-6 h-6 text-[var(--accent-blue)]" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-1">
+                  What if we adopt this reform?
+                </h3>
+                <p className="text-sm text-[var(--text-muted)]">
+                  Use our Scenario Builder to predict how reforms will impact your city. Get optimistic, realistic, and pessimistic scenarios based on comparable cities.
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/scenario"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--accent-blue)] text-white rounded-lg font-medium hover:bg-[var(--accent-blue)]/90 transition-colors whitespace-nowrap"
+            >
+              Build Scenario
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Phase 2: Reform Impact Calculator */}
       <Card className="mb-5 border-l-4 border-l-purple-500">
