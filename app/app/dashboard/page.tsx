@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { DashboardHeader, FilterControls, SummaryCards, PercentChangeChart, ReformsTable } from "@/components/dashboard";
-import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison, PlaceDetailPanel, ReformImpactCalculator, DiDAnalysisPanel } from "@/components/visualizations";
+import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison, PlaceDetailPanel, ReformImpactCalculator, SyntheticControlPanel, EventStudyChart } from "@/components/visualizations";
 import { Card, CardHeader, CardTitle, CardContent, PlaceSearch } from "@/components/ui";
 import { Search, MapPin, ArrowRight, Calculator } from 'lucide-react';
 import Link from 'next/link';
@@ -27,6 +27,7 @@ export default function DashboardPage() {
   const [selectedCity, setSelectedCity] = useState<{ fips: string; name: string } | null>(null);
   const [countyDrillDown, setCountyDrillDown] = useState<{ stateFips: string; stateName: string } | null>(null);
   const [selectedPlace, setSelectedPlace] = useState<SelectedPlace | null>(null);
+  const [causalAnalysisTab, setCausalAnalysisTab] = useState<'scm' | 'event-study'>('scm');
 
   // Get unique values for filters
   const jurisdictions = useMemo(() => getUniqueJurisdictions(metrics), [metrics]);
@@ -202,10 +203,44 @@ export default function DashboardPage() {
         <ReformPredictions />
       </div>
 
-      {/* Causal Analysis (DiD) */}
-      <div className="mb-5">
-        <DiDAnalysisPanel />
-      </div>
+      {/* Causal Analysis Section - SCM & Event Study */}
+      <Card className="mb-5">
+        <CardHeader>
+          <CardTitle>Causal Analysis</CardTitle>
+          <p className="text-sm text-gray-600 mt-1">
+            Advanced causal inference methods to quantify reform impacts
+          </p>
+        </CardHeader>
+        <CardContent>
+          {/* Tab Navigation */}
+          <div className="flex border-b mb-4">
+            <button
+              onClick={() => setCausalAnalysisTab('scm')}
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                causalAnalysisTab === 'scm'
+                  ? 'border-orange-500 text-orange-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Synthetic Control
+            </button>
+            <button
+              onClick={() => setCausalAnalysisTab('event-study')}
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+                causalAnalysisTab === 'event-study'
+                  ? 'border-purple-500 text-purple-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Event Study
+            </button>
+          </div>
+
+          {/* Tab Content */}
+          {causalAnalysisTab === 'scm' && <SyntheticControlPanel />}
+          {causalAnalysisTab === 'event-study' && <EventStudyChart />}
+        </CardContent>
+      </Card>
 
       {/* City-Level Analysis Section */}
       {selectedCity && (
