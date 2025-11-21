@@ -44,7 +44,8 @@
       "Bash(if [ -d \"app/about\" ])",
       "Bash(then echo \"✓ About pages exist\")",
       "Bash(else echo \"✗ About pages missing\")",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(git rebase:*)"
     ],
     "deny": [],
     "ask": []
