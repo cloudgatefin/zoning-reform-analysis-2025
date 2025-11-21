@@ -63,10 +63,12 @@ export default function Navigation() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Touch optimized */}
           <button
-            className="md:hidden p-2"
+            className="md:hidden flex items-center justify-center min-w-[48px] min-h-[48px] p-2 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors touch-target"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? (
               <X className="h-6 w-6 text-gray-900" />
@@ -76,23 +78,23 @@ export default function Navigation() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Touch optimized */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-200 py-4">
+          <div className="md:hidden bg-white border-t border-gray-200 py-2">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="block py-3 px-4 text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+                className="flex items-center min-h-[48px] py-3 px-4 text-gray-600 hover:text-blue-600 active:bg-gray-100 transition-colors touch-target"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
               </a>
             ))}
-            <div className="px-4 pt-3">
+            <div className="px-4 pt-3 pb-2">
               <Link
                 href="/dashboard"
-                className="block text-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium"
+                className="flex items-center justify-center min-h-[48px] bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-6 py-3 rounded-lg font-medium transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Explore Dashboard
