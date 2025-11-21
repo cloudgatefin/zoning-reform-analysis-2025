@@ -251,7 +251,7 @@ export function PlaceMarkersLayer({ onPlaceClick }: PlaceMarkersLayerProps) {
  * Add zoom level hint
  */
 function addZoomHint(map: L.Map) {
-  const hint = L.control({ position: 'topright' })
+  const hint = (L.control as unknown as (options: L.ControlOptions) => L.Control)({ position: 'topright' })
 
   hint.onAdd = () => {
     const div = L.DomUtil.create('div', 'zoom-hint')
