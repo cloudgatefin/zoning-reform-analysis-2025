@@ -1,0 +1,10 @@
+export { default as Navigation } from './Navigation';
+export { default as HeroSection } from './HeroSection';
+export { default as UniqueValuePropositions } from './UniqueValuePropositions';
+export { default as HowItWorks } from './HowItWorks';
+export { default as FeatureShowcase } from './FeatureShowcase';
+export { default as DataQuality } from './DataQuality';
+export { default as TargetUsers } from './TargetUsers';
+export { default as Testimonials } from './Testimonials';
+export { default as CTASection } from './CTASection';
+export { default as Footer } from './Footer';
