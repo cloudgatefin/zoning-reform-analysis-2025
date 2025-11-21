@@ -1,289 +1,31 @@
-"use client";
+import {
+  Navigation,
+  HeroSection,
+  UniqueValuePropositions,
+  HowItWorks,
+  FeatureShowcase,
+  DataQuality,
+  TargetUsers,
+  Testimonials,
+  CTASection,
+  Footer,
+} from '@/components/landing';
 
-import { useState, useMemo } from "react";
-import { DashboardHeader, FilterControls, SummaryCards, PercentChangeChart, ReformsTable } from "@/components/dashboard";
-import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison, PlaceDetailPanel, ReformImpactCalculator } from "@/components/visualizations";
-import { Card, CardHeader, CardTitle, CardContent, PlaceSearch } from "@/components/ui";
-import { Search, MapPin } from 'lucide-react';
-import { useReformMetrics } from "@/lib/hooks/useReformMetrics";
-import { computeSummary, getUniqueJurisdictions, getUniqueReformTypes } from "@/lib/data-transforms";
-import { ReformMetric } from "@/lib/types";
-
-interface SelectedPlace {
-  place_fips: string
-  place_name: string
-  state_fips: string
-  recent_units_2024: number
-  growth_rate_5yr: number
-  mf_share_recent: number
-}
-
-export default function DashboardPage() {
-  const { metrics, isLoading, isError } = useReformMetrics();
-  const [selectedJurisdiction, setSelectedJurisdiction] = useState("__ALL__");
-  const [selectedReformType, setSelectedReformType] = useState("__ALL__");
-  const [selectedState, setSelectedState] = useState<ReformMetric | null>(null);
-  const [selectedCity, setSelectedCity] = useState<{ fips: string; name: string } | null>(null);
-  const [countyDrillDown, setCountyDrillDown] = useState<{ stateFips: string; stateName: string } | null>(null);
-  const [selectedPlace, setSelectedPlace] = useState<SelectedPlace | null>(null);
-
-  // Get unique values for filters
-  const jurisdictions = useMemo(() => getUniqueJurisdictions(metrics), [metrics]);
-  const reformTypes = useMemo(() => getUniqueReformTypes(metrics), [metrics]);
-
-  // Filter data based on selections
-  const filteredData = useMemo(() => {
-    let filtered = metrics;
-
-    if (selectedJurisdiction !== "__ALL__") {
-      filtered = filtered.filter((d) => d.jurisdiction === selectedJurisdiction);
-    }
-
-    if (selectedReformType !== "__ALL__") {
-      filtered = filtered.filter((d) => d.reform_type === selectedReformType);
-    }
-
-    return filtered;
-  }, [metrics, selectedJurisdiction, selectedReformType]);
-
-  // Compute summary stats
-  const summary = useMemo(() => computeSummary(filteredData), [filteredData]);
-
-  const handleClearFilters = () => {
-    setSelectedJurisdiction("__ALL__");
-    setSelectedReformType("__ALL__");
-  };
-
-  if (isLoading) {
-    return (
-      <div className="container mx-auto max-w-7xl px-5 py-5">
-        <DashboardHeader />
-        <Card>
-          <CardContent>
-            <p className="text-base text-[var(--text-muted)]">Loading reform metrics...</p>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className="container mx-auto max-w-7xl px-5 py-5">
-        <DashboardHeader />
-        <Card>
-          <CardContent>
-            <p className="text-base text-[var(--negative-red)]">
-              Error loading data. Make sure the Python pipeline has generated the metrics file.
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
+export default function LandingPage() {
   return (
-    <div className="container mx-auto max-w-7xl px-5 py-5">
-      <DashboardHeader data={filteredData} />
-
-      <FilterControls
-        jurisdictions={jurisdictions}
-        reformTypes={reformTypes}
-        selectedJurisdiction={selectedJurisdiction}
-        selectedReformType={selectedReformType}
-        onJurisdictionChange={setSelectedJurisdiction}
-        onReformTypeChange={setSelectedReformType}
-        onClear={handleClearFilters}
-      />
-
-      <SummaryCards stats={summary} />
-
-      {/* Phase 2: Reform Impact Calculator */}
-      <Card className="mb-5 border-l-4 border-l-purple-500">
-        <CardHeader>
-          <CardTitle className="text-lg">
-            🎯 Reform Impact Calculator (Phase 2)
-          </CardTitle>
-          <p className="text-sm text-gray-600 mt-2">
-            Predict how a zoning reform will affect building permits in your jurisdiction
-          </p>
-        </CardHeader>
-        <CardContent>
-          <ReformImpactCalculator />
-        </CardContent>
-      </Card>
-
-      {/* Place Search Section - Phase 1.2 MVP */}
-      <Card className="mb-5">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Search className="h-5 w-5" />
-            Place Explorer (Phase 1.2 MVP)
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <PlaceSearch
-            onPlaceSelect={(place) => setSelectedPlace(place)}
-            placeholder="Search 40+ places... (e.g., Austin, Minneapolis, Portland)"
-          />
-          <p className="text-xs text-gray-500 mt-3">
-            Search for cities with documented permit data and zoning reforms
-          </p>
-        </CardContent>
-      </Card>
-
-      {/* Place Detail Panel */}
-      {selectedPlace && (
-        <div className="mb-5">
-          <PlaceDetailPanel
-            placeFips={selectedPlace.place_fips}
-            onClose={() => setSelectedPlace(null)}
-          />
-        </div>
-      )}
-
-      {/* Interactive Choropleth Map */}
-      <Card className="mb-5">
-        <CardHeader>
-          <CardTitle>🗺️ U.S. Zoning Reform Impact Map</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ChoroplethMap
-            data={filteredData}
-            onStateClick={(stateFips, stateName) => setCountyDrillDown({ stateFips, stateName })}
-          />
-          <p className="text-xs text-[var(--text-muted)] mt-2 text-center">
-            💡 Click any state to view county-level breakdown
-          </p>
-        </CardContent>
-      </Card>
-
-      {/* State Comparison Feature */}
-      <div className="mb-5">
-        <StateComparison reformData={filteredData} />
-      </div>
-
-      {/* Reform Timeline Animation */}
-      <div className="mb-5">
-        <ReformTimeline data={filteredData} />
-      </div>
-
-      {/* Predictive Modeling */}
-      <div className="mb-5">
-        <ReformPredictions />
-      </div>
-
-      {/* City-Level Analysis Section */}
-      {selectedCity && (
-        <div className="space-y-5 mb-5">
-          <Card className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-l-amber-500">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold text-gray-900">
-                City-Level Analysis: {selectedCity.name}
-              </h2>
-              <button
-                onClick={() => setSelectedCity(null)}
-                className="text-gray-500 hover:text-gray-700 font-bold text-2xl"
-              >
-                ×
-              </button>
-            </div>
-            <p className="text-sm text-gray-600 mt-2">
-              Detailed economic context and causal inference analysis for this jurisdiction
-            </p>
-          </Card>
-
-          {/* Economic Context Section */}
-          <Card className="p-4">
-            <EconomicContextPanel
-              jurisdictionFips={selectedCity.fips}
-              jurisdictionName={selectedCity.name}
-            />
-          </Card>
-
-          {/* Causal Methods Comparison Section */}
-          <Card className="p-4">
-            <CausalMethodsComparison
-              jurisdictionFips={selectedCity.fips}
-              jurisdictionName={selectedCity.name}
-            />
-          </Card>
-        </div>
-      )}
-
-      {/* Scatter Plot & Bar Chart Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
-        <Card>
-          <CardHeader>
-            <CardTitle>Regulatory Restrictiveness vs. Impact</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <WRLURIScatterPlot
-              data={filteredData}
-              onPointClick={setSelectedState}
-            />
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Percent Change by Jurisdiction</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <PercentChangeChart data={filteredData.slice(0, 15)} />
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Reform Details Table */}
-      <Card className="mb-5">
-        <CardHeader>
-          <CardTitle>Reform Details</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ReformsTable
-            data={filteredData}
-            onCityClick={(fips, name) => setSelectedCity({ fips, name })}
-          />
-          <p className="text-xs text-gray-500 mt-3">
-            💡 Click on any city name to view detailed economic context and causal analysis
-          </p>
-        </CardContent>
-      </Card>
-
-      {/* Data Source Info */}
-      <Card>
-        <CardHeader>
-          <CardTitle>📊 Data Source & Methodology</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2 text-base text-[var(--text-primary)]">
-            <p><strong>Source:</strong> U.S. Census Bureau Building Permits Survey (2015-2024)</p>
-            <p><strong>Coverage:</strong> Annual state-level permit data distributed to monthly estimates with seasonal adjustment</p>
-            <p><strong>Analysis:</strong> Pre/post reform analysis with 24-month windows and 12-month supply response lag</p>
-            <p className="text-sm text-[var(--text-muted)] mt-3">
-              Methodology follows research framework: Pre-period (24 months before reform), Lag period (12 months), Post-period (24 months after lag).
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* State Detail Panel (Modal) */}
-      {selectedState && (
-        <StateDetailPanel
-          state={selectedState}
-          onClose={() => setSelectedState(null)}
-        />
-      )}
-
-      {/* County Drill-Down (Modal) */}
-      {countyDrillDown && (
-        <CountyDrillDown
-          stateFips={countyDrillDown.stateFips}
-          stateName={countyDrillDown.stateName}
-          onClose={() => setCountyDrillDown(null)}
-        />
-      )}
+    <div className="min-h-screen">
+      <Navigation />
+      <main>
+        <HeroSection />
+        <UniqueValuePropositions />
+        <HowItWorks />
+        <FeatureShowcase />
+        <DataQuality />
+        <TargetUsers />
+        <Testimonials />
+        <CTASection />
+      </main>
+      <Footer />
     </div>
   );
 }
