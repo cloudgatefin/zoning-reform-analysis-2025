@@ -19,14 +19,24 @@ interface Reform {
 
 export async function GET(request: NextRequest) {
   try {
-    const filePath = path.join(
+    // Try app directory first, then project root
+    let filePath = path.join(
       process.cwd(),
       'data/raw/city_reforms_expanded.csv'
     )
 
     if (!fs.existsSync(filePath)) {
+      // Try parent directory (project root)
+      filePath = path.join(
+        process.cwd(),
+        '../data/raw/city_reforms_expanded.csv'
+      )
+    }
+
+    if (!fs.existsSync(filePath)) {
+      console.error('Reforms database not found at:', filePath)
       return NextResponse.json(
-        { error: 'Reforms database not found' },
+        { error: 'Reforms database not found', path: filePath },
         { status: 404 }
       )
     }

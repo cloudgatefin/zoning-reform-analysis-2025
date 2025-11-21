@@ -1,0 +1,364 @@
+/**
+ * Print Stylesheet
+ * Optimizes the dashboard for printing with proper formatting
+ */
+
+@media print {
+  /* Hide navigation and unnecessary UI elements */
+  nav,
+  header nav,
+  .no-print,
+  .export-buttons,
+  .filter-controls,
+  button:not(.print-include),
+  [role="navigation"],
+  .sidebar,
+  .mobile-menu {
+    display: none !important;
+  }
+
+  /* Reset backgrounds for printing */
+  body,
+  html {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Reset dark mode colors */
+  * {
+    background-color: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Ensure content fills page width */
+  .container,
+  .main-content,
+  main {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Page settings */
+  @page {
+    size: A4 portrait;
+    margin: 1.5cm 1cm;
+  }
+
+  @page :first {
+    margin-top: 2cm;
+  }
+
+  /* Headers on each page */
+  .print-header {
+    position: running(header);
+  }
+
+  /* Footer on each page */
+  .print-footer {
+    position: running(footer);
+  }
+
+  /* Table formatting */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    page-break-inside: auto !important;
+    font-size: 9pt !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+  }
+
+  th,
+  td {
+    padding: 6px 8px !important;
+    border: 1px solid #ddd !important;
+    text-align: left !important;
+  }
+
+  th {
+    background-color: #f0f0f0 !important;
+    font-weight: bold !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Alternating row colors */
+  tr:nth-child(even) {
+    background-color: #f9f9f9 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Chart containers */
+  .chart-container,
+  .visualization-container {
+    page-break-inside: avoid !important;
+    margin-bottom: 1cm !important;
+  }
+
+  /* SVG charts - ensure they print */
+  svg {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Canvas charts */
+  canvas {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Ensure charts are visible when printing */
+  .recharts-wrapper,
+  .chart-js-container {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Section breaks */
+  .page-break-before {
+    page-break-before: always !important;
+  }
+
+  .page-break-after {
+    page-break-after: always !important;
+  }
+
+  .avoid-break {
+    page-break-inside: avoid !important;
+  }
+
+  /* Card styling for print */
+  .card,
+  .panel,
+  .data-card {
+    border: 1px solid #ddd !important;
+    padding: 12px !important;
+    margin-bottom: 12px !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Summary cards */
+  .summary-card {
+    display: inline-block !important;
+    width: 30% !important;
+    margin: 1% !important;
+    vertical-align: top !important;
+  }
+
+  /* Links */
+  a {
+    text-decoration: underline !important;
+    color: #000 !important;
+  }
+
+  /* Show URLs for links */
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    color: #666;
+  }
+
+  /* Don't show URL for internal links */
+  a[href^="#"]:after,
+  a[href^="/"]:after {
+    content: "";
+  }
+
+  /* Typography improvements */
+  h1 {
+    font-size: 18pt !important;
+    margin-bottom: 12pt !important;
+    page-break-after: avoid !important;
+  }
+
+  h2 {
+    font-size: 14pt !important;
+    margin-bottom: 10pt !important;
+    page-break-after: avoid !important;
+  }
+
+  h3 {
+    font-size: 12pt !important;
+    margin-bottom: 8pt !important;
+    page-break-after: avoid !important;
+  }
+
+  p {
+    orphans: 3 !important;
+    widows: 3 !important;
+  }
+
+  /* Grid layouts - simplify for print */
+  .grid {
+    display: block !important;
+  }
+
+  .grid > * {
+    width: 100% !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* Flexbox - simplify for print */
+  .flex {
+    display: block !important;
+  }
+
+  /* Map containers - show at reasonable size */
+  .map-container {
+    height: 400px !important;
+    max-height: 400px !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Tooltips - hide */
+  [role="tooltip"],
+  .tooltip,
+  .recharts-tooltip-wrapper {
+    display: none !important;
+  }
+
+  /* Form elements - hide or show values */
+  input,
+  select,
+  textarea {
+    border: 1px solid #ddd !important;
+    background: white !important;
+  }
+
+  /* Print-specific classes */
+  .print-only {
+    display: block !important;
+  }
+
+  .screen-only {
+    display: none !important;
+  }
+
+  /* Report title page */
+  .report-title-page {
+    page-break-after: always;
+    text-align: center;
+    padding-top: 3cm;
+  }
+
+  .report-title-page h1 {
+    font-size: 24pt !important;
+    margin-bottom: 24pt !important;
+  }
+
+  .report-title-page .subtitle {
+    font-size: 14pt !important;
+    color: #666 !important;
+  }
+
+  .report-title-page .date {
+    margin-top: 48pt;
+    font-size: 10pt;
+    color: #999;
+  }
+
+  /* Table of contents */
+  .table-of-contents {
+    page-break-after: always;
+  }
+
+  .table-of-contents h2 {
+    margin-bottom: 24pt;
+  }
+
+  .table-of-contents ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .table-of-contents li {
+    padding: 6pt 0;
+    border-bottom: 1px dotted #ddd;
+  }
+
+  /* Footer content */
+  .print-page-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 8pt;
+    color: #999;
+    padding: 10px;
+  }
+
+  /* Custom styling for specific components */
+  .state-comparison-table th {
+    background-color: #2563eb !important;
+    color: white !important;
+  }
+
+  .metric-positive {
+    color: #16a34a !important;
+  }
+
+  .metric-negative {
+    color: #dc2626 !important;
+  }
+
+  /* Legend items */
+  .legend {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    margin: 12px 0 !important;
+  }
+
+  .legend-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+
+  .legend-color {
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 2px !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+/* Utility classes for controlling print behavior */
+.no-print {
+  /* Will be hidden when printing */
+}
+
+.print-only {
+  display: none;
+}
+
+.print-include {
+  /* Override for buttons that should show in print */
+}
+
+.page-break-before {
+  /* Will break page before this element when printing */
+}
+
+.page-break-after {
+  /* Will break page after this element when printing */
+}
+
+.avoid-break {
+  /* Will try to avoid page breaks inside this element */
+}

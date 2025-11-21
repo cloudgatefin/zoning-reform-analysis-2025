@@ -3,13 +3,18 @@ import React from "react";
 interface CardProps {
   children: React.ReactNode;
   className?: string;
+  variant?: "default" | "elevated" | "outlined";
 }
 
-export function Card({ children, className = "" }: CardProps) {
+export function Card({ children, className = "", variant = "default" }: CardProps) {
+  const variantStyles = {
+    default: "bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow",
+    elevated: "bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow border border-gray-100",
+    outlined: "bg-transparent border-2 border-gray-300 rounded-lg p-6 hover:border-gray-400 transition-colors",
+  };
+
   return (
-    <div
-      className={`bg-[var(--bg-card)] border border-[var(--border-default)] rounded-[var(--radius-lg)] p-[18px] mb-5 ${className}`}
-    >
+    <div className={`${variantStyles[variant]} ${className}`}>
       {children}
     </div>
   );
@@ -22,7 +27,7 @@ interface CardHeaderProps {
 
 export function CardHeader({ children, className = "" }: CardHeaderProps) {
   return (
-    <div className={`mb-4 ${className}`}>
+    <div className={`mb-4 pb-4 border-b border-gray-200 ${className}`}>
       {children}
     </div>
   );
@@ -31,13 +36,21 @@ export function CardHeader({ children, className = "" }: CardHeaderProps) {
 interface CardTitleProps {
   children: React.ReactNode;
   className?: string;
+  level?: "h2" | "h3" | "h4";
 }
 
-export function CardTitle({ children, className = "" }: CardTitleProps) {
+export function CardTitle({ children, className = "", level = "h3" }: CardTitleProps) {
+  const Tag = level;
+  const titleStyles = {
+    h2: "text-2xl",
+    h3: "text-xl",
+    h4: "text-lg",
+  };
+
   return (
-    <h3 className={`text-md font-semibold text-[var(--text-primary)] ${className}`}>
+    <Tag className={`${titleStyles[level]} font-bold text-gray-900 ${className}`}>
       {children}
-    </h3>
+    </Tag>
   );
 }
 
@@ -47,5 +60,20 @@ interface CardContentProps {
 }
 
 export function CardContent({ children, className = "" }: CardContentProps) {
-  return <div className={className}>{children}</div>;
+  return <div className={`text-gray-700 ${className}`}>{children}</div>;
 }
+
+interface CardFooterProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function CardFooter({ children, className = "" }: CardFooterProps) {
+  return (
+    <div className={`mt-6 pt-4 border-t border-gray-200 flex gap-3 ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+export default Card;

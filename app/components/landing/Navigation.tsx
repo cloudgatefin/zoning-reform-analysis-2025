@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, BarChart3 } from 'lucide-react';
+import { Menu, X, BarChart3, Search } from 'lucide-react';
+import { GlobalSearch } from '@/components/ui/GlobalSearch';
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,7 +38,7 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -46,6 +48,13 @@ export default function Navigation() {
                 {link.label}
               </a>
             ))}
+            <button
+              onClick={() => setShowSearch(!showSearch)}
+              className="p-2 text-gray-600 hover:text-blue-600 transition-colors"
+              aria-label="Search"
+            >
+              <Search className="h-5 w-5" />
+            </button>
             <Link
               href="/dashboard"
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
@@ -90,6 +99,15 @@ export default function Navigation() {
               >
                 Explore Dashboard
               </Link>
+            </div>
+          </div>
+        )}
+
+        {/* Search Dropdown */}
+        {showSearch && (
+          <div className="absolute top-full left-0 right-0 bg-white shadow-lg border-t border-gray-200 p-4">
+            <div className="container mx-auto max-w-2xl">
+              <GlobalSearch placeholder="Search places, reforms, pages..." />
             </div>
           </div>
         )}

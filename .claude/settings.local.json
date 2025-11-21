@@ -39,7 +39,13 @@
       "Bash(then echo \"Geocoding complete!\")",
       "Bash(else echo \"Still geocoding... (normal at 1 req/sec)\")",
       "Bash(then echo \"Geocoding COMPLETE!\")",
-      "Bash(else echo \"Still processing... checking script status\")"
+      "Bash(else echo \"Still processing... checking script status\")",
+      "Bash(git merge:*)",
+      "Bash(if [ -d \"app/about\" ])",
+      "Bash(then echo \"✓ About pages exist\")",
+      "Bash(else echo \"✗ About pages missing\")",
+      "Bash(echo:*)",
+      "Bash(git rebase:*)"
     ],
     "deny": [],
     "ask": []
