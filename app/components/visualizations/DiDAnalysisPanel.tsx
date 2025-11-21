@@ -49,15 +49,15 @@ export default function DiDAnalysisPanel() {
 
   // Get filtered and sorted results
   const filteredResults = useMemo(() => {
-    if (!data?.results) return [];
-    const filtered = filterByReformType(data.results, selectedReformType);
+    if (!data?.all_results) return [];
+    const filtered = filterByReformType(data.all_results, selectedReformType);
     return sortBySignificance(filtered);
   }, [data, selectedReformType]);
 
   // Get unique reform types for dropdown
   const reformTypes = useMemo(() => {
-    if (!data?.results) return [];
-    return getUniqueReformTypes(data.results);
+    if (!data?.all_results) return [];
+    return getUniqueReformTypes(data.all_results);
   }, [data]);
 
   // Calculate stats for filtered results
@@ -100,7 +100,7 @@ export default function DiDAnalysisPanel() {
     );
   }
 
-  if (!data || !data.results || data.results.length === 0) {
+  if (!data || !data.all_results || data.all_results.length === 0) {
     return (
       <Card className="p-6">
         <p className="text-gray-500">No DiD analysis results available.</p>

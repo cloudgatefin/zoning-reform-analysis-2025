@@ -36,11 +36,56 @@ const config: Config = {
         'md': '12px',
         'lg': '16px',
         'xl': '20px',
+        // Touch target sizes
+        'touch': '48px',
+        'touch-sm': '44px',
       },
       borderRadius: {
         'sm': '8px',
         'md': '10px',
         'lg': '14px',
+      },
+      // Mobile-first breakpoints (Tailwind defaults, explicitly defined)
+      screens: {
+        'xs': '375px',   // iPhone SE
+        'sm': '640px',   // Mobile landscape / small tablet
+        'md': '768px',   // Tablet
+        'lg': '1024px',  // Desktop
+        'xl': '1280px',  // Large desktop
+        '2xl': '1536px', // Extra large
+      },
+      // Animation for mobile interactions
+      keyframes: {
+        'slide-up': {
+          '0%': { transform: 'translateY(100%)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+        'slide-down': {
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(100%)' },
+        },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+      animation: {
+        'slide-up': 'slide-up 0.3s ease-out',
+        'slide-down': 'slide-down 0.3s ease-in',
+        'fade-in': 'fade-in 0.2s ease-out',
+      },
+      // Safe area insets for notched devices
+      padding: {
+        'safe-top': 'env(safe-area-inset-top)',
+        'safe-bottom': 'env(safe-area-inset-bottom)',
+        'safe-left': 'env(safe-area-inset-left)',
+        'safe-right': 'env(safe-area-inset-right)',
+      },
+      margin: {
+        'safe-top': 'env(safe-area-inset-top)',
+        'safe-bottom': 'env(safe-area-inset-bottom)',
+        'safe-left': 'env(safe-area-inset-left)',
+        'safe-right': 'env(safe-area-inset-right)',
       },
     },
   },
