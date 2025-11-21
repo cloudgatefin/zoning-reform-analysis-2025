@@ -11,3 +11,5 @@ export { default as CausalMethodsComparison } from "./CausalMethodsComparison";
 export { PlaceDetailPanel } from "./PlaceDetailPanel";
 export { ReformImpactCalculator } from "./ReformImpactCalculator";
 export { ReformAdoptionTimeline } from "./ReformAdoptionTimeline";
+export { default as SyntheticControlPanel } from "./SyntheticControlPanel";
+export { default as EventStudyChart } from "./EventStudyChart";
