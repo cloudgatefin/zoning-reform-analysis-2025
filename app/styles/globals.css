@@ -1,44 +1,62 @@
+@import './print.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  /* Professional Light Theme - Accessible & Readable */
+
   /* Backgrounds */
-  --bg-primary: #020617;
-  --bg-card: #020617;
-  --bg-card-soft: #020617;
+  --bg-primary: #ffffff;
+  --bg-card: #f9fafb;
+  --bg-card-soft: #f3f4f6;
+  --bg-hover: #f0f1f3;
 
   /* Borders */
-  --border-default: #1f2937;
-  --border-hover: #374151;
+  --border-default: #e5e7eb;
+  --border-hover: #d1d5db;
+  --border-strong: #9ca3af;
 
-  /* Text */
-  --text-primary: #e5e7eb;
-  --text-muted: #9ca3af;
+  /* Text - High Contrast for Readability */
+  --text-primary: #111827;        /* Dark gray/black - main text */
+  --text-secondary: #4b5563;      /* Medium gray - secondary text */
+  --text-muted: #6b7280;          /* Light gray - hints/subtle */
 
-  /* Accent Colors */
+  /* Accent Colors - Professional */
   --accent-blue: #2563eb;
-  --positive-green: #22c55e;
-  --negative-red: #ef4444;
-  --warning-orange: #f97316;
+  --accent-blue-light: #dbeafe;
+  --accent-blue-dark: #1d4ed8;
+  --positive-green: #059669;
+  --positive-green-light: #d1fae5;
+  --negative-red: #dc2626;
+  --negative-red-light: #fee2e2;
+  --warning-orange: #d97706;
+  --warning-orange-light: #fef3c7;
 
   /* Typography */
-  --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
   /* Spacing */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 12px;
   --spacing-lg: 16px;
-  --spacing-xl: 20px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
 
   /* Border Radius */
-  --radius-sm: 8px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
 
-  --background: #020617;
-  --foreground: #e5e7eb;
+  --background: #ffffff;
+  --foreground: #111827;
+
+  /* Shadow depth for cards */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 body {
