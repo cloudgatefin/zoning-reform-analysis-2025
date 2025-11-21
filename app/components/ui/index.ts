@@ -4,3 +4,5 @@ export { Button } from "./Button";
 export { Select, SelectOption } from "./Select";
 export { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "./Table";
 export { PlaceSearch } from "./PlaceSearch";
+export { Breadcrumb } from "./Breadcrumb";
+export { GlobalSearch } from "./GlobalSearch";

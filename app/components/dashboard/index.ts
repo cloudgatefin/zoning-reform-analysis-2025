@@ -6,3 +6,4 @@ export { PercentChangeChart } from "./PercentChangeChart";
 export { ReformsTable } from "./ReformsTable";
 export { DataSourcePanel } from "./DataSourcePanel";
 export { DataExport } from "./DataExport";
+export { AdvancedFilters } from "./AdvancedFilters";

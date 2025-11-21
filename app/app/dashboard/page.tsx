@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { DashboardHeader, FilterControls, SummaryCards, PercentChangeChart, ReformsTable } from "@/components/dashboard";
+import { DashboardHeader, FilterControls, SummaryCards, PercentChangeChart, ReformsTable, AdvancedFilters } from "@/components/dashboard";
 import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison, PlaceDetailPanel, ReformImpactCalculator, SyntheticControlPanel, EventStudyChart } from "@/components/visualizations";
-import { Card, CardHeader, CardTitle, CardContent, PlaceSearch } from "@/components/ui";
+import { Card, CardHeader, CardTitle, CardContent, PlaceSearch, GlobalSearch } from "@/components/ui";
+import { QuickAccess } from "@/components/QuickAccess";
 import { Search, MapPin, ArrowRight, Calculator } from 'lucide-react';
 import Link from 'next/link';
 import { useReformMetrics } from "@/lib/hooks/useReformMetrics";
@@ -88,15 +89,29 @@ export default function DashboardPage() {
     <div className="container mx-auto max-w-7xl px-5 py-5">
       <DashboardHeader data={filteredData} />
 
-      <FilterControls
-        jurisdictions={jurisdictions}
-        reformTypes={reformTypes}
-        selectedJurisdiction={selectedJurisdiction}
-        selectedReformType={selectedReformType}
-        onJurisdictionChange={setSelectedJurisdiction}
-        onReformTypeChange={setSelectedReformType}
-        onClear={handleClearFilters}
-      />
+      {/* Global Search */}
+      <div className="mb-5">
+        <GlobalSearch className="max-w-xl" placeholder="Search places, reforms, pages... (Cmd+K)" />
+      </div>
+
+      {/* Filters Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 mb-5">
+        <div className="lg:col-span-3">
+          <FilterControls
+            jurisdictions={jurisdictions}
+            reformTypes={reformTypes}
+            selectedJurisdiction={selectedJurisdiction}
+            selectedReformType={selectedReformType}
+            onJurisdictionChange={setSelectedJurisdiction}
+            onReformTypeChange={setSelectedReformType}
+            onClear={handleClearFilters}
+          />
+          <AdvancedFilters className="mt-3" />
+        </div>
+        <div className="hidden lg:block">
+          <QuickAccess />
+        </div>
+      </div>
 
       <SummaryCards stats={summary} />
 
