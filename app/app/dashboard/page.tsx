@@ -1,15 +1,64 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { DashboardHeader, FilterControls, SummaryCards, PercentChangeChart, ReformsTable, AdvancedFilters } from "@/components/dashboard";
-import { ChoroplethMap, StateDetailPanel, WRLURIScatterPlot, StateComparison, ReformTimeline, CountyDrillDown, ReformPredictions, EconomicContextPanel, CausalMethodsComparison, PlaceDetailPanel, ReformImpactCalculator, SyntheticControlPanel, EventStudyChart } from "@/components/visualizations";
-import { Card, CardHeader, CardTitle, CardContent, PlaceSearch, GlobalSearch } from "@/components/ui";
-import { QuickAccess } from "@/components/QuickAccess";
-import { Search, MapPin, ArrowRight, Calculator } from 'lucide-react';
+import { useState, useMemo, Suspense } from "react";
+import dynamic from "next/dynamic";
+import { DashboardHeader, FilterControls, SummaryCards, PercentChangeChart, ReformsTable } from "@/components/dashboard";
+import { Card, CardHeader, CardTitle, CardContent, PlaceSearch } from "@/components/ui";
+import { Search, ArrowRight, Calculator } from 'lucide-react';
 import Link from 'next/link';
 import { useReformMetrics } from "@/lib/hooks/useReformMetrics";
 import { computeSummary, getUniqueJurisdictions, getUniqueReformTypes } from "@/lib/data-transforms";
 import { ReformMetric } from "@/lib/types";
+import analytics from "@/lib/analytics";
+
+// Lazy load heavy visualization components
+const ChoroplethMap = dynamic(() => import("@/components/visualizations/ChoroplethMap").then(m => ({ default: m.ChoroplethMap })), {
+  loading: () => <div className="h-96 bg-gray-800 animate-pulse rounded-lg" />,
+  ssr: false
+});
+
+const StateDetailPanel = dynamic(() => import("@/components/visualizations/StateDetailPanel").then(m => ({ default: m.StateDetailPanel })), {
+  ssr: false
+});
+
+const WRLURIScatterPlot = dynamic(() => import("@/components/visualizations/WRLURIScatterPlot").then(m => ({ default: m.WRLURIScatterPlot })), {
+  loading: () => <div className="h-64 bg-gray-800 animate-pulse rounded-lg" />,
+  ssr: false
+});
+
+const StateComparison = dynamic(() => import("@/components/visualizations/StateComparison").then(m => ({ default: m.StateComparison })), {
+  loading: () => <div className="h-64 bg-gray-800 animate-pulse rounded-lg" />
+});
+
+const ReformTimeline = dynamic(() => import("@/components/visualizations/ReformTimeline").then(m => ({ default: m.ReformTimeline })), {
+  loading: () => <div className="h-64 bg-gray-800 animate-pulse rounded-lg" />
+});
+
+const CountyDrillDown = dynamic(() => import("@/components/visualizations/CountyDrillDown").then(m => ({ default: m.CountyDrillDown })), {
+  ssr: false
+});
+
+const ReformPredictions = dynamic(() => import("@/components/visualizations/ReformPredictions").then(m => ({ default: m.ReformPredictions })), {
+  loading: () => <div className="h-48 bg-gray-800 animate-pulse rounded-lg" />
+});
+
+const EconomicContextPanel = dynamic(() => import("@/components/visualizations/EconomicContextPanel"));
+
+const CausalMethodsComparison = dynamic(() => import("@/components/visualizations/CausalMethodsComparison"));
+
+const PlaceDetailPanel = dynamic(() => import("@/components/visualizations/PlaceDetailPanel"));
+
+const ReformImpactCalculator = dynamic(() => import("@/components/visualizations/ReformImpactCalculator"), {
+  loading: () => <div className="h-32 bg-gray-800 animate-pulse rounded-lg" />
+});
+
+const SyntheticControlPanel = dynamic(() => import("@/components/visualizations/SyntheticControlPanel"), {
+  loading: () => <div className="h-64 bg-gray-800 animate-pulse rounded-lg" />
+});
+
+const EventStudyChart = dynamic(() => import("@/components/visualizations/EventStudyChart"), {
+  loading: () => <div className="h-64 bg-gray-800 animate-pulse rounded-lg" />
+});
 
 interface SelectedPlace {
   place_fips: string
@@ -55,6 +104,32 @@ export default function DashboardPage() {
   const handleClearFilters = () => {
     setSelectedJurisdiction("__ALL__");
     setSelectedReformType("__ALL__");
+    analytics.buttonClick('clear_filters');
+  };
+
+  const handleJurisdictionChange = (value: string) => {
+    setSelectedJurisdiction(value);
+    analytics.filterChange('jurisdiction', value);
+  };
+
+  const handleReformTypeChange = (value: string) => {
+    setSelectedReformType(value);
+    analytics.filterChange('reform_type', value);
+  };
+
+  const handlePlaceSelect = (place: SelectedPlace) => {
+    setSelectedPlace(place);
+    analytics.placeSelected(place.place_fips, place.place_name);
+  };
+
+  const handleStateClick = (stateFips: string, stateName: string) => {
+    setCountyDrillDown({ stateFips, stateName });
+    analytics.mapInteraction('state_click', stateName);
+  };
+
+  const handleCityClick = (fips: string, name: string) => {
+    setSelectedCity({ fips, name });
+    analytics.placeSelected(fips, name);
   };
 
   if (isLoading) {
@@ -89,29 +164,15 @@ export default function DashboardPage() {
     <div className="container mx-auto max-w-7xl px-5 py-5">
       <DashboardHeader data={filteredData} />
 
-      {/* Global Search */}
-      <div className="mb-5">
-        <GlobalSearch className="max-w-xl" placeholder="Search places, reforms, pages... (Cmd+K)" />
-      </div>
-
-      {/* Filters Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 mb-5">
-        <div className="lg:col-span-3">
-          <FilterControls
-            jurisdictions={jurisdictions}
-            reformTypes={reformTypes}
-            selectedJurisdiction={selectedJurisdiction}
-            selectedReformType={selectedReformType}
-            onJurisdictionChange={setSelectedJurisdiction}
-            onReformTypeChange={setSelectedReformType}
-            onClear={handleClearFilters}
-          />
-          <AdvancedFilters className="mt-3" />
-        </div>
-        <div className="hidden lg:block">
-          <QuickAccess />
-        </div>
-      </div>
+      <FilterControls
+        jurisdictions={jurisdictions}
+        reformTypes={reformTypes}
+        selectedJurisdiction={selectedJurisdiction}
+        selectedReformType={selectedReformType}
+        onJurisdictionChange={handleJurisdictionChange}
+        onReformTypeChange={handleReformTypeChange}
+        onClear={handleClearFilters}
+      />
 
       <SummaryCards stats={summary} />
 
@@ -168,7 +229,7 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent>
           <PlaceSearch
-            onPlaceSelect={(place) => setSelectedPlace(place)}
+            onPlaceSelect={handlePlaceSelect}
             placeholder="Search 24,535+ places... (e.g., Austin, Minneapolis, Portland)"
           />
           <p className="text-xs text-gray-500 mt-3">
@@ -195,7 +256,7 @@ export default function DashboardPage() {
         <CardContent>
           <ChoroplethMap
             data={filteredData}
-            onStateClick={(stateFips, stateName) => setCountyDrillDown({ stateFips, stateName })}
+            onStateClick={handleStateClick}
           />
           <p className="text-xs text-[var(--text-muted)] mt-2 text-center">
             Click any state to view county-level breakdown
@@ -327,7 +388,7 @@ export default function DashboardPage() {
         <CardContent>
           <ReformsTable
             data={filteredData}
-            onCityClick={(fips, name) => setSelectedCity({ fips, name })}
+            onCityClick={handleCityClick}
           />
           <p className="text-xs text-gray-500 mt-3">
             Click on any city name to view detailed economic context and causal analysis
