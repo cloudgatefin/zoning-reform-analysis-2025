@@ -100,7 +100,7 @@ export function PlaceSearch({ onPlaceSelect, placeholder = "Search places..." }:
   return (
     <div className="relative w-full">
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[var(--text-muted)]" />
         <input
           ref={inputRef}
           type="text"
@@ -111,34 +111,34 @@ export function PlaceSearch({ onPlaceSelect, placeholder = "Search places..." }:
           onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
           placeholder={isLoading ? "Loading places..." : placeholder}
           disabled={isLoading}
-          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900 placeholder-gray-500"
+          className="w-full pl-10 pr-4 py-3 border border-[var(--border-default)] rounded-lg focus:ring-2 focus:ring-[var(--accent-blue)] focus:border-[var(--accent-blue)] bg-[var(--bg-card)] text-[var(--text-primary)] placeholder-[var(--text-muted)]"
         />
       </div>
 
       {showDropdown && results.length > 0 && (
-        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-y-auto">
+        <div className="absolute z-50 w-full mt-1 bg-[var(--bg-card)] border border-[var(--border-default)] rounded-lg shadow-lg max-h-80 overflow-y-auto">
           {results.map((place, index) => (
             <button
               key={place.place_fips}
               onClick={() => handleSelect(place)}
-              className={`w-full px-4 py-3 text-left hover:bg-gray-50 border-b border-gray-100 last:border-0 ${
-                index === selectedIndex ? 'bg-blue-50' : ''
+              className={`w-full px-4 py-3 text-left hover:bg-[var(--bg-secondary)] border-b border-[var(--border-default)] last:border-0 ${
+                index === selectedIndex ? 'bg-[var(--accent-blue)]/10' : ''
               }`}
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-2">
-                  <MapPin className="h-4 w-4 text-gray-400 mt-1 flex-shrink-0" />
+                  <MapPin className="h-4 w-4 text-[var(--text-muted)] mt-1 flex-shrink-0" />
                   <div>
-                    <p className="font-medium text-gray-900">{place.place_name}</p>
-                    <p className="text-sm text-gray-500">{place.state_name}</p>
+                    <p className="font-medium text-[var(--text-primary)]">{place.place_name}</p>
+                    <p className="text-sm text-[var(--text-muted)]">{place.state_name}</p>
                   </div>
                 </div>
                 <div className="text-right flex-shrink-0">
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="text-sm font-medium text-[var(--text-primary)]">
                     {place.recent_units_2024.toLocaleString()} units
                   </p>
                   <p className={`text-xs flex items-center justify-end gap-1 ${
-                    place.growth_rate_5yr > 0 ? 'text-green-600' : 'text-red-600'
+                    place.growth_rate_5yr > 0 ? 'text-[var(--positive-green)]' : 'text-[var(--negative-red)]'
                   }`}>
                     {place.growth_rate_5yr > 0 ? (
                       <TrendingUp className="h-3 w-3" />
