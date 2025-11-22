@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "../styles/globals.css";
 import MobileNavigation from "../components/mobile/MobileNavigation";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Zoning Reform Analysis - Evidence-Based Housing Policy Intelligence",
@@ -36,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
@@ -44,9 +45,34 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var prefs = JSON.parse(localStorage.getItem('zoning-theme-preference') || '{}');
+                  var theme = prefs.theme || 'system';
+                  var resolved = theme;
+                  if (theme === 'system') {
+                    resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  }
+                  document.documentElement.classList.add(resolved);
+                  if (prefs.highContrast) {
+                    document.documentElement.classList.add('high-contrast');
+                  }
+                  if (prefs.accentColor) {
+                    document.documentElement.setAttribute('data-accent', prefs.accentColor);
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
       <body className="antialiased pb-bottom-nav">
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
         <MobileNavigation />
         <script
           dangerouslySetInnerHTML={{

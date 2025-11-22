@@ -22,24 +22,24 @@ export default function Footer() {
       { label: 'Limitations', href: '/about/limitations' },
     ],
     Connect: [
+      { label: 'Settings', href: '/settings' },
       { label: 'Contact Us', href: '/contact' },
       { label: 'GitHub', href: 'https://github.com' },
-      { label: 'Twitter', href: 'https://twitter.com' },
       { label: 'Newsletter', href: '/newsletter' },
     ],
   };
 
   return (
-    <footer className="bg-gray-900 text-gray-300 py-16">
+    <footer className="bg-bg-secondary dark:bg-bg-card text-text-secondary py-16">
       <div className="container mx-auto max-w-7xl px-5">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           {/* Logo and description */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <BarChart3 className="h-6 w-6 text-blue-400" />
-              <span className="font-bold text-white">Zoning Reform</span>
+              <BarChart3 className="h-6 w-6 text-accent-current" />
+              <span className="font-bold text-text-primary">Zoning Reform</span>
             </Link>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-text-muted">
               The definitive platform for zoning reform intelligence and housing policy analysis.
             </p>
           </div>
@@ -47,13 +47,13 @@ export default function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h4 className="font-semibold text-white mb-4">{category}</h4>
+              <h4 className="font-semibold text-text-primary mb-4">{category}</h4>
               <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-gray-400 hover:text-white transition-colors"
+                      className="text-sm text-text-muted hover:text-text-primary transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -65,13 +65,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-500">
+        <div className="border-t border-border-default pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-text-muted">
             &copy; {new Date().getFullYear()} Zoning Reform Analysis. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm text-gray-500">
-            <Link href="/privacy" className="hover:text-gray-300">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-gray-300">Terms of Service</Link>
+          <div className="flex gap-6 text-sm text-text-muted">
+            <Link href="/privacy" className="hover:text-text-primary">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-text-primary">Terms of Service</Link>
           </div>
         </div>
       </div>

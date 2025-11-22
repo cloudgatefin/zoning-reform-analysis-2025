@@ -4,71 +4,186 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Light Theme (Default) ===== */
 :root {
-  /* Professional Light Theme - Accessible & Readable */
-
   /* Backgrounds */
   --bg-primary: #ffffff;
-  --bg-card: #f9fafb;
-  --bg-card-soft: #f3f4f6;
-  --bg-hover: #f0f1f3;
+  --bg-secondary: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-soft: #f1f5f9;
 
   /* Borders */
-  --border-default: #e5e7eb;
-  --border-hover: #d1d5db;
-  --border-strong: #9ca3af;
+  --border-default: #e2e8f0;
+  --border-hover: #cbd5e1;
 
-  /* Text - High Contrast for Readability */
-  --text-primary: #111827;        /* Dark gray/black - main text */
-  --text-secondary: #4b5563;      /* Medium gray - secondary text */
-  --text-muted: #6b7280;          /* Light gray - hints/subtle */
+  /* Text */
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
 
-  /* Accent Colors - Professional */
+  /* Accent Colors */
   --accent-blue: #2563eb;
-  --accent-blue-light: #dbeafe;
-  --accent-blue-dark: #1d4ed8;
-  --positive-green: #059669;
-  --positive-green-light: #d1fae5;
-  --negative-red: #dc2626;
-  --negative-red-light: #fee2e2;
-  --warning-orange: #d97706;
-  --warning-orange-light: #fef3c7;
+  --accent-green: #16a34a;
+  --accent-purple: #9333ea;
+  --accent-orange: #ea580c;
+  --accent-red: #dc2626;
+  --accent-indigo: #4f46e5;
+  --accent-current: var(--accent-blue);
+
+  /* Status Colors */
+  --positive-green: #22c55e;
+  --negative-red: #ef4444;
+  --warning-orange: #f97316;
 
   /* Typography */
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   /* Spacing */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 12px;
   --spacing-lg: 16px;
-  --spacing-xl: 24px;
-  --spacing-2xl: 32px;
+  --spacing-xl: 20px;
 
   /* Border Radius */
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
 
   --background: #ffffff;
-  --foreground: #111827;
-
-  /* Shadow depth for cards */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --foreground: #1e293b;
 }
 
+/* ===== Dark Theme ===== */
+.dark {
+  /* Dark backgrounds */
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #242424;
+  --bg-card: #242424;
+  --bg-card-soft: #2d2d2d;
+
+  /* Dark borders */
+  --border-default: #3d3d3d;
+  --border-hover: #4d4d4d;
+
+  /* Dark text */
+  --text-primary: #f0f0f0;
+  --text-secondary: #e0e0e0;
+  --text-muted: #a0a0a0;
+
+  /* Brighter accents for dark mode */
+  --accent-blue: #4a9eff;
+  --accent-green: #4ade80;
+  --accent-purple: #a78bfa;
+  --accent-orange: #fb923c;
+  --accent-red: #f87171;
+  --accent-indigo: #818cf8;
+
+  /* Brighter status colors */
+  --positive-green: #4ade80;
+  --negative-red: #f87171;
+  --warning-orange: #facc15;
+
+  /* Dark shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+
+  --background: #1a1a1a;
+  --foreground: #f0f0f0;
+}
+
+/* ===== High Contrast Mode ===== */
+.high-contrast {
+  --bg-primary: #ffffff;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-soft: #f0f0f0;
+  --border-default: #000000;
+  --border-hover: #000000;
+  --text-primary: #000000;
+  --text-secondary: #000000;
+  --text-muted: #333333;
+  --accent-blue: #0000ee;
+  --positive-green: #006600;
+  --negative-red: #cc0000;
+  --warning-orange: #cc6600;
+  --background: #ffffff;
+  --foreground: #000000;
+}
+
+.high-contrast.dark {
+  --bg-primary: #000000;
+  --bg-secondary: #000000;
+  --bg-card: #000000;
+  --bg-card-soft: #1a1a1a;
+  --border-default: #ffffff;
+  --border-hover: #ffffff;
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff;
+  --text-muted: #cccccc;
+  --accent-blue: #00ffff;
+  --positive-green: #00ff00;
+  --negative-red: #ff0000;
+  --warning-orange: #ffff00;
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+/* ===== Accent Color Variants ===== */
+[data-accent="blue"] { --accent-current: var(--accent-blue); }
+[data-accent="green"] { --accent-current: var(--accent-green); }
+[data-accent="purple"] { --accent-current: var(--accent-purple); }
+[data-accent="orange"] { --accent-current: var(--accent-orange); }
+[data-accent="red"] { --accent-current: var(--accent-red); }
+[data-accent="indigo"] { --accent-current: var(--accent-indigo); }
+
+/* ===== Base Styles ===== */
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-family);
   margin: 0;
   padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Theme transition for all elements */
+*,
+*::before,
+*::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Disable transitions on page load to prevent flash */
+.no-transitions *,
+.no-transitions *::before,
+.no-transitions *::after {
+  transition: none !important;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* ===== High Contrast Utilities ===== */
+.high-contrast button,
+.high-contrast a,
+.high-contrast input,
+.high-contrast select,
+.high-contrast textarea {
+  border-width: 2px;
+  font-weight: 600;
+}
+
+.high-contrast *:focus {
+  outline: 3px solid var(--accent-current);
+  outline-offset: 2px;
 }
